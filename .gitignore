@@ -1,0 +1,13 @@
+/.idea
+/ec-seller.iml
+/ec-seller-common/target
+/ec-seller-common/ec-seller-common.iml
+/ec-seller-dao/target
+/ec-seller-dao/ec-seller-dao.iml
+/ec-seller-domain/target
+/ec-seller-domain/*.iml
+/ec-seller-manager/target
+/ec-seller-manager/ec-seller-manager.iml
+/ec-seller-service/target
+/ec-seller-service/ec-seller-service.iml
+/ec-seller-web/target
