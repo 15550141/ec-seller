@@ -42,7 +42,7 @@ import com.ec.seller.service.SkuService;
 
 @Controller
 @RequestMapping("/product")
-public class Product {
+public class ProductController {
 	@Autowired
 	private PromotionInfoService promotionInfoService;
 	@Autowired
@@ -62,7 +62,7 @@ public class Product {
 	
 	
 	
-	private final static Log LOG = LogFactory.getLog(Product.class);
+	private final static Log LOG = LogFactory.getLog(ProductController.class);
 
 	
 	@RequestMapping(value="/detail", method={ RequestMethod.GET, RequestMethod.POST })

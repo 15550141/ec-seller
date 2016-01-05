@@ -15,4 +15,13 @@ public interface CategoryService {
 	 */
 	public Category selectByCategoryId(int categoryId);
 
+	public List<Category> selectByLikeCondition(CategoryQuery categoryQuery);
+
+	public Integer insert(Category category);
+
+	public void deleteCategory1(Integer categoryId);
+
+	public void deleteCategory2ByPar(Integer categoryId);
+
+	public void modify(Category category);
 }

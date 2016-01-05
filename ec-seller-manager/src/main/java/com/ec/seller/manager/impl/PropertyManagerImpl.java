@@ -31,6 +31,10 @@ public class PropertyManagerImpl implements PropertyManager{
 		return propertyDao.selectByPropertyId(propertyId);
 	}
 
-	
+	@Override
+	public Integer insert(Property property) {
+
+		return propertyDao.insert(property);
+	}
 
 }

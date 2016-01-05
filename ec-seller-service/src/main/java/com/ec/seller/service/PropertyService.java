@@ -15,4 +15,5 @@ public interface PropertyService {
 	 */
 	public Property selectByPropertyId(int propertyId);
 
+	public Integer insert(Property property);
 }

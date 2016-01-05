@@ -18,8 +18,18 @@ public class CategoryServiceImpl implements CategoryService{
 	@Override
 	public List<Category> selectByCondition(CategoryQuery categoryQuery) {
 		// TODO Auto-generated method stub
-		
 		return categoryManager.selectByCondition(categoryQuery);
+	}
+
+	@Override
+	public List<Category> selectByLikeCondition(CategoryQuery categoryQuery) {
+		// TODO Auto-generated method stub
+		return categoryManager.selectByLikeCondition(categoryQuery);
+	}
+
+	@Override
+	public Integer insert(Category category) {
+		return categoryManager.insert(category);
 	}
 
 	@Override
@@ -28,5 +38,22 @@ public class CategoryServiceImpl implements CategoryService{
 		return categoryManager.selectByCategoryId(categoryId);
 	}
 
+	@Override
+	public void deleteCategory1(Integer categoryId) {
+		categoryManager.deleteCategory1(categoryId);
+
+	}
+
+	@Override
+	public void deleteCategory2ByPar(Integer parentCategoryId) {
+		categoryManager.deleteCategory2ByPar(parentCategoryId);
+
+	}
+
+	@Override
+	public void modify(Category category) {
+		categoryManager.modify(category);
+
+	}
 
 }

@@ -1,6 +1,5 @@
 package com.ec.seller.web.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +43,7 @@ public class LoginController {
 	
 //	private RedisUtils redisUtils;
 //	private UserDao userDao;
-	private final static Log LOG = LogFactory.getLog(Product.class);
+	private final static Log LOG = LogFactory.getLog(ProductController.class);
 	
 	@RequestMapping(value="", method={ RequestMethod.GET, RequestMethod.POST })
 	public String index(HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){

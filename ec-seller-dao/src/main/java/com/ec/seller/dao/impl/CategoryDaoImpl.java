@@ -40,4 +40,22 @@ public class CategoryDaoImpl extends SqlMapClientTemplate implements CategoryDao
 		return (List<Category>)queryForList("Category.selectByConditionForPage", categoryQuery);
 	}
 
+	@Override
+	public List<Category> selectByLikeCondition(CategoryQuery categoryQuery) {
+
+		return (List<Category>)queryForList("Category.selectByLikeCondition", categoryQuery);
+	}
+
+	@Override
+	public void deleteCategory1(Integer categoryId) {
+		delete("Category.deleteCategory1",categoryId);
+
+	}
+
+	@Override
+	public void deleteCategory2ByPar(Integer parentCategoryId) {
+		delete("Category.deleteCategory2ByPar",parentCategoryId);
+
+	}
+
 }

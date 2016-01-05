@@ -106,13 +106,13 @@
 
 				<entry key="mainModule">
 					<bean class="com.ec.seller.common.utils.EcUrl">
-						<property name="url" value="http://www.binfenguoyuan.cn:8081/" />
+						<property name="url" value="http://seller.binfenguoyuan.cn/" />
 					</bean>
 				</entry>
 
 				<entry key="assetModule">
 					<bean class="com.ec.seller.common.utils.EcUrl">
-						<property name="url" value="http://www.binfenguoyuan.cn:8081/" />
+						<property name="url" value="http://seller.binfenguoyuan.cn/" />
 					</bean>
 				</entry>
 			</map>

@@ -7,14 +7,17 @@ $("#query").click(function() {
 
 $("#itemName").blur(function() {
 	var itemName=$("#itemName").val();
-	if(itemName.length<6){
+	if(itemName.length<3){
 		$("#itemNameSp").css("color", "red");
-		$("#itemNameSp").html("商品名称应大于5个字！");
-	}
-	if(itemName.length>45){
+		$("#itemNameSp").html("商品名称应大于2个字！");
+	}else if(itemName.length>45){
 		$("#itemNameSp").css("color", "red");
 		$("#itemNameSp").html("商品名称应小于46个字！");
-	}	
+	}else{
+		$("#itemNameSp").remove("color");
+		$("#itemNameSp").html("");
+	}
+
 });
 
 $("#subButton").click(function() {
@@ -28,11 +31,10 @@ $("#subButton").click(function() {
 		alert("商品名称不能为空！");
 		return;
 	}
-	if(itemName.length<6){
-		alert("商品名称应大于5个字！");
+	if(itemName.length<3){
+		alert("商品名称应大于2个字！");
 		return;
-	}
-	if(itemName.length>45){
+	}else if(itemName.length>45){
 		alert("商品名称应小于46个字！");
 		return;
 	}
@@ -141,8 +143,8 @@ $("#editButton").click(function() {
 		alert("商品名称不能为空！");
 		return;
 	}
-	if(itemName.length<6){
-		alert("商品名称应大于5个字！");
+	if(itemName.length<3){
+		alert("商品名称应大于2个字！");
 		return;
 	}
 	if(itemName.length>45){

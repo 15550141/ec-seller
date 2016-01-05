@@ -48,4 +48,18 @@ public interface CategoryDao {
 	 * @return
 	 */
 	public List<Category> selectByConditionForPage(CategoryQuery categoryQuery);
+
+	public List<Category> selectByLikeCondition(CategoryQuery categoryQuery);
+
+	/**
+	 * 删除一级分类
+	 * @param categoryId
+	 */
+	public void deleteCategory1(Integer categoryId);
+
+	/**
+	 * 根据父ID删除属性
+	 * @param parentCategoryId
+	 */
+	public void deleteCategory2ByPar(Integer parentCategoryId);
 }

@@ -26,7 +26,11 @@ public class PropertyServiceImpl implements PropertyService{
 		return propertyManager.selectByPropertyId(propertyId);
 	}
 
+	@Override
+	public Integer insert(Property property) {
 
+		return propertyManager.insert(property);
+	}
 
 
 }

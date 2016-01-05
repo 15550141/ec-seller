@@ -1,18 +1,15 @@
 package com.ec.seller.web.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.ec.seller.common.utils.CookieUtil;
+import com.ec.seller.domain.Category;
+import com.ec.seller.domain.Property;
+import com.ec.seller.domain.PropertyValue;
+import com.ec.seller.domain.query.CategoryQuery;
+import com.ec.seller.domain.query.PropertyQuery;
+import com.ec.seller.domain.query.PropertyValueQuery;
+import com.ec.seller.service.CategoryService;
+import com.ec.seller.service.PropertyService;
+import com.ec.seller.service.PropertyValueService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,17 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import com.ec.seller.common.utils.CookieUtil;
-import com.ec.seller.domain.Category;
-import com.ec.seller.domain.Property;
-import com.ec.seller.domain.PropertyValue;
-import com.ec.seller.domain.query.CategoryQuery;
-import com.ec.seller.domain.query.PropertyValueQuery;
-import com.ec.seller.service.CategoryService;
-import com.ec.seller.service.PropertyService;
-import com.ec.seller.service.PropertyValueService;
-import com.ec.seller.domain.query.PropertyQuery;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
 
 @Controller
 @RequestMapping("/category")
@@ -59,7 +51,6 @@ public class CategoryController {
 
 	@RequestMapping(value="/getLevel", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Map<String, Object> getLevel(Integer level,Integer pId,HttpServletResponse response, HttpServletRequest request, ModelMap map) {
-
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Category category=new Category();
 		try {	
@@ -80,9 +71,30 @@ public class CategoryController {
 		}
 		return resultMap;
 	}
+	
+	@RequestMapping(value="/addLevel", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Map<String, Object> addLevel(Category category,HttpServletResponse response, HttpServletRequest request, ModelMap map) {
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {	
+			CategoryQuery categoryQuery=new CategoryQuery();
+			//设置查询几级分类
+			if(category.getCategoryLevel() != null){
+				//categoryQuery.setCategoryLevel(level);
+			}
+
+			List<Category> categoryList = categoryService.selectByCondition(categoryQuery);
+			resultMap.put("msg","success");
+			resultMap.put("categoryList",categoryList);//登录成功后，跳转到的页面
+			resultMap.put("category",category);//登录成功后，跳转到的页面
+		} catch (Exception e) {
+			LOG.error("CategoryController.getLevel===", e);
+		}
+		return resultMap;
+	}
 
 	@RequestMapping(value="/addProVal", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Map<String, Object> addProVal(PropertyValue propertyValue, HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+	public @ResponseBody Map<String, Object> addProVal(PropertyValue propertyValue, HttpServletRequest reuqest, HttpServletResponse response, ModelMap context){
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			propertyValue.setVenderUserId(CookieUtil.getUserId(reuqest));
@@ -102,7 +114,6 @@ public class CategoryController {
 	
 	@RequestMapping(value="/deletProVal", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Map<String, Object> deletProVal(Integer proValId, HttpServletResponse response, HttpServletRequest request, ModelMap map) {
-
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		try {	
 			if(proValId!=null){
@@ -115,9 +126,103 @@ public class CategoryController {
 		return resultMap;
 	}
 	
+	
+	@RequestMapping(value="/deleteCategory1", method={ RequestMethod.GET, RequestMethod.POST })
+	public  @ResponseBody Map<String, Object> deleteCategory1(Integer categoryId, HttpServletResponse response, HttpServletRequest request, ModelMap map) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {	
+			if(categoryId!=null){
+				categoryService.deleteCategory1(categoryId);
+				categoryService.deleteCategory2ByPar(categoryId);
+			}
+		} catch (Exception e) {
+			LOG.error("CategoryController.deleteCategory1：", e);
+			resultMap.put("msg","error");
+			return resultMap;
+		}
+		resultMap.put("msg","success");
+		return resultMap;
+	}
+	
+	@RequestMapping(value="/deleteCategory2", method={ RequestMethod.GET, RequestMethod.POST })
+	public  @ResponseBody Map<String, Object> deleteCategory2(Integer categoryId, HttpServletResponse response, HttpServletRequest request, ModelMap map) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {	
+			if(categoryId!=null){
+				categoryService.deleteCategory1(categoryId);				
+			}
+		} catch (Exception e) {
+			LOG.error("CategoryController.deleteCategory2：", e);
+			resultMap.put("msg","error");
+			return resultMap;
+		}
+		resultMap.put("msg","success");
+		return resultMap;
+	}
+	
+	@RequestMapping(value="/deleteCategory3", method={ RequestMethod.GET, RequestMethod.POST })
+	public  @ResponseBody Map<String, Object> deleteCategory3(Integer categoryId, HttpServletResponse response, HttpServletRequest request, ModelMap map) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {	
+			if(categoryId!=null){
+				categoryService.deleteCategory1(categoryId);				
+			}
+		} catch (Exception e) {
+			LOG.error("CategoryController.deleteCategory3：", e);
+			resultMap.put("msg","error");
+			return resultMap;
+		}
+		resultMap.put("msg","success");
+		return resultMap;
+	}
+	
+	@RequestMapping(value="/deleteCategory4", method={ RequestMethod.GET, RequestMethod.POST })
+	public  @ResponseBody Map<String, Object> deleteCategory4(Integer categoryId, HttpServletResponse response, HttpServletRequest request, ModelMap map) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {	
+			if(categoryId!=null){
+				categoryService.deleteCategory1(categoryId);				
+			}
+		} catch (Exception e) {
+			LOG.error("CategoryController.deleteCategory4：", e);
+			resultMap.put("msg","error");
+			return resultMap;
+		}
+		resultMap.put("msg","success");
+		return resultMap;
+	}
+	
+	
+	@RequestMapping(value="/changeToHavePro", method={ RequestMethod.GET, RequestMethod.POST })
+	public  @ResponseBody Map<String, Object> changeToHavePro(Integer categoryId, HttpServletResponse response, HttpServletRequest request, ModelMap map) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Category category = new Category();
+		try {	
+			if(categoryId!=null){
+				category.setCategoryId(categoryId);
+				category.setIfHaveSaleProperty(1);
+				categoryService.modify(category);	
+				// TODO 有销售属性
+				Property property =new Property();
+				property.setCategoryId(categoryId);
+				property.setSortNumber(1);
+				property.setPropertyName("规格");
+				property.setYn(1);
+				property.setPropertyType(3);
+//				propertyService.insert(property);
+			}
+		} catch (Exception e) {
+			LOG.error("CategoryController.changeToHavePro：", e);
+			resultMap.put("msg","error");
+			return resultMap;
+		}
+		resultMap.put("msg","success");
+		return resultMap;
+	}
+	
 	@RequestMapping(value="/getProperty", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Map<String, Object> getProperty(Integer categoryId,HttpServletResponse response, HttpServletRequest request, ModelMap map) {
-	
+		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Category category=new Category();
 		try {	
@@ -150,7 +255,6 @@ public class CategoryController {
 				Property property = propertyList.get(0);
 				resultMap.put("propertyId",property.getPropertyId());
 				resultMap.put("propertyName",property.getPropertyName());
-			
 				PropertyValueQuery propertyValueQuery =new PropertyValueQuery();
 				propertyValueQuery.setPropertyId(property.getPropertyId());
 				propertyValueQuery.setVenderUserId(CookieUtil.getUserId(request));//设置商家ID
@@ -245,7 +349,159 @@ public class CategoryController {
 	
 		return null;
 	}
+	
+	
+	
+	
+	@RequestMapping(value="/category1", method={ RequestMethod.GET, RequestMethod.POST })
+	public String category1(Integer page, CategoryQuery categoryQuery,HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+		if(page==null){
+			categoryQuery.setPageNo(1);
+		}else{
+			categoryQuery.setPageNo(page);
+		}
+		//设置查询几级分类
+		categoryQuery.setCategoryLevel(1);
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		List<Category> categoryList = categoryService.selectByLikeCondition(categoryQuery);
+		
+		resultMap.put("itemList", categoryList);
+		resultMap.put("item", categoryQuery);
+		
+		context.put("resultMap", resultMap);
 
+		return "item/category1";
+	}
+
+	
+
+	@RequestMapping(value="/category2", method={ RequestMethod.GET, RequestMethod.POST })
+	public String category2(Integer page, CategoryQuery categoryQuery,HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+		if(page==null){
+			categoryQuery.setPageNo(1);
+		}else{
+			categoryQuery.setPageNo(page);
+		}
+		
+		//设置查询几级分类
+		categoryQuery.setCategoryLevel(2);
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		List<Category> categoryList = categoryService.selectByLikeCondition(categoryQuery);
+
+		resultMap.put("itemList", categoryList);
+		resultMap.put("item", categoryQuery);
+		
+		context.put("resultMap", resultMap);
+
+		return "item/category2";
+	}
+	
+	@RequestMapping(value="/category3", method={ RequestMethod.GET, RequestMethod.POST })
+	public String category3(Integer page, CategoryQuery categoryQuery,HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+		if(page==null){
+			categoryQuery.setPageNo(1);
+		}else{
+			categoryQuery.setPageNo(page);
+		}
+		
+		//设置查询几级分类
+		categoryQuery.setCategoryLevel(3);
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		List<Category> categoryList = categoryService.selectByLikeCondition(categoryQuery);
+
+		resultMap.put("itemList", categoryList);
+		resultMap.put("item", categoryQuery);
+		
+		context.put("resultMap", resultMap);
+
+		return "item/category3";
+	}
+	
+	@RequestMapping(value="/category4", method={ RequestMethod.GET, RequestMethod.POST })
+	public String category4(Integer page, CategoryQuery categoryQuery,HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+		if(page==null){
+			categoryQuery.setPageNo(1);
+		}else{
+			categoryQuery.setPageNo(page);
+		}
+		
+		//设置查询几级分类
+		categoryQuery.setCategoryLevel(4);
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		List<Category> categoryList = categoryService.selectByLikeCondition(categoryQuery);
+
+		resultMap.put("itemList", categoryList);
+		resultMap.put("item", categoryQuery);
+		
+		context.put("resultMap", resultMap);
+
+		return "item/category4";
+	}
+
+	@RequestMapping(value="/addCategory1", method={ RequestMethod.GET, RequestMethod.POST })
+	public String addCategory1(Category category, HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+		//category.setParentCategoryId(null);
+		//category.setCategoryLevel(1);
+		category.setYn(1);
+		if(category.getSortNumber()!=null){
+			category.setSortNumber(category.getSortNumber());
+		}	
+		try {
+			categoryService.insert(category);
+		} catch (Exception e) {
+			LOG.error("CategoryController.addProVal===", e);
+		}
+		
+		try {
+			//跳转到显示界面
+			response.sendRedirect("/category/category"+category.getCategoryLevel());
+		} catch (IOException e) {
+			
+			LOG.error("CategoryController.addCategory1:", e);
+			//e.printStackTrace();
+		}
+
+		return "item/category"+category.getCategoryLevel();
+	}
+	
+	@RequestMapping(value="/addCategory4", method={ RequestMethod.GET, RequestMethod.POST })
+	public String addCategory4(Category category, HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+		category.setCategoryLevel(4);
+		category.setYn(1);
+		if(category.getSortNumber()!=null){
+			category.setSortNumber(category.getSortNumber());
+		}
+		
+		//传来的catalogID
+		try {
+			Integer categoryId = categoryService.insert(category);
+			if(category.getIfHaveSaleProperty()==1){//如果有销售属性
+				Property property =new Property();
+				property.setCategoryId(categoryId);
+				property.setSortNumber(1);
+				property.setPropertyName("规格");
+				property.setYn(1);
+				property.setPropertyType(3);
+				propertyService.insert(property);	
+			}
+		} catch (Exception e) {
+			LOG.error("CategoryController.addCategory4:", e);
+		}
+
+		try {
+			//跳转到显示界面
+			response.sendRedirect("/category/category4");
+		} catch (IOException e) {
+
+		}
+		
+		return "item/category4";
+	}
+	
 	@RequestMapping(value="/upDescripImg", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Map<String, Object> upDescripImg(HttpServletResponse response, HttpServletRequest request, ModelMap map) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -321,8 +577,6 @@ public class CategoryController {
 	
 		return null;
 	}
-	
-
 	
 }
 
