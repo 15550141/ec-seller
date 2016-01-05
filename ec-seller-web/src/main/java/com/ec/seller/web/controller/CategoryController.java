@@ -312,9 +312,9 @@ public class CategoryController {
 				int year=cal.get(Calendar.YEAR);//得到年
 				int month=cal.get(Calendar.MONTH)+1;//得到月，因为从0开始的，所以要加1
 				int day=cal.get(Calendar.DAY_OF_MONTH);//得到天
-				
+				String currentPath = request.getSession().getServletContext().getRealPath("/");
 				path = "/img" + "/" + year +"/" + month+"/"+day+"/";
-				savefilePath = "/www.tbny.net" + path;
+				savefilePath = currentPath + path;
 				File foler = new File(savefilePath);
 				if(!foler.exists()){
 					foler.mkdirs();
@@ -322,7 +322,7 @@ public class CategoryController {
 				
 				File savedFile = new File(savefilePath, fileName);
 				path +=  fileName;
-				savefilePath ="http:/" + savefilePath + fileName;
+				savefilePath ="http://seller.binfenguoyuan.cn" + path;
                 try {
 					file.transferTo(savedFile);
 				} catch (IllegalStateException e) {
@@ -537,9 +537,9 @@ public class CategoryController {
 				int year=cal.get(Calendar.YEAR);//得到年
 				int month=cal.get(Calendar.MONTH)+1;//得到月，因为从0开始的，所以要加1
 				int day=cal.get(Calendar.DAY_OF_MONTH);//得到天
-				
+				String currentPath = System.getProperty("user.dir");
 				path = "/img" + "/" + year +"/" + month+"/"+day+"/";
-				savefilePath = "/www.tbny.net" + path;
+				savefilePath = currentPath + path;
 				File foler = new File(savefilePath);
 				if(!foler.exists()){
 					foler.mkdirs();
@@ -547,7 +547,7 @@ public class CategoryController {
 				
 				File savedFile = new File(savefilePath, fileName);
 				path +=  fileName;
-				savefilePath ="http:/" + savefilePath + fileName;
+				savefilePath ="http://seller.binfenguoyuan.cn/" + path;
                 try {
 					file.transferTo(savedFile);
 				} catch (IllegalStateException e) {

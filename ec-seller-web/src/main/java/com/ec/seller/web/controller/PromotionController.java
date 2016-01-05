@@ -454,14 +454,14 @@ public class PromotionController {
 					promotionProductSku.setItemId(sku.getItemId());
 					promotionProductSku.setSkuId(sku.getSkuId());
 					promotionProductSku.setStock(sku.getStock());
-					promotionProductSku.setTbPrice(sku.getTbPrice());
+//					promotionProductSku.setSalePrice(sku.getSalePrice());
 					//根据促销ID和SKU查促销SKU信息
 					promotionSkuQuery.setPromotionId(promotionId);
 					promotionSkuQuery.setSkuId(sku.getSkuId());
 					promotionSkuQuery.setYn(1);
 					List<PromotionSku> promotionSkuList = promotionSkuService.selectByCondition(promotionSkuQuery);
 					promotionProductSku.setDeductionPrice(promotionSkuList.get(0).getDeductionPrice());
-					promotionProductSku.setLastPrice(sku.getTbPrice()-promotionSkuList.get(0).getDeductionPrice());
+//					promotionProductSku.setLastPrice(sku.getTbPrice()-promotionSkuList.get(0).getDeductionPrice());
 					//
 					String status="";
 					if(item.getItemStatus().equals(0)){

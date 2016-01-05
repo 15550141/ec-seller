@@ -59,11 +59,11 @@ public class ItemServiceImpl implements ItemService{
 			List<Sku> skuList=skuManager.selectByCondition(skuQuery);
 			if(skuList.size() > 0)
 			{
-				Double minTbPrice = skuList.get(0).getTbPrice();
+				Integer minTbPrice = skuList.get(0).getSalePrice();
 				int stock=0;//库存为所有SKU的总和
 				for(Sku sku :skuList){
-					if(sku.getTbPrice()<=minTbPrice){
-						minTbPrice=sku.getTbPrice();
+					if(sku.getSalePrice()<=minTbPrice){
+						minTbPrice=sku.getSalePrice();
 					}
 					stock = stock + sku.getStock();
 				}

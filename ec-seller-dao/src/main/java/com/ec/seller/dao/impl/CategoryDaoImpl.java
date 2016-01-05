@@ -21,7 +21,7 @@ public class CategoryDaoImpl extends SqlMapClientTemplate implements CategoryDao
 	}
 
 	@Override
-	public Category selectByCategoryId(int categoryId) {
+	public Category selectByCategoryId(Integer categoryId) {
 		return (Category)queryForObject("Category.selectByPrimaryKey",categoryId);
 	}
 

@@ -8,7 +8,7 @@ import com.ec.seller.domain.query.CategoryQuery;
 public interface CategoryManager {
 	public List<Category> selectByCondition(CategoryQuery categoryQuery);
 	
-	public Category selectByCategoryId(int categoryId);
+	public Category selectByCategoryId(Integer categoryId);
 
 	public List<Category> selectByLikeCondition(CategoryQuery categoryQuery);
 

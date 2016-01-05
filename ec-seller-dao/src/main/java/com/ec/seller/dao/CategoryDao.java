@@ -26,7 +26,7 @@ public interface CategoryDao {
 	 * @param categoryId
 	 * @return
 	 */
-	public Category selectByCategoryId(int categoryId);
+	public Category selectByCategoryId(Integer categoryId);
 	
 	/**
 	 * 根据相应的条件查询满足条件的分类信息的总数

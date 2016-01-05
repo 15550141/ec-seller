@@ -32,7 +32,7 @@ public class CategoryManagerImpl implements CategoryManager{
 	}
 
 	@Override
-	public Category selectByCategoryId(int categoryId) {
+	public Category selectByCategoryId(Integer categoryId) {
 		return categoryDao.selectByCategoryId(categoryId);
 	}
 

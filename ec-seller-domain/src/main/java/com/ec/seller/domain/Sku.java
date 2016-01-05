@@ -1,9 +1,12 @@
 package com.ec.seller.domain;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * SKU信息
+ *
+ */
 public class Sku implements Serializable{
 	
 	/**
@@ -17,42 +20,39 @@ public class Sku implements Serializable{
     /** 商品ID */
     private Integer itemId;
 
-    /** 尺寸属性ID */
-    private Integer sizeId;
-
-    /** 尺寸属性值ID */
-    private Integer sizeValueId;
-    
-    /**  销售属性组合 */
+    /** 销售属性 {"销售属性id"，"销售属性值id"}*/
     private String salesProperty;
     
-    /**  销售属性名字组合 */
     private String salesPropertyName;
     
     /** 起买量 */
     private Integer leastBuy;
     
-    /**  条形码 */
+    /** 条形码 */
     private String barCode;
-    
 
     /** 成本价 */
-    private Double costPrice;
+    private Integer costPrice;
 
     /** 销售价 */
-    private Double tbPrice;
+    private Integer salePrice;
+    
+    /**
+     * 原价
+     */
+    private Integer originalPrice;
+    
 
     /** 库存数量 */
     private Integer stock;
-    
-    /** 是否有效 */
-    private Integer yn;
 
     /** 创建时间 */
     private Date created;
 
     /** 修改时间 */
     private Date modified;
+    
+    private Integer yn;
 
     public Integer getSkuId() {
         return skuId;
@@ -70,36 +70,45 @@ public class Sku implements Serializable{
         this.itemId = itemId;
     }
 
-    public Integer getSizeId() {
-        return sizeId;
-    }
+    public String getSalesProperty() {
+		return salesProperty;
+	}
 
-    public void setSizeId(Integer sizeId) {
-        this.sizeId = sizeId;
-    }
+	public void setSalesProperty(String salesProperty) {
+		this.salesProperty = salesProperty;
+	}
 
-    public Integer getSizeValueId() {
-        return sizeValueId;
-    }
+	public Integer getLeastBuy() {
+		return leastBuy;
+	}
 
-    public void setSizeValueId(Integer sizeValueId) {
-        this.sizeValueId = sizeValueId;
-    }
+	public void setLeastBuy(Integer leastBuy) {
+		this.leastBuy = leastBuy;
+	}
 
-	public Double getCostPrice() {
+	public String getBarCode() {
+		return barCode;
+	}
+
+	public void setBarCode(String barCode) {
+		this.barCode = barCode;
+	}
+
+
+    public Integer getCostPrice() {
 		return costPrice;
 	}
 
-	public void setCostPrice(Double costPrice) {
+	public void setCostPrice(Integer costPrice) {
 		this.costPrice = costPrice;
 	}
 
-	public Double getTbPrice() {
-		return tbPrice;
+	public Integer getSalePrice() {
+		return salePrice;
 	}
 
-	public void setTbPrice(Double tbPrice) {
-		this.tbPrice = tbPrice;
+	public void setSalePrice(Integer salePrice) {
+		this.salePrice = salePrice;
 	}
 
 	public Integer getStock() {
@@ -126,13 +135,12 @@ public class Sku implements Serializable{
         this.modified = modified;
     }
 
-    
-	public String getSalesProperty() {
-		return salesProperty;
+	public Integer getYn() {
+		return yn;
 	}
 
-	public void setSalesProperty(String salesProperty) {
-		this.salesProperty = salesProperty;
+	public void setYn(Integer yn) {
+		this.yn = yn;
 	}
 
 	public String getSalesPropertyName() {
@@ -143,28 +151,12 @@ public class Sku implements Serializable{
 		this.salesPropertyName = salesPropertyName;
 	}
 
-	public Integer getLeastBuy() {
-		return leastBuy;
+	public Integer getOriginalPrice() {
+		return originalPrice;
 	}
 
-	public void setLeastBuy(Integer leastBuy) {
-		this.leastBuy = leastBuy;
-	}
-
-	public String getBarCode() {
-		return barCode;
-	}
-
-	public void setBarCode(String barCode) {
-		this.barCode = barCode;
-	}
-
-	public Integer getYn() {
-		return yn;
-	}
-
-	public void setYn(Integer yn) {
-		this.yn = yn;
+	public void setOriginalPrice(Integer originalPrice) {
+		this.originalPrice = originalPrice;
 	}
     
 }
