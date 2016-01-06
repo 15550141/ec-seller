@@ -27,7 +27,7 @@ import com.ec.seller.common.utils.PaginatedList;
 import com.ec.seller.domain.OrderInfo;
 import com.ec.seller.domain.PaymentInfo;
 import com.ec.seller.domain.query.OrderInfoQuery;
-import com.ec.seller.service.AddressService;
+import com.ec.seller.service.AddrService;
 import com.ec.seller.service.OrderInfoService;
 import com.ec.seller.service.PaymentInfoService;
 import com.ec.seller.service.SellerEntryService;
@@ -41,7 +41,7 @@ public class OrderInfoController {
 	private OrderInfoService orderInfoService;
 	private SellerEntryService sellerEntryService;
 	private PaymentInfoService paymentInfoService;
-	private AddressService addressService;
+	private AddrService addressService;
 	
 	@InitBinder
 	public void initDateBinder(WebDataBinder binder) {
@@ -390,7 +390,7 @@ public class OrderInfoController {
 		this.paymentInfoService = paymentInfoService;
 	}
 
-	public void setAddressService(AddressService addressService) {
+	public void setAddressService(AddrService addressService) {
 		this.addressService = addressService;
 	}
 

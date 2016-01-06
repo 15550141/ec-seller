@@ -1,12 +1,9 @@
 package com.ec.seller.web.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.ec.seller.domain.Addr;
+import com.ec.seller.domain.Category;
+import com.ec.seller.domain.query.AddrQuery;
+import com.ec.seller.service.AddrService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ec.seller.domain.Address;
-import com.ec.seller.domain.Category;
-import com.ec.seller.domain.query.AddressQuery;
-import com.ec.seller.domain.query.CategoryQuery;
-import com.ec.seller.service.AddressService;
-import com.ec.seller.service.CategoryService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
-@RequestMapping("/address")
-public class AddressController {
+@RequestMapping("/addr")
+public class AddrController {
 	@Autowired
-	private AddressService addressService;
+	private AddrService addrService;
 	private final static Log LOG = LogFactory.getLog(CategoryController.class);
 
 	
@@ -42,13 +38,13 @@ public class AddressController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Category category=new Category();
 		try {	
-			AddressQuery addressQuery=new AddressQuery();
+			AddrQuery addressQuery=new AddrQuery();
 			//设置查询几级分类
 			if(pId!=null){
 				addressQuery.setAddressFid(pId);
 			}
 			
-			List<Address> addressList= addressService.selectByCondition(addressQuery);
+			List<Addr> addressList= addrService.selectByCondition(addressQuery);
 			resultMap.put("msg","success");
 			resultMap.put("addressList",addressList);//登录成功后，跳转到的页面
 //			resultMap.put("category",category);//登录成功后，跳转到的页面

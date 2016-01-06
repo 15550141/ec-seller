@@ -15,7 +15,7 @@ Config 2.0/" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
     <sqlMap resource="sqlmap/vender_info_SqlMap.xml"/>
     <sqlMap resource="sqlmap/promotion_info_SqlMap.xml"/>
     <sqlMap resource="sqlmap/promotion_product_SqlMap.xml"/>
-    <sqlMap resource="sqlmap/address_SqlMap.xml"/>
+    <sqlMap resource="sqlmap/addr_SqlMap.xml"/>
     <sqlMap resource="sqlmap/business_user_ext_SqlMap.xml"/>
     <sqlMap resource="sqlmap/category_SqlMap.xml"/>
     <sqlMap resource="sqlmap/consignee_info_SqlMap.xml"/>

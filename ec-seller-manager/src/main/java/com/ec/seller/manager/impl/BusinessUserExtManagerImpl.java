@@ -1,18 +1,12 @@
 package com.ec.seller.manager.impl;
 
-import java.util.List;
-
+import com.ec.seller.dao.BusinessUserExtDao;
+import com.ec.seller.domain.BusinessUserExt;
+import com.ec.seller.manager.BusinessUserExtManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.ec.seller.dao.AddressDao;
-import com.ec.seller.dao.BusinessUserExtDao;
-import com.ec.seller.domain.Address;
-import com.ec.seller.domain.BusinessUserExt;
-import com.ec.seller.domain.query.AddressQuery;
-import com.ec.seller.manager.AddressManager;
-import com.ec.seller.manager.BusinessUserExtManager;
 
 
 @Repository

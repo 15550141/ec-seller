@@ -151,6 +151,12 @@ public class ItemQuery extends BaseSearchForMysqlVo implements Serializable{
     /** 30天销量 */
     private Integer purchaseNumber;
 
+    /** 参考进货价格 */
+    private Integer referenceStockPrice;
+
+    /** 参考销售价格 */
+    private Integer referenceSellPrice;
+
     public Integer getItemId() {
         return itemId;
     }
@@ -517,6 +523,21 @@ public class ItemQuery extends BaseSearchForMysqlVo implements Serializable{
 
 	public void setMarketEndTime(Date marketEndTime) {
 		this.marketEndTime = marketEndTime;
-	}	
-    
+	}
+
+    public Integer getReferenceStockPrice() {
+        return referenceStockPrice;
+    }
+
+    public void setReferenceStockPrice(Integer referenceStockPrice) {
+        this.referenceStockPrice = referenceStockPrice;
+    }
+
+    public Integer getReferenceSellPrice() {
+        return referenceSellPrice;
+    }
+
+    public void setReferenceSellPrice(Integer referenceSellPrice) {
+        this.referenceSellPrice = referenceSellPrice;
+    }
 }

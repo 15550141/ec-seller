@@ -4,7 +4,7 @@ package com.ec.seller.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Address implements Serializable{
+public class Addr implements Serializable{
 	
 	/**
 	 * 

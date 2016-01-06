@@ -38,7 +38,7 @@
 //import com.ec.seller.domain.PaymentInfo;
 //import com.ec.seller.domain.query.BalanceInfoQuery;
 //import com.ec.seller.domain.query.OrderInfoQuery;
-//import com.ec.seller.service.AddressService;
+//import com.ec.seller.service.AddrService;
 //import com.ec.seller.service.BalanceInfoService;
 //import com.ec.seller.service.OrderInfoService;
 //import com.ec.seller.service.PaymentInfoService;
@@ -55,7 +55,7 @@
 //	private OrderInfoService orderInfoService;
 //	private SellerEntryService sellerEntryService;
 //	private PaymentInfoService paymentInfoService;
-//	private AddressService addressService;
+//	private AddrService addressService;
 //	
 //	private BalanceInfoService balanceInfoService;
 //	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -266,7 +266,7 @@
 //		this.paymentInfoService = paymentInfoService;
 //	}
 //
-//	public void setAddressService(AddressService addressService) {
+//	public void setAddressService(AddrService addressService) {
 //		this.addressService = addressService;
 //	}
 //

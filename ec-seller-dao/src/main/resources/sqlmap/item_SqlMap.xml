@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!--suppress ALL -->
 <sqlMap namespace="Item" >
   <resultMap id="ItemResult" class="com.ec.seller.domain.Item" >
     <result column="ITEM_ID" property="itemId"  />
@@ -41,6 +42,8 @@
     <result column="YN" property="yn"  />
     <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
     <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
+      <result column="reference_stock_price" property="referenceStockPrice" />
+      <result column="reference_sell_price" property="referenceSellPrice" />
   </resultMap>
   
    <resultMap id="ItemQueryResult" class="com.ec.seller.domain.query.ItemQuery" >
@@ -84,7 +87,17 @@
     <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
     <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
   </resultMap>
-  
+
+
+    <!-- 查询内容 -->
+    <sql id="searchColoum" >
+        ITEM_ID, ITEM_NAME, ITEM_TYPE, CATEGORY_ID1, CATEGORY_ID2, CATEGORY_ID3, CATEGORY_ID4,VENDER_USER_ID, ITEM_STATUS,
+        auto_on_shelf_time,auto_off_shelf_time,ON_SHELF_TIME, OFF_SHELF_TIME,  ITEM_IMAGE, IF_DEPOSIT, DEPOSIT_RATE,
+        origin_province,origin_city,origin_county,origin_address,supply_province,supply_city,supply_county ,Weight,
+        differ_Weight, Packing_type,Packing_type_custom, length, Wide, High, sales_property_set,
+        unit,if_have_zjbg,if_have_cprz,market_start_time,market_end_time,YN, CREATED,
+        MODIFIED,reference_stock_price,reference_sell_price
+    </sql>
   <!-- 查询条件 -->
   <sql id="condition" >
   	<dynamic prepend="where" >
@@ -199,16 +212,17 @@
       <isNotNull prepend="and" property="yn" >
         YN = #yn:TINYINT#
       </isNotNull>
+        <isNotNull prepend="and" property="referenceStockPrice" >
+            reference_stock_price = #referenceStockPrice#
+        </isNotNull>
+        <isNotNull prepend="and" property="referenceSellPrice" >
+            reference_sell_price = #referenceSellPrice#
+        </isNotNull>
     </dynamic>
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="ItemResult" parameterClass="java.lang.Integer" >
-    select ITEM_ID, ITEM_NAME, ITEM_TYPE, CATEGORY_ID1, CATEGORY_ID2, CATEGORY_ID3, CATEGORY_ID4,VENDER_USER_ID, ITEM_STATUS,
-     auto_on_shelf_time,auto_off_shelf_time,ON_SHELF_TIME, OFF_SHELF_TIME, ITEM_IMAGE, IF_DEPOSIT, DEPOSIT_RATE,
-     origin_province,origin_city,origin_county,origin_address,supply_province,supply_city,supply_county , Weight,
-      differ_Weight, Packing_type,Packing_type_custom ,length, Wide, High,sales_property_set,
-      unit,if_have_zjbg,if_have_cprz,market_start_time,market_end_time, YN, CREATED,
-      MODIFIED
+    select <include refid="Item.searchColoum" />
     from item
     where ITEM_ID = #itemId:INTEGER#
   </select>
@@ -220,7 +234,7 @@
       origin_province,origin_city,origin_county,origin_address,supply_province,supply_city,supply_county , Weight,
        differ_Weight, Packing_type,Packing_type_custom, length, Wide, High,sales_property_set,
        unit,if_have_zjbg,if_have_cprz,market_start_time,market_end_time, YN, CREATED,
-      MODIFIED)
+      MODIFIED,reference_stock_price,reference_sell_price)
     values (#itemName:VARCHAR#, #itemType:INTEGER#, #categoryId1:INTEGER#,
       #categoryId2:INTEGER#, #categoryId3:INTEGER#,#categoryId4:INTEGER#,
       #venderUserId:INTEGER#, #itemStatus:INTEGER#, 
@@ -229,7 +243,7 @@
       #depositRate:INTEGER#, #originProvince:INTEGER#, #originCity:INTEGER#, #originCounty:INTEGER#,#originAddress:VARCHAR#,#supplyProvince:INTEGER#,#supplyCity:INTEGER#, #supplyCounty:INTEGER# , #weight:VARCHAR#, #differWeight:VARCHAR#,
       #packingType:INTEGER#, #packingTypeCustom:VARCHAR#,#length:VARCHAR#, #wide:VARCHAR#, #high:VARCHAR#, #salesPropertySet:VARCHAR#,
       #unit:INTEGER#, #ifHaveZjbg:INTEGER#, #ifHaveCprz:INTEGER#,#marketStartTime:TIMESTAMP#,#marketEndTime:TIMESTAMP#,1,
-      now(),now())
+      now(),now(),#referenceStockPrice#,#referenceSellPrice#)
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="itemId">
 			<![CDATA[SELECT @@IDENTITY AS ITEM_ID ]]>
@@ -350,6 +364,12 @@
       <isNotNull prepend="," property="yn" >
         YN = #yn:TINYINT#
       </isNotNull>
+        <isNotNull prepend="," property="referenceStockPrice" >
+            reference_stock_price = #referenceStockPrice#
+        </isNotNull>
+        <isNotNull prepend="," property="referenceSellPrice" >
+            reference_sell_price = #referenceSellPrice#
+        </isNotNull>
     </dynamic>
     where ITEM_ID = #itemId#
   </update>
@@ -484,24 +504,14 @@
   </select>
   
   <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.ItemQuery" resultMap="ItemResult" >
-     select ITEM_ID, ITEM_NAME, ITEM_TYPE, CATEGORY_ID1, CATEGORY_ID2,CATEGORY_ID3, CATEGORY_ID4, VENDER_USER_ID, ITEM_STATUS,
-     auto_on_shelf_time,auto_off_shelf_time,ON_SHELF_TIME, OFF_SHELF_TIME,ITEM_IMAGE, IF_DEPOSIT, DEPOSIT_RATE,
-      origin_province,origin_city,origin_county,origin_address,supply_province,supply_city,supply_county , Weight,
-      differ_Weight, Packing_type, Packing_type_custom, length, Wide, High, sales_property_set,
-      unit,if_have_zjbg,if_have_cprz,market_start_time,market_end_time,YN, CREATED,
-      MODIFIED
+     select <include refid="Item.searchColoum" />
     from item
     <include refid="Item.condition" />
     order by ITEM_ID desc
   </select>
   
   <select id="selectByConditionForPage" parameterClass="com.ec.seller.domain.query.ItemQuery" resultMap="ItemResult" >
-    select ITEM_ID, ITEM_NAME, ITEM_TYPE, CATEGORY_ID1, CATEGORY_ID2,CATEGORY_ID3, CATEGORY_ID4, VENDER_USER_ID, ITEM_STATUS,
-      auto_on_shelf_time,auto_off_shelf_time,ON_SHELF_TIME, OFF_SHELF_TIME, LEAST_BUY, ITEM_IMAGE, IF_DEPOSIT, DEPOSIT_RATE,
-      origin_province,origin_city,origin_county,origin_address,supply_province,supply_city,supply_county ,Weight, 
-      differ_Weight, Packing_type,Packing_type_custom, length, Wide, High, sales_property_set,
-      unit,if_have_zjbg,if_have_cprz,market_start_time,market_end_time,YN, CREATED,
-      MODIFIED
+    select <include refid="Item.searchColoum" />
     from item
     <include refid="Item.condition" />
     order by ITEM_ID desc
@@ -510,12 +520,7 @@
   
   
     <select id="selectByConditionWithPage" parameterClass="com.ec.seller.domain.query.ItemQuery" resultMap="ItemQueryResult" >
-    select ITEM_ID, ITEM_NAME, ITEM_TYPE, CATEGORY_ID1, CATEGORY_ID2,CATEGORY_ID3, CATEGORY_ID4, VENDER_USER_ID, ITEM_STATUS,
-      auto_on_shelf_time,auto_off_shelf_time,ON_SHELF_TIME, OFF_SHELF_TIME,  ITEM_IMAGE, IF_DEPOSIT, DEPOSIT_RATE,
-      origin_province,origin_city,origin_county,origin_address,supply_province,supply_city,supply_county ,Weight, 
-      differ_Weight, Packing_type,Packing_type_custom, length, Wide, High, sales_property_set,
-      unit,if_have_zjbg,if_have_cprz,market_start_time,market_end_time,YN, CREATED,
-      MODIFIED
+    select <include refid="Item.searchColoum" />
     from item
     <include refid="Item.condition" />
     order by ITEM_ID desc
@@ -523,12 +528,7 @@
   </select>
     <!-- 查询待上架商品 -->
   <select id="queryOnSheftList" parameterClass="java.lang.Integer" resultMap="ItemQueryResult" >
-    select ITEM_ID, ITEM_NAME, ITEM_TYPE, CATEGORY_ID1, CATEGORY_ID2,CATEGORY_ID3, CATEGORY_ID4, VENDER_USER_ID, ITEM_STATUS,
-      auto_on_shelf_time,auto_off_shelf_time,ON_SHELF_TIME, OFF_SHELF_TIME,  ITEM_IMAGE, IF_DEPOSIT, DEPOSIT_RATE,
-      origin_province,origin_city,origin_county,origin_address,supply_province,supply_city,supply_county ,Weight, 
-      differ_Weight, Packing_type,Packing_type_custom, length, Wide, High, sales_property_set,
-      unit,if_have_zjbg,if_have_cprz,market_start_time,market_end_time,YN, CREATED,
-      MODIFIED
+    select <include refid="Item.searchColoum" />
     from item
     where ITEM_STATUS = 0 and <![CDATA[ DATE_FORMAT(auto_on_shelf_time,'%Y-%m-%d %H:%i:%s') < DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s') ]]>
     order by ITEM_ID desc
@@ -537,12 +537,7 @@
   
   <!-- 查询待下架商品 -->
   <select id="queryOffSheftList" parameterClass="java.lang.Integer" resultMap="ItemQueryResult" >
-    select ITEM_ID, ITEM_NAME, ITEM_TYPE, CATEGORY_ID1, CATEGORY_ID2, CATEGORY_ID3, CATEGORY_ID4,VENDER_USER_ID, ITEM_STATUS,
-      auto_on_shelf_time,auto_off_shelf_time,ON_SHELF_TIME, OFF_SHELF_TIME,  ITEM_IMAGE, IF_DEPOSIT, DEPOSIT_RATE,
-      origin_province,origin_city,origin_county,origin_address,supply_province,supply_city,supply_county ,Weight, 
-      differ_Weight, Packing_type,Packing_type_custom, length, Wide, High, sales_property_set,
-      unit,if_have_zjbg,if_have_cprz,market_start_time,market_end_time,YN, CREATED,
-      MODIFIED
+    select <include refid="Item.searchColoum" />
     from item
     where ITEM_STATUS = 1 and <![CDATA[ DATE_FORMAT(auto_off_shelf_time,'%Y-%m-%d %H:%i:%s') < DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s') ]]>
     order by ITEM_ID desc

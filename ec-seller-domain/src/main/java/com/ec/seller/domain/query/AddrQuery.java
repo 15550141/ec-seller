@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.ec.seller.domain.common.BaseSearchForMysqlVo;
 
-public class AddressQuery extends BaseSearchForMysqlVo implements Serializable{
+public class AddrQuery extends BaseSearchForMysqlVo implements Serializable{
 	
 	/**
 	 * 

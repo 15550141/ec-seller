@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
-<sqlMap namespace="Address" >
-  <resultMap id="AddressResult" class="com.ec.seller.domain.Address" >
+<sqlMap namespace="Addr" >
+  <resultMap id="AddrResult" class="com.ec.seller.domain.Addr" >
     <result column="ADDRESS_ID" property="addressId"  />
     <result column="ADDRESS_NAME" property="addressName" jdbcType="VARCHAR" />
     <result column="ADDRESS_LEVEL" property="addressLevel"  />
@@ -29,15 +29,15 @@
   </sql>
   
   <!-- 依据主键进行查询 -->
-  <select id="selectByPrimaryKey" resultMap="AddressResult" parameterClass="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="AddrResult" parameterClass="java.lang.Integer" >
     select ADDRESS_ID, ADDRESS_NAME, ADDRESS_LEVEL, ADDRESS_FID, CREATED, MODIFIED
-    from address
+    from addr
     where ADDRESS_ID = #addressId:INTEGER#
   </select>
   
   <!-- 添加信息 -->
-  <insert id="insert" parameterClass="com.ec.seller.domain.Address" >
-    insert into address (ADDRESS_NAME, ADDRESS_LEVEL, ADDRESS_FID, CREATED, MODIFIED)
+  <insert id="insert" parameterClass="com.ec.seller.domain.Addr" >
+    insert into addr (ADDRESS_NAME, ADDRESS_LEVEL, ADDRESS_FID, CREATED, MODIFIED)
     values (#addressName:VARCHAR#, #addressLevel:INTEGER#,
       #addressFid:INTEGER#, now(), now())
       <!-- 返回自增主键 -->
@@ -47,8 +47,8 @@
   </insert>
   
   <!-- 依据主键进行修改 -->
-  <update id="updateByPrimaryKey" parameterClass="com.ec.seller.domain.Address" >
-    update address set MODIFIED = now()
+  <update id="updateByPrimaryKey" parameterClass="com.ec.seller.domain.Addr" >
+    update addr set MODIFIED = now()
     <dynamic>
       <isNotNull prepend="," property="addressName" >
         ADDRESS_NAME = #addressName:VARCHAR#
@@ -64,16 +64,16 @@
   </update>
   
   <!-- 条件查询总数 -->
-  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.AddressQuery" resultClass="java.lang.Integer" >
-    select count(1) from address
-    <include refid="Address.condition" />
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.AddrQuery" resultClass="java.lang.Integer" >
+    select count(1) from addr
+    <include refid="Addr.condition" />
   </select>
   
   <!-- 条件查询列表 -->
-  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.AddressQuery" resultMap="AddressResult" >
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.AddrQuery" resultMap="AddrResult" >
     select ADDRESS_ID, ADDRESS_NAME, ADDRESS_LEVEL, ADDRESS_FID, CREATED, MODIFIED
-    from address
-    <include refid="Address.condition" />
+    from addr
+    <include refid="Addr.condition" />
   </select>
   
 </sqlMap>

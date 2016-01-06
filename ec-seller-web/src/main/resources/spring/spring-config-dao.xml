@@ -35,7 +35,7 @@
 		<property name="dataSource" ref="ecDataSource"></property>
 	</bean>
 	
-	<bean id="addressDao" class="com.ec.seller.dao.impl.AddressDaoImpl" >
+	<bean id="addrDao" class="com.ec.seller.dao.impl.AddrDaoImpl" >
 		<property name="sqlMapClient" ref="sqlMapClient"></property>
 		<property name="dataSource" ref="ecDataSource"></property>
 	</bean>

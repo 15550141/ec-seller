@@ -575,7 +575,7 @@ $("#categoryId4").change(
 								
 								$("#priceTB").append(
 										"<tr id='priceTR_"+property.propertyValueId+"' style='display: none;'> <td style='width: 100px' align='right'>"+property.propertyValueName+
-										"</td><td align='right' style='width: 100px'>*阿土价：</td>"+
+										"</td><td align='right' style='width: 100px'>*销售价：</td>"+
 										"<td style='width: 100px'><input type='text' name='tbPrice' id='tbPrice_"+property.propertyValueId+"' value='' style='width: 80px' />&nbsp;元</td>"+
 										"<td align='right' style='width: 100px'>*供应量：</td>"+
 										"<td style='width: 80px'><input type='text' name='stock' id='stock_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
@@ -652,7 +652,7 @@ $("#supplyProvince").change(function() {
 		return;
 	}
 			$.ajax( {
-					url : "/address/getAddress",
+					url : "/addr/getAddress",
 					type : "post",
 					dataType : "json",
 					data : "pId="+$("#supplyProvince").val(),
@@ -709,7 +709,7 @@ $("#supplyCity")
 			}
 			$.ajax( {
 				
-				url : "/address/getAddress",
+				url : "/addr/getAddress",
 				type : "post",
 				dataType : "json",
 				data : "pId="+$("#supplyCity").val(),
@@ -794,7 +794,7 @@ $("#originProvince").change(function() {
 		return;
 	}
 			$.ajax( {
-					url : "/address/getAddress",
+					url : "/addr/getAddress",
 					type : "post",
 					dataType : "json",
 					data : "pId="+$("#originProvince").val(),
@@ -851,7 +851,7 @@ $("#originCity")
 			}
 			$.ajax( {
 				
-				url : "/address/getAddress",
+				url : "/addr/getAddress",
 				type : "post",
 				dataType : "json",
 				data : "pId="+$("#originCity").val(),

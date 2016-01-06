@@ -350,7 +350,7 @@ $("#specialProvince").change(function() {
 		return;
 	}
 			$.ajax( {
-					url : "/address/getAddress",
+					url : "/addr/getAddress",
 					type : "post",
 					dataType : "json",
 					data : "pId="+$("#specialProvince").val(),
@@ -407,7 +407,7 @@ $("#specialCity")
 			}
 			$.ajax( {
 				
-				url : "/address/getAddress",
+				url : "/addr/getAddress",
 				type : "post",
 				dataType : "json",
 				data : "pId="+$("#specialCity").val(),

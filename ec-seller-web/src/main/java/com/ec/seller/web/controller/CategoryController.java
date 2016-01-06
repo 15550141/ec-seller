@@ -537,7 +537,7 @@ public class CategoryController {
 				int year=cal.get(Calendar.YEAR);//得到年
 				int month=cal.get(Calendar.MONTH)+1;//得到月，因为从0开始的，所以要加1
 				int day=cal.get(Calendar.DAY_OF_MONTH);//得到天
-				String currentPath = System.getProperty("user.dir");
+				String currentPath = request.getSession().getServletContext().getRealPath("/");
 				path = "/img" + "/" + year +"/" + month+"/"+day+"/";
 				savefilePath = currentPath + path;
 				File foler = new File(savefilePath);

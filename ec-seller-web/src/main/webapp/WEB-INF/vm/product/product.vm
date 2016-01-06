@@ -273,6 +273,7 @@
 		</td>
 	</tr>
 	<tr>
+		<!--
 		<td align="right" style="width: 100px">包装方式：</td>
 		<td style="width: 100px" id="packingTypeTB">
 			<select name="packingType" id="packingType" style="width: 110px">
@@ -283,18 +284,29 @@
 			</select>
 			<input type="text" name="packingTypeCustom" id="packingTypeCustom" value="" style="width: 100px" />
 		</td>
-		<td align="right" >单位：</td>
+		-->
+		<td align="right" >销售单位：</td>
 		<td align="left" style="width: 100px">					
 			<select name="unit" id="unit" style="width: 60px">
-				<option value="1">件</option>
-				<option value="2">箱</option>
-				<option value="3">斤</option>
-				<option value="4">框</option>
-				<option value="5">吨</option>
+                <option value="1">斤</option>
+                <option value="2">个</option>
+                <option value="3">箱</option>
 			</select>
 			</td>
 	</tr>
+    <tr>
+        <td align="right" style="width: 100px">参考进货价格：</td>
+        <td style="width: 150px">
+            <input type="text" name="referenceStockPrice" id="referenceStockPrice" value="" style="width: 100px" />&nbsp;
+        </td>
+        <td align="right" style="width: 100px">参考销售价格：</td>
+        <td style="width: 200px">
+            <input type="text" name="referenceSellPrice" id="referenceSellPrice" value="" style="width: 100px" />&nbsp;
+        </td>
+        <td></td>
+    </tr>
 	
+	<!--
 	<tr>
 		<td align="right" style="width: 100px">净重：</td>
 		<td style="width: 150px">
@@ -319,6 +331,7 @@
 		</td>
 		<td></td>
 	</tr>
+	-->
 	<tr>
 		<td align="right" style="width: 100px">上市时间：</td>
 		<td>
