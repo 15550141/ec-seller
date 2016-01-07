@@ -13,31 +13,31 @@ import java.util.List;
 public class PurchaseTemplateItemDaoImpl extends SqlMapClientTemplate implements PurchaseTemplateItemDao {
     @Override
     public Integer insert(PurchaseTemplateItem object) {
-        return (Integer) insert("PurchaseTemplate.insert", object);
+        return (Integer) insert("PurchaseTemplateItem.insert", object);
     }
 
     @Override
     public void delete(Integer id) {
-        delete("PurchaseTemplate.delete", id);
+        delete("PurchaseTemplateItem.delete", id);
     }
 
     @Override
     public void modify(PurchaseTemplateItem object) {
-        update("PurchaseTemplate.modify", object);
+        update("PurchaseTemplateItem.modify", object);
     }
 
     @Override
     public PurchaseTemplateItem selectById(int id) {
-        return (PurchaseTemplateItem) queryForObject("PurchaseTemplate.selectById", id);
+        return (PurchaseTemplateItem) queryForObject("PurchaseTemplateItem.selectById", id);
     }
 
     @Override
     public int countByCondition(PurchaseTemplateItemQuery object) {
-        return (Integer) queryForObject("PurchaseTemplateQuery.countByCondition", object);
+        return (Integer) queryForObject("PurchaseTemplateItem.countByCondition", object);
     }
 
     @Override
     public List<PurchaseTemplateItem> selectByCondition(PurchaseTemplateItemQuery object) {
-        return (List<PurchaseTemplateItem>)queryForList("PurchaseTemplate.selectByCondition",object);
+        return (List<PurchaseTemplateItem>)queryForList("PurchaseTemplateItem.selectByCondition",object);
     }
 }

@@ -19,8 +19,6 @@ public class PurchaseTemplate implements Serializable {
     private String userName;
     /** 采购地点 */
     private String purchasePlace;
-    /** 0无效，1有效 */
-    private Integer yn;
     private Date created;
     private Date modified;
 
@@ -62,14 +60,6 @@ public class PurchaseTemplate implements Serializable {
 
     public void setPurchasePlace(String purchasePlace) {
         this.purchasePlace = purchasePlace;
-    }
-
-    public Integer getYn() {
-        return yn;
-    }
-
-    public void setYn(Integer yn) {
-        this.yn = yn;
     }
 
     public Date getCreated() {

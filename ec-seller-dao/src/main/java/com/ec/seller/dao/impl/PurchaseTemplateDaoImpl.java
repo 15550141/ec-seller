@@ -27,13 +27,13 @@ public class PurchaseTemplateDaoImpl extends SqlMapClientTemplate implements Pur
     }
 
     @Override
-    public PurchaseTemplate selectById(int id) {
+    public PurchaseTemplate selectById(Integer id) {
         return (PurchaseTemplate) queryForObject("PurchaseTemplate.selectById", id);
     }
 
     @Override
     public int countByCondition(PurchaseTemplateQuery object) {
-        return (Integer) queryForObject("PurchaseTemplateQuery.countByCondition", object);
+        return (Integer) queryForObject("PurchaseTemplate.countByCondition", object);
     }
 
     @Override

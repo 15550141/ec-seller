@@ -33,11 +33,11 @@ public class PurchaseItemDaoImpl extends SqlMapClientTemplate implements Purchas
 
     @Override
     public int countByCondition(PurchaseItemQuery object) {
-        return (Integer) queryForObject("Purchase.countByCondition", object);
+        return (Integer) queryForObject("PurchaseItem.countByCondition", object);
     }
 
     @Override
     public List<PurchaseItem> selectByCondition(PurchaseItemQuery object) {
-        return (List<PurchaseItem>)queryForList("Purchase.selectByCondition",object);
+        return (List<PurchaseItem>)queryForList("PurchaseItem.selectByCondition",object);
     }
 }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="就是看看bootstrap" name="description">
+    <meta content="缤纷果园 鲜果味道" name="keywords">
+    <title>添加采购单模板</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="span6">
+            <ul class="nav nav-tabs">
+                <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">采购管理<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/purchase/">查看采购单</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/purchaseTemplate/">查看采购单模板</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">商品管理<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">查看所有商品</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">新增商品</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">结算管理<b class="caret bottom-up"></b></a>
+                    <ul class="dropdown-menu bottom-up pull-right">
+                        <li><a href="#">日结算单</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">模板名称</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="purchaseTemplateName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">采购地点</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="purchasePlace">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" onclick="doSubmit();" class="btn btn-default">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="application/javascript">
+    function doSubmit(){
+        var purchaseTemplateName = $("#purchaseTemplateName").val();
+        var purchasePlace = $("#purchasePlace").val();
+        if(!purchaseTemplateName){
+            alert("模板名称不能为空");
+            return;
+        }
+        if(!purchasePlace){
+            alert("采购地点不能为空");
+            return;
+        }
+        jQuery.ajax( {
+            url : "/purchaseTemplate/insert",
+            type : "post",
+            dataType : "json",
+            data : "purchaseTemplateName="+purchaseTemplateName+"&purchasePlace="+purchasePlace,
+            success : function(data) {
+                if (data.success == true) {
+                    window.location.href="/purchaseTemplate/";
+                }else{
+                    alert("系统异常！请重试");
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    }
+</script>
+</body>
+</html>

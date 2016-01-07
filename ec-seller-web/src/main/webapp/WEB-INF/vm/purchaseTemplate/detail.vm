@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="就是看看bootstrap" name="description">
+    <meta content="缤纷果园 鲜果味道" name="keywords">
+    <title>$!purchaseTemplate.purchaseTemplateName</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="span6">
+            <ul class="nav nav-tabs">
+                <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">采购管理<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">查看采购单</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">查看采购单模板</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">商品管理<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">查看所有商品</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">新增商品</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">结算管理<b class="caret bottom-up"></b></a>
+                    <ul class="dropdown-menu bottom-up pull-right">
+                        <li><a href="#">每日录入结算单</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <button class="btn btn-default" type="button">
+            新增采购商品
+        </button>
+        <button class="btn btn-default" type="button">
+            提交采购单
+        </button>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="input-group col-xs-7">
+            <input id="itemName" type="text" class="form-control dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+            <ul id="itemNameList" class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">啊啊啊啊啊啊啊啊</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default">
+                    新增商品
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th width="20%">商品</th>
+                <th width="20%">参考进价</th>
+                <th width="32%">进货数量</th>
+                <th width="18%">进货金额</th>
+                <th width="10%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>阿克苏冰糖心苹果</td>
+                <td>5.5/斤</td>
+                <td>
+                    <input type="number" style="width: 50px;" value="" />
+                    <select>
+                        <option value="斤">斤</option>
+                        <option value="个">个</option>
+                        <option value="箱">箱</option>
+                    </select>
+                </td>
+                <td><input type="number" style="width: 50px;" value="" /></td>
+                <td>
+                    <button class="btn btn-default btn-sm" type="button">
+                        删除
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>阿克苏冰糖心苹果</td>
+                <td>5.5/斤</td>
+                <td>
+                    <input type="number" style="width: 50px;" value="" />
+                    <select>
+                        <option value="斤">斤</option>
+                        <option value="个">个</option>
+                        <option value="箱">箱</option>
+                    </select>
+                </td>
+                <td><input type="number" style="width: 50px;" value="" /></td>
+                <td>
+                    <button class="btn btn-default btn-sm" type="button">
+                        删除
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>阿克苏冰糖心苹果啊啊啊啊啊啊啊啊啊</td>
+                <td>5.5/斤</td>
+                <td>
+                    <input type="number" style="width: 50px;" value="" />
+                    <select>
+                        <option value="斤">斤</option>
+                        <option value="个">个</option>
+                        <option value="箱">箱</option>
+                    </select>
+                </td>
+                <td><input type="number" style="width: 50px;" value="" /></td>
+                <td>
+                    <button class="btn btn-default btn-sm" type="button">
+                        删除
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+<script type="application/javascript">
+    $("#itemName").keyup(function(){
+        var list = '<li><a href="#">'+$("#itemName").val()+'</a></li><li><a href="#">吧吧吧吧在在在在在</a></li><li><a href="#">去去去去去去去去去</a></li>';
+        $("#itemNameList").html(list);
+    });
+</script>
+</html>

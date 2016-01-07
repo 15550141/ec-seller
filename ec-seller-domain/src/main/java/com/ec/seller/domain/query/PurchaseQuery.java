@@ -16,17 +16,17 @@ public class PurchaseQuery extends BaseSearchForMysqlVo implements Serializable 
     /** 采购日期 */
     private Date purchaseTime;
     /** 总金额 */
-    private Integer total_price;
+    private Integer totalPrice;
     /** 采购人id */
-    private Integer purchase_uid;
+    private Integer purchaseUid;
     /** 采购人姓名 */
-    private String purchase_name;
+    private String purchaseName;
     /** 采购所花费用 */
-    private Integer purchase_price;
+    private Integer purchasePrice;
     /** 采购所花费用明细 */
-    private String purchase_price_detail;
+    private String purchasePriceDetail;
     /** 采购地点 */
-    private String purchase_place;
+    private String purchasePlace;
     /** 采购单状态	0新建，1采购结束 */
     private Integer status;
     /** 0无效，1有效 */
@@ -52,52 +52,52 @@ public class PurchaseQuery extends BaseSearchForMysqlVo implements Serializable 
         this.purchaseTime = purchaseTime;
     }
 
-    public Integer getTotal_price() {
-        return total_price;
+    public Integer getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotal_price(Integer total_price) {
-        this.total_price = total_price;
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public Integer getPurchase_uid() {
-        return purchase_uid;
+    public Integer getPurchaseUid() {
+        return purchaseUid;
     }
 
-    public void setPurchase_uid(Integer purchase_uid) {
-        this.purchase_uid = purchase_uid;
+    public void setPurchaseUid(Integer purchaseUid) {
+        this.purchaseUid = purchaseUid;
     }
 
-    public String getPurchase_name() {
-        return purchase_name;
+    public String getPurchaseName() {
+        return purchaseName;
     }
 
-    public void setPurchase_name(String purchase_name) {
-        this.purchase_name = purchase_name;
+    public void setPurchaseName(String purchaseName) {
+        this.purchaseName = purchaseName;
     }
 
-    public Integer getPurchase_price() {
-        return purchase_price;
+    public Integer getPurchasePrice() {
+        return purchasePrice;
     }
 
-    public void setPurchase_price(Integer purchase_price) {
-        this.purchase_price = purchase_price;
+    public void setPurchasePrice(Integer purchasePrice) {
+        this.purchasePrice = purchasePrice;
     }
 
-    public String getPurchase_price_detail() {
-        return purchase_price_detail;
+    public String getPurchasePriceDetail() {
+        return purchasePriceDetail;
     }
 
-    public void setPurchase_price_detail(String purchase_price_detail) {
-        this.purchase_price_detail = purchase_price_detail;
+    public void setPurchasePriceDetail(String purchasePriceDetail) {
+        this.purchasePriceDetail = purchasePriceDetail;
     }
 
-    public String getPurchase_place() {
-        return purchase_place;
+    public String getPurchasePlace() {
+        return purchasePlace;
     }
 
-    public void setPurchase_place(String purchase_place) {
-        this.purchase_place = purchase_place;
+    public void setPurchasePlace(String purchasePlace) {
+        this.purchasePlace = purchasePlace;
     }
 
     public Integer getStatus() {

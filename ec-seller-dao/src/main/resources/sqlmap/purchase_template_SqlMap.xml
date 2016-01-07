@@ -7,14 +7,13 @@
     <result column="user_id" property="userId"  />
     <result column="user_name" property="userName"  />
     <result column="purchase_place" property="purchasePlace"  />
-    <result column="yn" property="yn"  />
     <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
     <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
   </resultMap>
 
   <!-- 查询内容 -->
   <sql id="searchColoum" >
-    id, purchase_template_name, user_id, user_name, purchase_place, yn, created, modified
+    id, purchase_template_name, user_id, user_name, purchase_place, created, modified
   </sql>
 
   <!-- 查询条件 -->
@@ -29,9 +28,6 @@
       <isNotNull prepend="and" property="userName" >
         user_name = #userName#
       </isNotNull>
-      <isNotNull prepend="and" property="yn" >
-        yn = #yn#
-      </isNotNull>
     </dynamic>
   </sql>
   
@@ -44,8 +40,8 @@
   
   <!-- 添加信息 -->
   <insert id="insert" parameterClass="com.ec.seller.domain.PurchaseTemplate" >
-    insert into purchase_template (purchase_template_name, user_id, user_name, purchase_place, yn, created, modified)
-    values (#purchaseTemplateName#, #userId#, #userName#, #purchasePlace#, #yn#, #created#, #modified#)
+    insert into purchase_template (purchase_template_name, user_id, user_name, purchase_place, created, modified)
+    values (#purchaseTemplateName#, #userId#, #userName#, #purchasePlace#, #created#, #modified#)
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="id">
 			<![CDATA[SELECT @@IDENTITY AS id ]]>
@@ -68,13 +64,15 @@
       <isNotNull prepend="," property="purchasePlace" >
         purchase_place = #purchasePlace#
       </isNotNull>
-      <isNotNull prepend="," property="yn" >
-        yn = #yn#
-      </isNotNull>
     </dynamic>
     where id = #id#
   </update>
-  
+
+  <!-- 删除 -->
+  <delete id="delete" >
+    delete from purchase_template where id=#id#
+  </delete>
+
   <!-- 条件查询总数 -->
   <select id="countByCondition" parameterClass="com.ec.seller.domain.query.PurchaseTemplateQuery" resultClass="java.lang.Integer" >
     select count(1) from purchase_template
@@ -86,6 +84,7 @@
     select <include refid="PurchaseTemplate.searchColoum" />
     from purchase_template
     <include refid="PurchaseTemplate.condition" />
+    limit #start#, #pageSize#
   </select>
   
 </sqlMap>

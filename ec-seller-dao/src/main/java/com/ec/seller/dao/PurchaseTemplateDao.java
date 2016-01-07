@@ -31,7 +31,7 @@ public interface PurchaseTemplateDao {
 	 * @param id
 	 * @return
 	 */
-	public PurchaseTemplate selectById(int id);
+	public PurchaseTemplate selectById(Integer id);
 	
 	/**
 	 * 根据条件查询总数

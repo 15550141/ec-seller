@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Purchase" >
+  <resultMap id="PurchaseResult" class="com.ec.seller.domain.Purchase" >
+    <result column="id" property="id"  />
+    <result column="purchase_time" property="purchaseTime" jdbcType="TIMESTAMP" />
+    <result column="total_price" property="totalPrice"  />
+    <result column="purchase_uid" property="purchaseUid"  />
+    <result column="purchase_name" property="purchaseName"  />
+    <result column="purchase_price" property="purchasePrice"  />
+    <result column="purchase_price_detail" property="purchasePriceDetail"  />
+    <result column="purchase_place" property="purchasePlace"  />
+    <result column="status" property="status"  />
+    <result column="yn" property="yn"  />
+    <result column="remark" property="remark"  />
+    <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
+    <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <!-- 查询内容 -->
+  <sql id="searchColoum" >
+    id, purchase_time, total_price, purchase_uid, purchase_name, purchase_price, purchase_price_detail,
+    purchase_place, status, yn, remark, created, modified
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="condition" >
+  	<dynamic prepend="where" >
+  	  <isNotNull prepend="and" property="id" >
+        id = #id#
+      </isNotNull>
+      <isNotNull prepend="and" property="purchaseName" >
+        purchase_name = #purchaseName#
+      </isNotNull>
+      <isNotNull prepend="and" property="purchasePlace" >
+        purchase_place = #purchasePlace#
+      </isNotNull>
+      <isNotNull prepend="and" property="status" >
+        status = #status#
+      </isNotNull>
+      <isNotNull prepend="and" property="yn" >
+        yn = #yn#
+      </isNotNull>
+    </dynamic>
+  </sql>
+  
+  <!-- 依据主键进行查询 -->
+  <select id="selectById" resultMap="PurchaseResult" parameterClass="java.lang.Integer" >
+    select <include refid="Purchase.searchColoum" />
+    from purchase
+    where id = #id#
+  </select>
+  
+  <!-- 添加信息 -->
+  <insert id="insert" parameterClass="com.ec.seller.domain.Purchase" >
+    insert into purchase (purchase_time, total_price, purchase_uid, purchase_name, purchase_price, purchase_price_detail,
+    purchase_place, status, yn, remark, created, modified)
+    values (#purchaseTime#, #totalPrice#, #purchaseUid#, #purchaseName#, #purchasePrice#, #purchasePriceDetail#,
+    #purchasePlace#, #status#, #yn#, #remark#, #created#, #modified#)
+      <!-- 返回自增主键 -->
+      <selectKey resultClass="java.lang.Integer" keyProperty="id">
+			<![CDATA[SELECT @@IDENTITY AS id ]]>
+	  </selectKey>
+  </insert>
+  
+  <!-- 依据主键进行修改 -->
+  <update id="modify" parameterClass="com.ec.seller.domain.Purchase" >
+    update purchase set MODIFIED = now()
+    <dynamic>
+      <isNotNull prepend="," property="totalPrice" >
+        total_price = #totalPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="purchasePrice" >
+        purchase_price = #purchasePrice#
+      </isNotNull>
+      <isNotNull prepend="," property="purchasePriceDetail" >
+        purchase_price_detail = #purchasePriceDetail#
+      </isNotNull>
+      <isNotNull prepend="," property="purchasePlace" >
+        purchase_place = #purchasePlace#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        status = #status#
+      </isNotNull>
+      <isNotNull prepend="," property="yn" >
+        yn = #yn#
+      </isNotNull>
+    </dynamic>
+    where id = #id#
+  </update>
+
+  <!-- 删除 -->
+  <delete id="delete" >
+    delete from purchase where id=#id#
+  </delete>
+
+  <!-- 条件查询总数 -->
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.PurchaseQuery" resultClass="java.lang.Integer" >
+    select count(1) from purchase
+    <include refid="Purchase.condition" />
+  </select>
+  
+  <!-- 条件查询列表 -->
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.PurchaseQuery" resultMap="PurchaseResult" >
+    select <include refid="Purchase.searchColoum" />
+    from purchase
+    <include refid="Purchase.condition" />
+  </select>
+  
+</sqlMap>

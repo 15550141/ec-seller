@@ -11,21 +11,25 @@ public class PurchaseItem implements Serializable {
 
     private Integer id;
     /** 采购单id */
-    private Integer purchase_id;
-    private Integer item_id;
-    private String item_name;
+    private Integer purchaseId;
+    private Integer itemId;
+    private String itemName;
     /** 当前建议进货价格 */
-    private Integer reference_stock_price;
+    private Integer referenceStockPrice;
     /** 进货单价 */
     private Integer price;
     /** 进货数量 */
     private Integer num;
     /** 总价 */
-    private Integer total_price;
+    private Integer totalPrice;
     /** 备注 */
     private String remark;
     private Date created;
     private Date modified;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Integer getId() {
         return id;
@@ -35,36 +39,36 @@ public class PurchaseItem implements Serializable {
         this.id = id;
     }
 
-    public Integer getPurchase_id() {
-        return purchase_id;
+    public Integer getPurchaseId() {
+        return purchaseId;
     }
 
-    public void setPurchase_id(Integer purchase_id) {
-        this.purchase_id = purchase_id;
+    public void setPurchaseId(Integer purchaseId) {
+        this.purchaseId = purchaseId;
     }
 
-    public Integer getItem_id() {
-        return item_id;
+    public Integer getItemId() {
+        return itemId;
     }
 
-    public void setItem_id(Integer item_id) {
-        this.item_id = item_id;
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 
-    public String getItem_name() {
-        return item_name;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setItem_name(String item_name) {
-        this.item_name = item_name;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
-    public Integer getReference_stock_price() {
-        return reference_stock_price;
+    public Integer getReferenceStockPrice() {
+        return referenceStockPrice;
     }
 
-    public void setReference_stock_price(Integer reference_stock_price) {
-        this.reference_stock_price = reference_stock_price;
+    public void setReferenceStockPrice(Integer referenceStockPrice) {
+        this.referenceStockPrice = referenceStockPrice;
     }
 
     public Integer getPrice() {
@@ -83,12 +87,12 @@ public class PurchaseItem implements Serializable {
         this.num = num;
     }
 
-    public Integer getTotal_price() {
-        return total_price;
+    public Integer getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotal_price(Integer total_price) {
-        this.total_price = total_price;
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public String getRemark() {

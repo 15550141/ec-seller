@@ -21,8 +21,6 @@ public class PurchaseTemplateQuery extends BaseSearchForMysqlVo implements Seria
     private String userName;
     /** 采购地点 */
     private String purchasePlace;
-    /** 0无效，1有效 */
-    private Integer yn;
     private Date created;
     private Date modified;
 
@@ -64,14 +62,6 @@ public class PurchaseTemplateQuery extends BaseSearchForMysqlVo implements Seria
 
     public void setPurchasePlace(String purchasePlace) {
         this.purchasePlace = purchasePlace;
-    }
-
-    public Integer getYn() {
-        return yn;
-    }
-
-    public void setYn(Integer yn) {
-        this.yn = yn;
     }
 
     public Date getCreated() {
