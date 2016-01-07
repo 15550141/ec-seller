@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PurchaseTemplate" >
+  <resultMap id="PurchaseTemplateResult" class="com.ec.seller.domain.PurchaseTemplate" >
+    <result column="id" property="id"  />
+    <result column="purchase_template_name" property="purchaseTemplateName" />
+    <result column="user_id" property="userId"  />
+    <result column="user_name" property="userName"  />
+    <result column="purchase_place" property="purchasePlace"  />
+    <result column="yn" property="yn"  />
+    <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
+    <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <!-- 查询内容 -->
+  <sql id="searchColoum" >
+    id, purchase_template_name, user_id, user_name, purchase_place, yn, created, modified
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="condition" >
+  	<dynamic prepend="where" >
+  	  <isNotNull prepend="and" property="id" >
+        id = #id#
+      </isNotNull>
+      <isNotNull prepend="and" property="purchaseTemplateName" >
+        purchase_template_name = #purchaseTemplateName#
+      </isNotNull>
+      <isNotNull prepend="and" property="userName" >
+        user_name = #userName#
+      </isNotNull>
+      <isNotNull prepend="and" property="yn" >
+        yn = #yn#
+      </isNotNull>
+    </dynamic>
+  </sql>
+  
+  <!-- 依据主键进行查询 -->
+  <select id="selectById" resultMap="PurchaseTemplateResult" parameterClass="java.lang.Integer" >
+    select <include refid="PurchaseTemplate.searchColoum" />
+    from purchase_template
+    where id = #id#
+  </select>
+  
+  <!-- 添加信息 -->
+  <insert id="insert" parameterClass="com.ec.seller.domain.PurchaseTemplate" >
+    insert into purchase_template (purchase_template_name, user_id, user_name, purchase_place, yn, created, modified)
+    values (#purchaseTemplateName#, #userId#, #userName#, #purchasePlace#, #yn#, #created#, #modified#)
+      <!-- 返回自增主键 -->
+      <selectKey resultClass="java.lang.Integer" keyProperty="id">
+			<![CDATA[SELECT @@IDENTITY AS id ]]>
+	  </selectKey>
+  </insert>
+  
+  <!-- 依据主键进行修改 -->
+  <update id="modify" parameterClass="com.ec.seller.domain.PurchaseTemplate" >
+    update purchase_template set MODIFIED = now()
+    <dynamic>
+      <isNotNull prepend="," property="purchaseTemplateName" >
+        purchase_template_name = #purchaseTemplateName#
+      </isNotNull>
+      <isNotNull prepend="," property="userId" >
+        user_id = #userId#
+      </isNotNull>
+      <isNotNull prepend="," property="userName" >
+        user_name = #userName#
+      </isNotNull>
+      <isNotNull prepend="," property="purchasePlace" >
+        purchase_place = #purchasePlace#
+      </isNotNull>
+      <isNotNull prepend="," property="yn" >
+        yn = #yn#
+      </isNotNull>
+    </dynamic>
+    where id = #id#
+  </update>
+  
+  <!-- 条件查询总数 -->
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.PurchaseTemplateQuery" resultClass="java.lang.Integer" >
+    select count(1) from purchase_template
+    <include refid="PurchaseTemplate.condition" />
+  </select>
+  
+  <!-- 条件查询列表 -->
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.PurchaseTemplateQuery" resultMap="PurchaseTemplateResult" >
+    select <include refid="PurchaseTemplate.searchColoum" />
+    from purchase_template
+    <include refid="PurchaseTemplate.condition" />
+  </select>
+  
+</sqlMap>
