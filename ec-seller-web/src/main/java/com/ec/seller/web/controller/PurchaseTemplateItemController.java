@@ -6,6 +6,7 @@ import com.ec.seller.domain.PurchaseTemplate;
 import com.ec.seller.domain.PurchaseTemplateItem;
 import com.ec.seller.domain.query.PurchaseTemplateItemQuery;
 import com.ec.seller.domain.query.PurchaseTemplateQuery;
+import com.ec.seller.service.ItemService;
 import com.ec.seller.service.PurchaseTemplateItemService;
 import com.ec.seller.service.PurchaseTemplateService;
 import com.ec.seller.service.result.Result;
@@ -27,21 +28,46 @@ public class PurchaseTemplateItemController {
 	@Autowired
 	private PurchaseTemplateItemService purchaseTemplateItemService;
 
+	@Autowired
+	private ItemService itemService;
+
 	private final static Log log = LogFactory.getLog(PurchaseTemplateItemController.class);
 
 	@RequestMapping(value="/insert", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Result insert(PurchaseTemplateItem purchaseTemplateItem, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
-		purchaseTemplateItemService.insert(purchaseTemplateItem);
-		result.setSuccess(true);
+		try{
+			purchaseTemplateItemService.insert(purchaseTemplateItem);
+			result.setSuccess(true);
+		}catch (Exception e){
+			result.setSuccess(false);
+			result.setResultMessage(e.getMessage());
+			log.error("", e);
+		}
 		return result;
 	}
 
 	@RequestMapping(value="/delete", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Result delete(Integer id, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
-		this.purchaseTemplateItemService.delete(id);
-		result.setSuccess(true);
+		try{
+			this.purchaseTemplateItemService.delete(id);
+			result.setSuccess(true);
+		}catch (Exception e){
+			log.error("", e);
+		}
+		return result;
+	}
+
+	@RequestMapping(value="/vagueQuery", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Result s(String itemName, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+		Result result = new Result();
+		try{
+			result.setResult(itemService.vagueQueryItemName(itemName));
+			result.setSuccess(true);
+		}catch (Exception e){
+			log.error("", e);
+		}
 		return result;
 	}
 

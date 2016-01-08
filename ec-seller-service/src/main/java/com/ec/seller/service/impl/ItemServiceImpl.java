@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ec.seller.dao.ItemDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,8 @@ public class ItemServiceImpl implements ItemService{
 	private SkuManager skuManager;
 	@Autowired
 	private CategoryManager categoryManager;
+	@Autowired
+	private ItemDao itemDao;
 
 	@Override
 	public List<Item> selectByConditionForPage(ItemQuery itemQuery) {
@@ -120,7 +123,10 @@ public class ItemServiceImpl implements ItemService{
 		return itemManager.selectByItemId(itemId);
 	}
 
-
+	@Override
+	public List<String> vagueQueryItemName(String itemName) {
+		return itemDao.vagueQueryItemName(itemName);
+	}
 
 
 }

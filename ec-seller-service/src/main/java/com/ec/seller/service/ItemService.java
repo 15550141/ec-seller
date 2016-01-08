@@ -17,4 +17,6 @@ public interface ItemService {
 	
 	public Item selectByItemId(int itemId);
 
+	/** 根据itemName模糊查询 */
+	public List<String> vagueQueryItemName(String itemName);
 }

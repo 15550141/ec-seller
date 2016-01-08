@@ -68,6 +68,16 @@ public class ItemDaoImpl extends SqlMapClientTemplate implements ItemDao {
 	}
 
 	@Override
+	public List<String> vagueQueryItemName(String itemName) {
+		return (List<String>)queryForList("Item.vagueQueryItemName", itemName);
+	}
+
+	@Override
+	public List<Item> selectByItemName(String itemName) {
+		return (List<Item>)queryForList("Item.selectByItemName", itemName);
+	}
+
+	@Override
 	public void onSheft(ItemQuery item) {
 		update("Item.onSheft",item);
 		

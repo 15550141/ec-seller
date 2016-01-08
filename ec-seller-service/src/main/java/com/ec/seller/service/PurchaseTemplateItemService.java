@@ -9,7 +9,7 @@ public interface PurchaseTemplateItemService {
 
     public List<PurchaseTemplateItem> findList(PurchaseTemplateItemQuery query);
 
-    public void insert(PurchaseTemplateItem purchaseTemplate);
+    public void insert(PurchaseTemplateItem purchaseTemplateItem);
 
     public void delete(Integer id);
 

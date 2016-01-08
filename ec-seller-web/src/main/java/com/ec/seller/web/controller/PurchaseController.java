@@ -2,8 +2,8 @@ package com.ec.seller.web.controller;
 
 import com.ec.seller.common.utils.CookieUtil;
 import com.ec.seller.common.utils.PaginatedList;
+import com.ec.seller.domain.Purchase;
 import com.ec.seller.domain.PurchaseTemplate;
-import com.ec.seller.domain.PurchaseTemplateItem;
 import com.ec.seller.domain.query.PurchaseTemplateItemQuery;
 import com.ec.seller.domain.query.PurchaseTemplateQuery;
 import com.ec.seller.service.PurchaseTemplateItemService;
@@ -23,14 +23,14 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/purchaseTemplate")
-public class PurchaseTemplateController {
+public class PurchaseController {
 	@Autowired
 	private PurchaseTemplateService purchaseTemplateService;
 
 	@Autowired
 	private PurchaseTemplateItemService purchaseTemplateItemService;
 
-	private final static Log log = LogFactory.getLog(PurchaseTemplateController.class);
+	private final static Log log = LogFactory.getLog(PurchaseController.class);
 
 	@RequestMapping(value="", method={ RequestMethod.GET, RequestMethod.POST })
 	public String index(PurchaseTemplateQuery query, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
@@ -38,6 +38,14 @@ public class PurchaseTemplateController {
 		content.put("list", list);
 		content.put("query", query);
 		return "purchaseTemplate/index";
+	}
+
+	@RequestMapping(value="/insertByTemplate", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Result insertByTemplate(Integer purchaseTemplateId, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+		Result result = new Result();
+		//TODO 这里少进货人名称
+		result.setSuccess(true);
+		return result;
 	}
 
 	@RequestMapping(value="/insert", method={ RequestMethod.GET, RequestMethod.POST })

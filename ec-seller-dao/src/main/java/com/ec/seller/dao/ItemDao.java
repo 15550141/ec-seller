@@ -80,5 +80,8 @@ public interface ItemDao{
 	
 	//商品下架
 	public void offSheft(ItemQuery item);
-	
+
+	public List<String> vagueQueryItemName(String itemName);
+
+	public List<Item> selectByItemName(String itemName);
 }

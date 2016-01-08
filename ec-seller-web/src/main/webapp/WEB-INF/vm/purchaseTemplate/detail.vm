@@ -18,9 +18,9 @@
             <ul class="nav nav-tabs">
                 <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">采购管理<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">查看采购单</a></li>
+                        <li><a href="/purchase/">查看采购单</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">查看采购单模板</a></li>
+                        <li><a href="/purchaseTemplate/">查看采购单模板</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">商品管理<b class="caret"></b></a>
@@ -32,7 +32,7 @@
                 </li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">结算管理<b class="caret bottom-up"></b></a>
                     <ul class="dropdown-menu bottom-up pull-right">
-                        <li><a href="#">每日录入结算单</a></li>
+                        <li><a href="#">日结算单</a></li>
                     </ul>
                 </li>
             </ul>
@@ -40,25 +40,12 @@
     </div>
     <div class="row">&nbsp;</div>
     <div class="row">
-        <button class="btn btn-default" type="button">
-            新增采购商品
-        </button>
-        <button class="btn btn-default" type="button">
-            提交采购单
-        </button>
-    </div>
-    <div class="row">&nbsp;</div>
-    <div class="row">
         <div class="input-group col-xs-7">
             <input id="itemName" type="text" class="form-control dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
             <ul id="itemNameList" class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">啊啊啊啊啊啊啊啊</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li><a href="#">Separated link</a></li>
             </ul>
             <div class="input-group-btn">
-                <button type="button" class="btn btn-default">
+                <button type="button" id="insert" class="btn btn-default">
                     新增商品
                 </button>
             </div>
@@ -69,68 +56,21 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th width="20%">商品</th>
-                <th width="20%">参考进价</th>
-                <th width="32%">进货数量</th>
-                <th width="18%">进货金额</th>
-                <th width="10%">操作</th>
+                <th>商品</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>阿克苏冰糖心苹果</td>
-                <td>5.5/斤</td>
-                <td>
-                    <input type="number" style="width: 50px;" value="" />
-                    <select>
-                        <option value="斤">斤</option>
-                        <option value="个">个</option>
-                        <option value="箱">箱</option>
-                    </select>
-                </td>
-                <td><input type="number" style="width: 50px;" value="" /></td>
-                <td>
-                    <button class="btn btn-default btn-sm" type="button">
-                        删除
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>阿克苏冰糖心苹果</td>
-                <td>5.5/斤</td>
-                <td>
-                    <input type="number" style="width: 50px;" value="" />
-                    <select>
-                        <option value="斤">斤</option>
-                        <option value="个">个</option>
-                        <option value="箱">箱</option>
-                    </select>
-                </td>
-                <td><input type="number" style="width: 50px;" value="" /></td>
-                <td>
-                    <button class="btn btn-default btn-sm" type="button">
-                        删除
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>阿克苏冰糖心苹果啊啊啊啊啊啊啊啊啊</td>
-                <td>5.5/斤</td>
-                <td>
-                    <input type="number" style="width: 50px;" value="" />
-                    <select>
-                        <option value="斤">斤</option>
-                        <option value="个">个</option>
-                        <option value="箱">箱</option>
-                    </select>
-                </td>
-                <td><input type="number" style="width: 50px;" value="" /></td>
-                <td>
-                    <button class="btn btn-default btn-sm" type="button">
-                        删除
-                    </button>
-                </td>
-            </tr>
+            #foreach($detail in $!purchaseTemplateItem)
+                <tr>
+                <td>$!detail.itemName</td>
+                    <td>
+                        <button onclick="del($!detail.id);" class="btn btn-default btn-sm" type="button">
+                            删除
+                        </button>
+                    </td>
+                </tr>
+            #end
             </tbody>
         </table>
     </div>
@@ -139,8 +79,82 @@
 
 <script type="application/javascript">
     $("#itemName").keyup(function(){
-        var list = '<li><a href="#">'+$("#itemName").val()+'</a></li><li><a href="#">吧吧吧吧在在在在在</a></li><li><a href="#">去去去去去去去去去</a></li>';
-        $("#itemNameList").html(list);
+        var itemName = $("#itemName").val();
+        if(!itemName){
+            $("#itemNameList").html("");
+            return;
+        }
+        jQuery.ajax( {
+            url : "/purchaseTemplateItem/vagueQuery",
+            type : "post",
+            dataType : "json",
+            data : "purchaseTemplateId=$!{purchaseTemplateItem.id}&itemName="+$("#itemName").val(),
+            success : function(data) {
+                if (data.success == true) {
+                    var list = "";
+                    data.result.forEach(function(e){
+                        list += '<li><a href="#" onclick="clickIt(\''+e+'\');">'+e+'</a></li>';
+                    })
+
+                    $("#itemNameList").html(list);
+                }else{
+                    alert("系统异常！请重试");
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+
     });
+
+
+    function clickIt(itemName){
+        $("#itemName").val(itemName);
+    }
+
+    $("#insert").click(function(){
+        if(!$("#itemName").val()){
+            alert("请输入商品名称");
+            return;
+        }
+        jQuery.ajax( {
+            url : "/purchaseTemplateItem/insert",
+            type : "post",
+            dataType : "json",
+            data : "itemName="+$("#itemName").val(),
+            success : function(data) {
+                if (data.success == true) {
+                    window.location.reload();
+                }else{
+                    alert(data.resultMessage);
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    });
+
+    function del(id){
+        if(confirm("确认要删除吗？")){
+            jQuery.ajax( {
+                url : "/purchaseTemplateItem/delete",
+                type : "post",
+                dataType : "json",
+                data : "id="+id,
+                success : function(data) {
+                    if (data.success == true) {
+                        window.location.reload();
+                    }else{
+                        alert(data.resultMessage);
+                    }
+                },
+                error : function() {
+                    alert("系统超时！请重试");
+                }
+            });
+        }
+    }
 </script>
 </html>

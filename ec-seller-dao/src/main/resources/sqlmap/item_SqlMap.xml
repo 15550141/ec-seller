@@ -550,5 +550,14 @@
     order by ITEM_ID desc
   	limit #start#,#pageSize#
   </select>
-  
+
+    <select id="vagueQueryItemName" parameterClass="java.lang.String" resultClass="java.lang.String" >
+        select item_name from item where item_name like '%$value$%';
+    </select>
+
+    <select id="selectByItemName" parameterClass="java.lang.String" resultMap="ItemResult" >
+        select <include refid="Item.searchColoum" /> from item where item_name = #value#;
+    </select>
+
+
 </sqlMap>
