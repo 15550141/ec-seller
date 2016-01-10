@@ -1,5 +1,6 @@
 package com.ec.seller.web.controller;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -110,7 +111,7 @@ public class ProductController {
 			
 			//商品无销售属性
 			if(category4.getIfHaveSaleProperty()==0){
-				context.put("tbPriceNoPro", skuList.get(0).getSalePrice());
+				context.put("tbPriceNoPro", new BigDecimal(skuList.get(0).getSalePrice()).divide(new BigDecimal(100)));
 				context.put("stockNoPro", skuList.get(0).getStock());
 				context.put("minSaleNumNoPro", skuList.get(0).getLeastBuy());
 				context.put("barCodeNoPro", skuList.get(0).getBarCode());
@@ -123,7 +124,7 @@ public class ProductController {
 				
 			}else if(category4.getIfHaveSaleProperty() == 1){//有销售属性
 				List<Integer> proValIdList = new ArrayList();
-				List<Integer> tbPriceList = new ArrayList();
+				List<BigDecimal> tbPriceList = new ArrayList();
 				List<Integer> stockList = new ArrayList();
 				List<Integer> leastBuyList = new ArrayList();
 				List<String> barCodeList = new ArrayList();
@@ -133,7 +134,7 @@ public class ProductController {
 					String proValIDString = propert.substring(
 							propert.indexOf(":")+1, propert.indexOf("^"));
 					proValIdList.add(Integer.parseInt(proValIDString));
-					tbPriceList.add(sku.getSalePrice());
+					tbPriceList.add(new BigDecimal(sku.getSalePrice()).divide(new BigDecimal(100)));
 					stockList.add(sku.getStock());
 					leastBuyList.add(sku.getLeastBuy());
 					barCodeList.add(sku.getBarCode());
@@ -436,8 +437,15 @@ public class ProductController {
 			item.setYn(1);//待售商品为无效
 			item.setItemImage(itemImage);
 			item.setVenderUserId(CookieUtil.getUserId(reuqest));//设置商家ID
+
+			if(item.getReferenceSellBigDecimalPrice() != null){
+				item.setReferenceSellPrice(item.getReferenceSellBigDecimalPrice().multiply(new BigDecimal(100)).intValue());
+			}
+			if(item.getReferenceStockBigDecimalPrice() != null){
+				item.setReferenceStockPrice(item.getReferenceStockBigDecimalPrice().multiply(new BigDecimal(100)).intValue());
+			}
+
 			itemService.modify(item);//修改商品
-			//itemId = itemService.insert(item);
 			LOG.error("修改商品ID成功："+item.getItemId());
 		} catch (Exception e) {
 			LOG.error("product.modifyProduct 修改商品:", e);
@@ -493,7 +501,8 @@ public class ProductController {
 			String minSaleNumNoPro= reuqest.getParameter("minSaleNumNoPro");
 			String barCodeNpPro= reuqest.getParameter("barCodeNpPro");
 			sku.setItemId(item.getItemId());
-			sku.setSalePrice(Integer.parseInt(tbPriceNoPro));
+			sku.setSalePrice(new BigDecimal(tbPriceNoPro).multiply(new BigDecimal(100)).intValue());
+			sku.setOriginalPrice(sku.getSalePrice());
 			sku.setStock(Integer.parseInt(stockNoPro));
 			sku.setLeastBuy(Integer.parseInt(minSaleNumNoPro));
 			sku.setBarCode(barCodeNpPro);
@@ -532,7 +541,8 @@ public class ProductController {
 				//不添加
 			}else{//ifChoose为1时表示已选
 				sku.setItemId(item.getItemId());
-				sku.setSalePrice(Integer.parseInt(tbPriceArray[i]));
+				sku.setSalePrice(new BigDecimal(tbPriceArray[i]).multiply(new BigDecimal(100)).intValue());
+				sku.setOriginalPrice(sku.getSalePrice());
 				sku.setStock(Integer.parseInt(stockArray[i]));
 				sku.setLeastBuy(Integer.parseInt(leastBuyArray[i]));
 				sku.setBarCode(barCodeArray[i]);
@@ -679,6 +689,13 @@ public class ProductController {
 				Date autoOffShelfTime = sdf.parse(autoOffShelfTimeString);
 				item.setAutoOffShelfTime(autoOffShelfTime);
 			}
+			if(item.getReferenceSellBigDecimalPrice() != null){
+				item.setReferenceSellPrice(item.getReferenceSellBigDecimalPrice().multiply(new BigDecimal(100)).intValue());
+			}
+			if(item.getReferenceStockBigDecimalPrice() != null){
+				item.setReferenceStockPrice(item.getReferenceStockBigDecimalPrice().multiply(new BigDecimal(100)).intValue());
+			}
+
 			String itemImage=reuqest.getParameter("imageMainUrl");//主图URL
 			item.setItemType(2);// 第三方商品为2
 			// TODO通过取cooke获取商家ID
@@ -687,6 +704,7 @@ public class ProductController {
 			item.setYn(0);//待售商品为无效
 			item.setItemImage(itemImage);
 			item.setVenderUserId(CookieUtil.getUserId(reuqest));//设置商家ID
+
 			itemId = itemService.insert(item);
 			LOG.error("生成商品ID成功："+itemId);
 		} catch (Exception e) {
@@ -739,8 +757,8 @@ public class ProductController {
 			String minSaleNumNoPro= reuqest.getParameter("minSaleNumNoPro");
 			String barCodeNpPro= reuqest.getParameter("barCodeNpPro");
 			sku.setItemId(itemId);
-			sku.setSalePrice(Integer.parseInt(tbPriceNoPro));
-			sku.setOriginalPrice(Integer.parseInt(tbPriceNoPro));
+			sku.setSalePrice(new BigDecimal(tbPriceNoPro).multiply(new BigDecimal(100)).intValue());
+			sku.setOriginalPrice(sku.getSalePrice());
 			sku.setStock(Integer.parseInt(stockNoPro));
 			sku.setLeastBuy(Integer.parseInt(minSaleNumNoPro));
 			sku.setBarCode(barCodeNpPro);
@@ -778,7 +796,8 @@ public class ProductController {
 				//不添加
 			}else{
 				sku.setItemId(itemId);
-				sku.setSalePrice(Integer.parseInt(tbPriceArray[i]));
+				sku.setSalePrice(new BigDecimal(tbPriceArray[i]).multiply(new BigDecimal(100)).intValue());
+				sku.setOriginalPrice(sku.getSalePrice());
 				sku.setStock(Integer.parseInt(stockArray[i]));
 				sku.setLeastBuy(Integer.parseInt(leastBuyArray[i]));
 				sku.setBarCode(barCodeArray[i]);

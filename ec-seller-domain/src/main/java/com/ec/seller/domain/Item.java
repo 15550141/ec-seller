@@ -2,6 +2,7 @@ package com.ec.seller.domain;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Item implements Serializable{
@@ -136,6 +137,12 @@ public class Item implements Serializable{
 
     /** 参考销售价格 */
     private Integer referenceSellPrice;
+
+    /** 参考进货价格 */
+    private BigDecimal referenceStockBigDecimalPrice;
+
+    /** 参考销售价格 */
+    private BigDecimal referenceSellBigDecimalPrice;
 
     /** 参考进货单位 */
     private Integer referenceUnit;
@@ -482,5 +489,21 @@ public class Item implements Serializable{
 
     public void setReferenceUnit(Integer referenceUnit) {
         this.referenceUnit = referenceUnit;
+    }
+
+    public BigDecimal getReferenceStockBigDecimalPrice() {
+        return referenceStockBigDecimalPrice;
+    }
+
+    public void setReferenceStockBigDecimalPrice(BigDecimal referenceStockBigDecimalPrice) {
+        this.referenceStockBigDecimalPrice = referenceStockBigDecimalPrice;
+    }
+
+    public BigDecimal getReferenceSellBigDecimalPrice() {
+        return referenceSellBigDecimalPrice;
+    }
+
+    public void setReferenceSellBigDecimalPrice(BigDecimal referenceSellBigDecimalPrice) {
+        this.referenceSellBigDecimalPrice = referenceSellBigDecimalPrice;
     }
 }

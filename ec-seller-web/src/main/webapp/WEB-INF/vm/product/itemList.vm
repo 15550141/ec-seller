@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="就是看看bootstrap" name="description">
     <meta content="缤纷果园 鲜果味道" name="keywords">
-    <title>采购单管理</title>
+    <title>查看所有商品</title>
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -16,14 +16,14 @@
     <div class="row">
         <div class="span6">
             <ul class="nav nav-tabs">
-                <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">采购管理<b class="caret"></b></a>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">采购管理<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/purchase/index">查看采购单</a></li>
                         <li class="divider"></li>
                         <li><a href="/purchaseTemplate/index">查看采购单模板</a></li>
                     </ul>
                 </li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">商品管理<b class="caret"></b></a>
+                <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">商品管理<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/product/itemList">查看所有商品</a></li>
                     </ul>
@@ -67,8 +67,8 @@
                 #foreach($detail in $!resultMap.itemList)
                     <tr>
                         <td>$!detail.itemName</td>
-                        <td>$!detail.referenceStockPrice/#if($!detail.referenceUnit==1)斤#elseif($!detail.referenceUnit==2)个#elseif($!detail.referenceUnit==3)箱#end</td>
-                        <td>$!detail.referenceSellPrice/#if($!detail.unit==1)斤#elseif($!detail.unit==2)个#elseif($!detail.unit==3)箱#end</td>
+                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.referenceStockPrice)/#if($!detail.referenceUnit==1)斤#elseif($!detail.referenceUnit==2)个#elseif($!detail.referenceUnit==3)箱#end</td>
+                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.referenceSellPrice)/#if($!detail.unit==1)斤#elseif($!detail.unit==2)个#elseif($!detail.unit==3)箱#end</td>
                     </tr>
                 #end
             </tbody>

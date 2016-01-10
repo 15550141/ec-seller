@@ -70,7 +70,7 @@ public class ItemServiceImpl implements ItemService{
 					}
 					stock = stock + sku.getStock();
 				}
-				list.get(i).setTbPrice(BigDecimal.valueOf(minTbPrice));
+				list.get(i).setTbPrice(BigDecimal.valueOf(minTbPrice).divide(new BigDecimal(100)));
 				list.get(i).setStock(stock);
 			}
 			

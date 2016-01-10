@@ -1,6 +1,7 @@
 package com.ec.seller.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -41,6 +42,17 @@ public class Sku implements Serializable{
      * 原价
      */
     private Integer originalPrice;
+
+    /** 成本价 */
+    private BigDecimal costBigDecimalPrice;
+
+    /** 销售价 */
+    private BigDecimal saleBigDecimalPrice;
+
+    /**
+     * 原价
+     */
+    private BigDecimal originalBigDecimalPrice;
     
 
     /** 库存数量 */
@@ -158,5 +170,28 @@ public class Sku implements Serializable{
 	public void setOriginalPrice(Integer originalPrice) {
 		this.originalPrice = originalPrice;
 	}
-    
+
+    public BigDecimal getCostBigDecimalPrice() {
+        return costBigDecimalPrice;
+    }
+
+    public void setCostBigDecimalPrice(BigDecimal costBigDecimalPrice) {
+        this.costBigDecimalPrice = costBigDecimalPrice;
+    }
+
+    public BigDecimal getSaleBigDecimalPrice() {
+        return saleBigDecimalPrice;
+    }
+
+    public void setSaleBigDecimalPrice(BigDecimal saleBigDecimalPrice) {
+        this.saleBigDecimalPrice = saleBigDecimalPrice;
+    }
+
+    public BigDecimal getOriginalBigDecimalPrice() {
+        return originalBigDecimalPrice;
+    }
+
+    public void setOriginalBigDecimalPrice(BigDecimal originalBigDecimalPrice) {
+        this.originalBigDecimalPrice = originalBigDecimalPrice;
+    }
 }

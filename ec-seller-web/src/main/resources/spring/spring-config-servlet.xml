@@ -100,6 +100,9 @@
                 <entry key="dateUtils">
                     <bean class="org.apache.commons.lang.time.DateUtils"/>
                 </entry>
+				<entry key="bigDecimalUtils">
+					<bean class="com.ec.seller.common.utils.BigDecimalUtils"/>
+				</entry>
             </map>
 		</constructor-arg>
 	</bean>

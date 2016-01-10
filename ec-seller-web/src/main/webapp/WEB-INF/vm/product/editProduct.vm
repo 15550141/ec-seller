@@ -325,7 +325,7 @@
 		</td>
         <td align="right" style="width: 100px">参考销售价格：</td>
         <td style="width: 200px">
-            <input type="text" name="referenceSellPrice" id="referenceSellPrice" value="$!{item.referenceSellPrice}" style="width: 100px" />&nbsp;
+            <input type="text" name="referenceSellBigDecimalPrice" id="referenceSellBigDecimalPrice" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!{item.referenceSellPrice})" style="width: 100px" />&nbsp;
         </td>
         <td></td>
 	</tr>
@@ -341,7 +341,7 @@
         </td>
         <td align="right" style="width: 100px">参考进货价格：</td>
         <td style="width: 150px">
-            <input type="text" name="referenceStockPrice" id="referenceStockPrice" value="$!{item.referenceStockPrice}" style="width: 100px" />&nbsp;
+            <input type="text" name="referenceStockBigDecimalPrice" id="referenceStockBigDecimalPrice" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!{item.referenceStockPrice})" style="width: 100px" />&nbsp;
         </td>
 
     </tr>
