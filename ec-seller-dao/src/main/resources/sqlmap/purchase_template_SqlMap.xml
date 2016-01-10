@@ -41,7 +41,7 @@
   <!-- 添加信息 -->
   <insert id="insert" parameterClass="com.ec.seller.domain.PurchaseTemplate" >
     insert into purchase_template (purchase_template_name, user_id, user_name, purchase_place, created, modified)
-    values (#purchaseTemplateName#, #userId#, #userName#, #purchasePlace#, #created#, #modified#)
+    values (#purchaseTemplateName#, #userId#, #userName#, #purchasePlace#, now(), now())
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="id">
 			<![CDATA[SELECT @@IDENTITY AS id ]]>
@@ -84,6 +84,7 @@
     select <include refid="PurchaseTemplate.searchColoum" />
     from purchase_template
     <include refid="PurchaseTemplate.condition" />
+    order by id desc
     limit #start#, #pageSize#
   </select>
   

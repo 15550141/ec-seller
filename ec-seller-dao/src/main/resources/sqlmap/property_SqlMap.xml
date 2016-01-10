@@ -57,7 +57,7 @@
       if_can_custom, sort_number, yn, created, modified)
     values ( #categoryId:INTEGER#, #propertyName:VARCHAR#,
       #propertyType:INTEGER#, #ifMultiSelect:INTEGER#, #ifCanCustom:INTEGER#, #sortNumber:INTEGER#,
-      #yn:INTEGER#, #created:TIMESTAMP#, #modified:TIMESTAMP#)
+      #yn:INTEGER#, now(), now())
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="propertyId">
 			<![CDATA[SELECT @@IDENTITY AS property_id ]]>

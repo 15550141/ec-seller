@@ -60,7 +60,7 @@ public class PurchaseTemplateItemController {
 	}
 
 	@RequestMapping(value="/vagueQuery", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result s(String itemName, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result vagueQuery(String itemName, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
 			result.setResult(itemService.vagueQueryItemName(itemName));

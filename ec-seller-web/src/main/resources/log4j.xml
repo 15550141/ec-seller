@@ -25,13 +25,13 @@
 			<param name="ConversionPattern" value="%d [%7r] %6p - %30.30c - %m \n" />
 		</layout>
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
-			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMin" value="ERROR" />
 			<!--<param name="LevelMax" value="FATAL "/> -->
 		</filter>
 	</appender>
 
 	<category name="RefuseMessageMqLog" additivity="false">
-		<priority value="DEBUG" />
+		<priority value="ERROR" />
 		<appender-ref ref="RefuseMessageMq" />
 	</category>
 	
@@ -43,13 +43,13 @@
 			<param name="ConversionPattern" value="%d [%7r] %6p - %30.30c - %m \n" />
 		</layout>
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
-			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMin" value="ERROR" />
 			<!--<param name="LevelMax" value="FATAL "/> -->
 		</filter>
 	</appender>
 
 	<category name="DlokMessageMQLog" additivity="false">
-		<priority value="DEBUG" />
+		<priority value="ERROR" />
 		<appender-ref ref="DlokMessageMQ" />
 	</category>
 	
@@ -61,13 +61,13 @@
 			<param name="ConversionPattern" value="%d [%7r] %6p - %30.30c - %m \n" />
 		</layout>
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
-			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMin" value="ERROR" />
 			<!--<param name="LevelMax" value="FATAL "/> -->
 		</filter>
 	</appender>
 
 	<category name="OrderMessageMQLog" additivity="false">
-		<priority value="DEBUG" />
+		<priority value="ERROR" />
 		<appender-ref ref="OrderMessageMQ" />
 	</category>
 	
@@ -79,13 +79,13 @@
 			<param name="ConversionPattern" value="%d [%7r] %6p - %30.30c - %m \n" />
 		</layout>
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
-			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMin" value="ERROR" />
 			<!--<param name="LevelMax" value="FATAL "/> -->
 		</filter>
 	</appender>
 
 	<category name="submitOrderLog" additivity="false">
-		<priority value="DEBUG" />
+		<priority value="ERROR" />
 		<appender-ref ref="submitOrder" />
 	</category>
 	
@@ -97,23 +97,23 @@
 			<param name="ConversionPattern" value="%d [%7r] %6p - %30.30c - %m \n" />
 		</layout>
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
-			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMin" value="ERROR" />
 			<!--<param name="LevelMax" value="FATAL "/> -->
 		</filter>
 	</appender>
 
 	<category name="submitGiftcardOrderLog" additivity="false">
-		<priority value="DEBUG" />
+		<priority value="ERROR" />
 		<appender-ref ref="submitGiftcardOrder" />
 	</category>
 	
 	<category name="java.sql" additivity="true">
-		<priority value="DEBUG"/>
+		<priority value="ERROR"/>
 		<appender-ref ref="CONSOLE"/>
 	</category>
 		
 	<root>
-		<priority value="DEBUG" />
+		<priority value="ERROR" />
 		<appender-ref ref="File" />
 		<appender-ref ref="CONSOLE" />
 	</root>

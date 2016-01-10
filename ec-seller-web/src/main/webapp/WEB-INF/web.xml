@@ -43,13 +43,13 @@
 	
 	
 	<listener>    
-        <listener-class>    
-            org.springframework.web.context.request.RequestContextListener    
-        </listener-class>    
-	</listener> 
+        <listener-class>
+            org.springframework.web.context.request.RequestContextListener
+        </listener-class>
+	</listener>
 
 	<welcome-file-list>
-		<welcome-file>/login</welcome-file>
+		<welcome-file>/index.html</welcome-file>
 	</welcome-file-list>
 
 	<servlet-mapping>

@@ -43,6 +43,8 @@ public class UserInfo implements Serializable{
     /** 修改时间 */
     private Date modified;
 
+    private String nickname;
+
     public Integer getUserId() {
         return userId;
     }
@@ -129,5 +131,13 @@ public class UserInfo implements Serializable{
 
     public void setModified(Date modified) {
         this.modified = modified;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

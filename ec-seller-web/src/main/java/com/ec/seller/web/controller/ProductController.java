@@ -811,8 +811,14 @@ public class ProductController {
 		
 		return resultMap;
 	}
-	
-	
+
+
+	@RequestMapping(value="/itemList", method={ RequestMethod.GET, RequestMethod.POST })
+	public String itemList(ItemQuery itemQuery, HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+		Map<String, Object> resultMap = itemService.queryItemList(itemQuery);
+		context.put("resultMap", resultMap);
+		return "product/itemList";
+	}
 	
 }
 

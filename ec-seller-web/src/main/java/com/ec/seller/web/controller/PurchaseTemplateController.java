@@ -32,7 +32,7 @@ public class PurchaseTemplateController {
 
 	private final static Log log = LogFactory.getLog(PurchaseTemplateController.class);
 
-	@RequestMapping(value="", method={ RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="/index", method={ RequestMethod.GET, RequestMethod.POST })
 	public String index(PurchaseTemplateQuery query, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		PaginatedList<PurchaseTemplate> list = purchaseTemplateService.findPage(query);
 		content.put("list", list);
@@ -45,7 +45,7 @@ public class PurchaseTemplateController {
 		Result result = new Result();
 		purchaseTemplate.setUserId(CookieUtil.getUserId(request));
 		//TODO 这里少进货人名称
-		purchaseTemplate.setUserName("鲜果味道");
+		purchaseTemplate.setUserName(CookieUtil.getLoginName(request));
 		this.purchaseTemplateService.insert(purchaseTemplate);
 		result.setSuccess(true);
 		return result;

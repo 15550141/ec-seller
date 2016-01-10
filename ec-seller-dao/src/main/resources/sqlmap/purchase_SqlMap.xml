@@ -56,7 +56,7 @@
     insert into purchase (purchase_time, total_price, purchase_uid, purchase_name, purchase_price, purchase_price_detail,
     purchase_place, status, yn, remark, created, modified)
     values (#purchaseTime#, #totalPrice#, #purchaseUid#, #purchaseName#, #purchasePrice#, #purchasePriceDetail#,
-    #purchasePlace#, #status#, #yn#, #remark#, #created#, #modified#)
+    #purchasePlace#, #status#, #yn#, #remark#, now(), now())
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="id">
 			<![CDATA[SELECT @@IDENTITY AS id ]]>
@@ -85,6 +85,12 @@
       <isNotNull prepend="," property="yn" >
         yn = #yn#
       </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        remark = #remark#
+      </isNotNull>
+      <isNotNull prepend="," property="purchaseTime" >
+        purchase_time = #purchaseTime#
+      </isNotNull>
     </dynamic>
     where id = #id#
   </update>
@@ -105,6 +111,7 @@
     select <include refid="Purchase.searchColoum" />
     from purchase
     <include refid="Purchase.condition" />
+    order by id desc
   </select>
   
 </sqlMap>

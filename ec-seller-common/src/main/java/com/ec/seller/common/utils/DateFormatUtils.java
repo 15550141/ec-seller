@@ -18,6 +18,10 @@ public class DateFormatUtils extends org.apache.commons.lang.time.DateFormatUtil
         }
         return s;
     }
+
+    public static String format(Date date, String format) {
+        return org.apache.commons.lang.time.DateFormatUtils.format(date, format);
+    }
     
     
     public static final Date parseDate(String strDate, String format) {

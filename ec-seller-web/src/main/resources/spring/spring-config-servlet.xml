@@ -29,6 +29,10 @@
 	 
 	<mvc:interceptors>
 		<mvc:interceptor>
+			<mvc:mapping path="/purchase/*" />
+			<mvc:mapping path="/purchaseItem/*" />
+			<mvc:mapping path="/purchaseTemplate/*" />
+			<mvc:mapping path="/purchaseTemplateItem/*" />
 			<mvc:mapping path="/product/*" />
 			<mvc:mapping path="/promotion/*" />
 			<mvc:mapping path="/item/*" />

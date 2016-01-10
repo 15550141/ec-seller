@@ -1,14 +1,15 @@
 package com.ec.seller.web.controller;
 
 import com.ec.seller.common.utils.CookieUtil;
+import com.ec.seller.common.utils.DateFormatUtils;
 import com.ec.seller.common.utils.PaginatedList;
 import com.ec.seller.domain.Purchase;
-import com.ec.seller.domain.PurchaseTemplate;
-import com.ec.seller.domain.query.PurchaseTemplateItemQuery;
-import com.ec.seller.domain.query.PurchaseTemplateQuery;
-import com.ec.seller.service.PurchaseTemplateItemService;
-import com.ec.seller.service.PurchaseTemplateService;
+import com.ec.seller.domain.query.PurchaseItemQuery;
+import com.ec.seller.domain.query.PurchaseQuery;
+import com.ec.seller.service.PurchaseItemService;
+import com.ec.seller.service.PurchaseService;
 import com.ec.seller.service.result.Result;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,52 +23,79 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-@RequestMapping("/purchaseTemplate")
+@RequestMapping("/purchase")
 public class PurchaseController {
 	@Autowired
-	private PurchaseTemplateService purchaseTemplateService;
+	private PurchaseService purchaseService;
 
 	@Autowired
-	private PurchaseTemplateItemService purchaseTemplateItemService;
+	private PurchaseItemService purchaseItemService;
 
 	private final static Log log = LogFactory.getLog(PurchaseController.class);
 
-	@RequestMapping(value="", method={ RequestMethod.GET, RequestMethod.POST })
-	public String index(PurchaseTemplateQuery query, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
-		PaginatedList<PurchaseTemplate> list = purchaseTemplateService.findPage(query);
+	@RequestMapping(value="/index", method={ RequestMethod.GET, RequestMethod.POST })
+	public String index(PurchaseQuery query, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+		PaginatedList<Purchase> list = purchaseService.findPage(query);
 		content.put("list", list);
 		content.put("query", query);
-		return "purchaseTemplate/index";
+		return "purchase/index";
 	}
 
 	@RequestMapping(value="/insertByTemplate", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Result insertByTemplate(Integer purchaseTemplateId, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
-		//TODO 这里少进货人名称
-		result.setSuccess(true);
+		try{
+			Integer id = purchaseService.insertByTemplate(purchaseTemplateId, CookieUtil.getUserId(request), CookieUtil.getLoginName(request));
+			result.setSuccess(true);
+			result.setResult(id);
+		}catch (Exception e) {
+			log.error("", e);
+			result.setSuccess(false);
+			result.setResultMessage(e.getMessage());
+		}
 		return result;
 	}
 
 	@RequestMapping(value="/insert", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result insert(PurchaseTemplate purchaseTemplate, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result insert(Purchase purchase, String date, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+		purchase.setPurchaseTime(DateFormatUtils.parseDate(date, "yyyy-MM-dd"));
 		Result result = new Result();
-		purchaseTemplate.setUserId(CookieUtil.getUserId(request));
-		//TODO 这里少进货人名称
-		purchaseTemplate.setUserName("鲜果味道");
-		this.purchaseTemplateService.insert(purchaseTemplate);
+		purchase.setPurchaseName(CookieUtil.getLoginName(request));
+		purchase.setPurchaseUid(CookieUtil.getUserId(request));
+		purchase.setStatus(0);
+		purchase.setYn(1);
+		this.purchaseService.insert(purchase);
 		result.setSuccess(true);
 		return result;
 	}
 
 	@RequestMapping(value="/add", method={ RequestMethod.GET, RequestMethod.POST })
-	public String add(Integer purchaseTemplateId, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
-		return "purchaseTemplate/add";
+	public String add(Integer purchaseId, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+		return "purchase/add";
+	}
+
+	@RequestMapping(value="/update", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Result update(Purchase purchase, String purchaseDate, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+		Result result = new Result();
+		if(StringUtils.isNotBlank(purchaseDate)){
+			purchase.setPurchaseTime(DateFormatUtils.parseDate(purchaseDate, "yyyy-MM-dd"));
+		}
+		purchase.setStatus(1);//采购完成
+		try{
+			this.purchaseService.modify(purchase);
+			result.setSuccess(true);
+		}catch (Exception e){
+			result.setSuccess(false);
+			result.setResultMessage(e.getMessage());
+			log.error("", e);
+		}
+		return result;
 	}
 
 	@RequestMapping(value="/delete", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Result delete(Integer id, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
-		this.purchaseTemplateService.delete(id);
+		this.purchaseService.delete(id);
 		result.setSuccess(true);
 		return result;
 	}
@@ -76,18 +104,18 @@ public class PurchaseController {
 	public String detail(Integer id, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		try{
 			if(id == null || id == 0){
-				return "purchaseTemplate/detail";
+				return "purchase/detail";
 			}
-			PurchaseTemplate purchaseTemplate = this.purchaseTemplateService.selectById(id);
-			PurchaseTemplateItemQuery query = new PurchaseTemplateItemQuery();
-			query.setPurchaseTemplateId(id);
-			content.put("purchaseTemplateItem", purchaseTemplateItemService.findList(query));
-			content.put("purchaseTemplate", purchaseTemplate);
+			Purchase purchase = this.purchaseService.selectById(id);
+			PurchaseItemQuery query = new PurchaseItemQuery();
+			query.setPurchaseId(id);
+			content.put("purchaseItemList", purchaseItemService.findList(query));
+			content.put("purchase", purchase);
 		}catch (Exception e){
 			log.error("", e);
 		}
 
-		return "purchaseTemplate/detail";
+		return "purchase/detail";
 	}
 
 }

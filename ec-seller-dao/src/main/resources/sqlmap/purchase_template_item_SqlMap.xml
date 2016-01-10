@@ -43,7 +43,7 @@
   <!-- 添加信息 -->
   <insert id="insert" parameterClass="com.ec.seller.domain.PurchaseTemplateItem" >
     insert into purchase_template_item (purchase_template_id, item_id, item_name, created, modified)
-    values (#purchaseTemplateId#, #itemId#, #itemName#, #created#, #modified#)
+    values (#purchaseTemplateId#, #itemId#, #itemName#, now(), now())
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="id">
 			<![CDATA[SELECT @@IDENTITY AS id ]]>
@@ -83,6 +83,7 @@
     select <include refid="PurchaseTemplateItem.searchColoum" />
     from purchase_template_item
     <include refid="PurchaseTemplateItem.condition" />
+    order by id desc
   </select>
   
 </sqlMap>

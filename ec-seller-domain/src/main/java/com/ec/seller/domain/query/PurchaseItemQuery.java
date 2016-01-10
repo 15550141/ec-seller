@@ -18,6 +18,8 @@ public class PurchaseItemQuery extends BaseSearchForMysqlVo implements Serializa
     private String itemName;
     /** 当前建议进货价格 */
     private Integer referenceStockPrice;
+    /** 进货参考单位 */
+    private Integer referenceUnit;
     /** 进货单价 */
     private Integer price;
     /** 进货数量 */
@@ -119,5 +121,13 @@ public class PurchaseItemQuery extends BaseSearchForMysqlVo implements Serializa
 
     public void setModified(Date modified) {
         this.modified = modified;
+    }
+
+    public Integer getReferenceUnit() {
+        return referenceUnit;
+    }
+
+    public void setReferenceUnit(Integer referenceUnit) {
+        this.referenceUnit = referenceUnit;
     }
 }

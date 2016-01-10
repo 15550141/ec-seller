@@ -5,7 +5,7 @@
 	<!-- 
 	<insert id="createUser" parameterClass="com.jd.sns.biz.api.domain.User">
 		insert into user (name,domain,redirect_uri,client_id,client_secret,scope,img,created) values 
-		(#name#, #domain#, #redirect_uri#, #client_id#, #client_secret#, #scope#, #img#, #created#);
+		(#name#, #domain#, #redirect_uri#, #client_id#, #client_secret#, #scope#, #img#, now());
 	</insert>
   
   	<update id="updateUser" parameterClass="com.jd.sns.biz.api.domain.User" >

@@ -35,7 +35,7 @@ $("#loginname,#loginpwd").bind('keyup', function (event) {
 });
 $("#loginsubmit").click(function () {
 	//$("#loginpwd").val($.md5($("#loginpwd").val()));
-    var loginUrl = "/onLogin";
+    var loginUrl = "/login/onLogin";
     var flag = loginNameOk() && validateFunction.FORM_validate();
     if (flag) {
         $(this).attr({ "disabled":"disabled" });
@@ -121,7 +121,7 @@ $("#onSignSubmit").click(function () {
 		
 	}
 
-    var loginUrl = "/onSign";
+    var loginUrl = "/login/onSign";
     $(this).attr({ "disabled":"disabled" });
     $.ajax({
         //type:"POST",
@@ -167,7 +167,7 @@ $("#onSignSubmit").click(function () {
 $("#resetpswSubmit").click(function () {
 	//$("#newpassword").val($.md5($("#newpassword").val()));
 	//$("#newpassword2").val($.md5($("#newpassword2").val())); 
-    var loginUrl = "/onResetPwd";
+    var loginUrl = "/login/onResetPwd";
         $(this).attr({ "disabled":"disabled" });
         $.ajax({
             type:"POST",
@@ -215,7 +215,7 @@ $("#getSignSMSCode").click(function () {
 	
 	
 		$.ajax( {
-			url : "/getSignSMSCode",
+			url : "/login/getSignSMSCode",
 			type : "post",
 			dataType : "json",
 			data : "mobile="+$("#mobile").val(),

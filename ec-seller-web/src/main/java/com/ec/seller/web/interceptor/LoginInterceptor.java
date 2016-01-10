@@ -1,6 +1,7 @@
 package com.ec.seller.web.interceptor;
 
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -32,24 +33,28 @@ public class LoginInterceptor implements HandlerInterceptor{
 		//取cookie
 		Cookie[] cookies =request.getCookies();
 		boolean flag=false;
-		if(cookies==null){
-			//System.out.println("未登录！");
-			response.sendRedirect("/");
-			return false;
-		}
-		for(Cookie cookie : cookies){
-			cookie.getName();
-			cookie.getValue();
-			if(cookie.getName().equals("loginname")&&cookie.getValue()!=null ){
-				flag=true;
-				//System.out.println("已登录！");
-				return true;
+		if(cookies!=null){
+			for(Cookie cookie : cookies){
+				if(cookie.getName().equals("loginname")&&cookie.getValue()!=null ){
+					return true;
+				}
 			}
 		}
-		if(flag==false){
-			//System.out.println("未登录！");
-			response.sendRedirect("/");
+
+		StringBuffer url = request.getRequestURL();
+		if (request.getQueryString() != null) {
+			url.append("?");
+			url.append(request.getQueryString());
 		}
+		try{
+			Cookie cookie = new Cookie("return_url", URLEncoder.encode(url.toString(), "utf-8"));
+			cookie.setDomain(".binfenguoyuan.cn");
+			cookie.setPath("/");
+			response.addCookie(cookie);
+		}catch (Exception e){
+		}
+
+		response.sendRedirect("/login");
 		return false;
 	}
 

@@ -27,7 +27,7 @@
                         <input type="password" id="loginpwd" name="loginpwd" class="text" tabindex="2" autocomplete="off">
                         <label id="loginpwd_succeed" class="blank invisible"></label>
                         <!--  <label><a href="http://" class="flk13">忘记密码</a></label> -->
-                        <label><a href="/resetPwd" class="flk13">忘记密码</a></label>
+                        <label><a href="/login/resetPwd" class="flk13">忘记密码</a></label>
                         
                         <span class="clr"></span>
                         <div id="loginpwd_error_box">

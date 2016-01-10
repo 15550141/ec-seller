@@ -137,6 +137,9 @@ public class Item implements Serializable{
     /** 参考销售价格 */
     private Integer referenceSellPrice;
 
+    /** 参考进货单位 */
+    private Integer referenceUnit;
+
     public Integer getItemId() {
         return itemId;
     }
@@ -471,5 +474,13 @@ public class Item implements Serializable{
 
     public void setReferenceSellPrice(Integer referenceSellPrice) {
         this.referenceSellPrice = referenceSellPrice;
+    }
+
+    public Integer getReferenceUnit() {
+        return referenceUnit;
+    }
+
+    public void setReferenceUnit(Integer referenceUnit) {
+        this.referenceUnit = referenceUnit;
     }
 }

@@ -1,5 +1,7 @@
 package com.ec.seller.web.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +9,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ec.seller.common.utils.CookieUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,7 +33,7 @@ import com.ec.seller.common.utils.RedisUtils;
 
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/login")
 public class LoginController {
 	
 	@Autowired
@@ -60,6 +64,8 @@ public class LoginController {
 	public @ResponseBody Map<String, Object> logout(HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
 		//删除cookie
 		Cookie cookie = new Cookie("loginname", null);
+		cookie.setDomain(".binfenguoyuan.cn");
+		cookie.setPath("/");
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
 		//response.sendRedirect("/");
@@ -77,7 +83,7 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value="onLogin", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Map<String, Object> onLogin(String loginname, String loginpwd,HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+	public @ResponseBody Map<String, Object> onLogin(String loginname, String loginpwd,HttpServletRequest request,HttpServletResponse response, ModelMap context){
 
 
 		//判断用户是否合法
@@ -101,14 +107,29 @@ public class LoginController {
 		
 		//登录成功，写cookie
 		Cookie cookie = new Cookie("loginname","ok"+loginname+"^"+user.getUserId());
+		cookie.setDomain(".binfenguoyuan.cn");
+		cookie.setPath("/");
+		cookie.setMaxAge(60*60*24*120);
 		//cookie.setMaxAge(60*60*12);//cookie过期时间,半个小时
 		response.addCookie(cookie);
+
+		//登录成功，写cookie
+		try {
+			Cookie loginusername = new Cookie("loginusername", URLEncoder.encode(user.getNickname(), "utf-8"));
+			loginusername.setDomain(".binfenguoyuan.cn");
+			loginusername.setPath("/");
+			loginusername.setMaxAge(60*60*24*120);
+			response.addCookie(loginusername);
+		} catch (Exception e) {
+		}
+
+		String return_url = CookieUtil.getValue("return_url", request);
 		
 		//返回给页面值
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("success",true);
 		resultMap.put("message", "");
-		resultMap.put("url","/index");//登录成功后，跳转到的页面
+		resultMap.put("url", StringUtils.isBlank(return_url)?"/index":return_url);//登录成功后，跳转到的页面
 		//resultMap.put("data", data);	
 		
 		return resultMap;

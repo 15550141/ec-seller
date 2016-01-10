@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="就是看看bootstrap" name="description">
     <meta content="缤纷果园 鲜果味道" name="keywords">
-    <title>$!purchaseTemplate.purchaseTemplateName</title>
+    <title>采购单管理</title>
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -25,7 +25,7 @@
                 </li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">商品管理<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">查看所有商品</a></li>
+                        <li><a href="/product/itemList">查看所有商品</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">结算管理<b class="caret bottom-up"></b></a>
@@ -38,44 +38,57 @@
     </div>
     <div class="row">&nbsp;</div>
     <div class="row">
-        <div class="input-group col-xs-7">
-            <input id="itemName" type="text" class="form-control dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-            <ul id="itemNameList" class="dropdown-menu">
-            </ul>
-            <div class="input-group-btn">
-                <button type="button" id="insert" class="btn btn-default">
-                    新增商品
-                </button>
+        <form id="f1" name="f1" method="post">
+            <input type="hidden" value="$!resultMap.item.index" name="pageNo" id="pageNo" />
+            <div class="input-group col-xs-7">
+                <input id="itemName" name="itemName" type="text" value="$!resultMap.item.itemName" class="form-control dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                <ul id="itemNameList" class="dropdown-menu">
+                </ul>
+                <div class="input-group-btn">
+                    <button type="button" onclick="search(1)" id="searchButton" class="btn btn-default">
+                        查询商品
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="row">&nbsp;</div>
+
     <div class="row">
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>商品</th>
-                <th>操作</th>
+                <th>商品名称</th>
+                <th>参考进价</th>
+                <th>参考售价</th>
             </tr>
             </thead>
             <tbody>
-            #foreach($detail in $!purchaseTemplateItem)
-                <tr>
-                <td>$!detail.itemName</td>
-                    <td>
-                        <button onclick="del($!detail.id);" class="btn btn-default btn-sm" type="button">
-                            删除
-                        </button>
-                    </td>
-                </tr>
-            #end
+                #foreach($detail in $!resultMap.itemList)
+                    <tr>
+                        <td>$!detail.itemName</td>
+                        <td>$!detail.referenceStockPrice/#if($!detail.referenceUnit==1)斤#elseif($!detail.referenceUnit==2)个#elseif($!detail.referenceUnit==3)箱#end</td>
+                        <td>$!detail.referenceSellPrice/#if($!detail.unit==1)斤#elseif($!detail.unit==2)个#elseif($!detail.unit==3)箱#end</td>
+                    </tr>
+                #end
             </tbody>
         </table>
+        <nav>
+            <ul class="pagination">
+                #if($!resultMap.itemList.previousPageAvailable) ##如果能向上翻页
+                    <li><a href="javascript:search($!resultMap.itemList.previousPage);">上一页</a></li>
+                #end
+
+                <li class="active"><a href="#">$!resultMap.itemList.index</a></li>
+                #if($!resultMap.itemList.nextPageAvailable) ##显示后面的页
+                    <li><a href="javascript:search($!resultMap.itemList.nextPage);" >下一页</a></li>
+                #end
+            </ul>
+        </nav>
     </div>
 </div>
-</body>
-
 <script type="application/javascript">
+
     $("#itemName").keyup(function(){
         var itemName = $("#itemName").val();
         if(!itemName){
@@ -86,7 +99,7 @@
             url : "/purchaseTemplateItem/vagueQuery",
             type : "post",
             dataType : "json",
-            data : "purchaseTemplateId=$!{purchaseTemplateItem.id}&itemName="+$("#itemName").val(),
+            data : "itemName="+$("#itemName").val(),
             success : function(data) {
                 if (data.success == true) {
                     var list = "";
@@ -111,48 +124,13 @@
         $("#itemName").val(itemName);
     }
 
-    $("#insert").click(function(){
-        if(!$("#itemName").val()){
-            alert("请输入商品名称");
-            return;
-        }
-        jQuery.ajax( {
-            url : "/purchaseTemplateItem/insert",
-            type : "post",
-            dataType : "json",
-            data : "itemName="+$("#itemName").val()+"&purchaseTemplateId="+$!purchaseTemplate.id,
-            success : function(data) {
-                if (data.success == true) {
-                    window.location.reload();
-                }else{
-                    alert(data.resultMessage);
-                }
-            },
-            error : function() {
-                alert("系统超时！请重试");
-            }
-        });
-    });
-
-    function del(id){
-        if(confirm("确认要删除吗？")){
-            jQuery.ajax( {
-                url : "/purchaseTemplateItem/delete",
-                type : "post",
-                dataType : "json",
-                data : "id="+id,
-                success : function(data) {
-                    if (data.success == true) {
-                        window.location.reload();
-                    }else{
-                        alert(data.resultMessage);
-                    }
-                },
-                error : function() {
-                    alert("系统超时！请重试");
-                }
-            });
-        }
+    function search(index){
+        $("#pageNo").val(index);
+        $("#f1").attr("action", "/product/itemList");
+        $("#f1").attr("method", "post");
+        $("#f1").submit();
     }
+
 </script>
+</body>
 </html>

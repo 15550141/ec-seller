@@ -23,7 +23,7 @@
     insert into order_shopping_cart (order_id, sku_id, price, num, item_name, item_image,
       created, modified)
     values ( #orderId:INTEGER#, #skuId:INTEGER#, #price:INTEGER#, #num:INTEGER#,
-      #itemName:VARCHAR#, #itemImage:VARCHAR#, #created:TIMESTAMP#, #modified:TIMESTAMP#)
+      #itemName:VARCHAR#, #itemImage:VARCHAR#, now(), now())
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="id">
 			<![CDATA[SELECT @@IDENTITY AS id ]]>

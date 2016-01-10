@@ -32,6 +32,7 @@ public class PurchaseTemplateItemServiceImpl implements PurchaseTemplateItemServ
     public void insert(PurchaseTemplateItem purchaseTemplateItem) {
         PurchaseTemplateItemQuery templateItemQuery = new PurchaseTemplateItemQuery();
         templateItemQuery.setItemName(purchaseTemplateItem.getItemName());
+        templateItemQuery.setPurchaseTemplateId(purchaseTemplateItem.getPurchaseTemplateId());
         List<PurchaseTemplateItem> purchaseTemplateItemList = this.purchaseTemplateItemDao.selectByCondition(templateItemQuery);
         if(purchaseTemplateItemList != null && purchaseTemplateItemList.size() > 0){
             throw new RuntimeException("已添加该商品");

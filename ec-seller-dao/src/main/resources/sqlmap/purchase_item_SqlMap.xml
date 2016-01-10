@@ -7,6 +7,7 @@
     <result column="item_id" property="itemId"  />
     <result column="item_name" property="itemName"  />
     <result column="reference_stock_price" property="referenceStockPrice"  />
+    <result column="reference_unit" property="referenceUnit"  />
     <result column="price" property="price"  />
     <result column="num" property="num"  />
     <result column="total_price" property="totalPrice"  />
@@ -17,7 +18,7 @@
 
   <!-- 查询内容 -->
   <sql id="searchColoum" >
-    id, purchase_id, item_id, item_name, reference_stock_price,price,num,total_price,
+    id, purchase_id, item_id, item_name, reference_stock_price, reference_unit, price,num,total_price,
     remark, created, modified
   </sql>
 
@@ -48,10 +49,10 @@
   
   <!-- 添加信息 -->
   <insert id="insert" parameterClass="com.ec.seller.domain.PurchaseItem" >
-    insert into purchase_item (purchase_id, item_id, item_name, reference_stock_price,price,num,total_price,
+    insert into purchase_item (purchase_id, item_id, item_name, reference_stock_price, reference_unit, price,num,total_price,
     remark, created, modified)
-    values (#purchaseId#, #itemId#, #itemName#, #referenceStockPrice#,#price#,#num#,#totalPrice#,
-    #remark#, #created#, #modified#)
+    values (#purchaseId#, #itemId#, #itemName#, #referenceStockPrice#, #referenceUnit#, #price#,#num#,#totalPrice#,
+    #remark#, now(), now())
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="id">
 			<![CDATA[SELECT @@IDENTITY AS id ]]>
@@ -94,6 +95,7 @@
     select <include refid="PurchaseItem.searchColoum" />
     from purchase_item
     <include refid="PurchaseItem.condition" />
+    order by id desc
   </select>
   
 </sqlMap>

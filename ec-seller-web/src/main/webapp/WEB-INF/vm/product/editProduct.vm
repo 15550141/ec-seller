@@ -314,26 +314,36 @@
 			<input type="text" name="packingTypeCustom" id="packingTypeCustom" value="$!{item.packingTypeCustom}" style="width: 100px" />
 		</td>
 		-->
-		<td align="right" >销售单位：</td>
+		<td align="right" >参考销售单位：</td>
 		<td align="left" style="width: 100px">					
 			<select name="unit" id="unit" style="width: 60px">
-				<option value="1">斤</option>
-				<option value="2">个</option>
-				<option value="3">箱</option>
+                <option value="1" #if($!item.unit==1)selected="selected"#end>斤</option>
+                <option value="2" #if($!item.unit==2)selected="selected"#end>个</option>
+                <option value="3" #if($!item.unit==3)selected="selected"#end>箱</option>
 			</select>
 			<input type="hidden" id="unitHid" name="unitHid" value="$!{item.unit}" />
 		</td>
-	</tr>
-    <tr>
-        <td align="right" style="width: 100px">参考进货价格：</td>
-        <td style="width: 150px">
-            <input type="text" name="referenceStockPrice" id="referenceStockPrice" value="$!{item.referenceStockPrice}" style="width: 100px" />&nbsp;
-        </td>
         <td align="right" style="width: 100px">参考销售价格：</td>
         <td style="width: 200px">
             <input type="text" name="referenceSellPrice" id="referenceSellPrice" value="$!{item.referenceSellPrice}" style="width: 100px" />&nbsp;
         </td>
         <td></td>
+	</tr>
+    <tr>
+        <td align="right" >参考进货单位：</td>
+        <td align="left" style="width: 100px">
+            <select name="referenceUnit" id="referenceUnit" style="width: 60px">
+                <option value="1" #if($!item.referenceUnit==1)selected="selected"#end>斤</option>
+                <option value="2" #if($!item.referenceUnit==2)selected="selected"#end>个</option>
+                <option value="3" #if($!item.referenceUnit==3)selected="selected"#end>箱</option>
+            </select>
+            <input type="hidden" id="unitHid" name="unitHid" value="$!{item.unit}" />
+        </td>
+        <td align="right" style="width: 100px">参考进货价格：</td>
+        <td style="width: 150px">
+            <input type="text" name="referenceStockPrice" id="referenceStockPrice" value="$!{item.referenceStockPrice}" style="width: 100px" />&nbsp;
+        </td>
+
     </tr>
 	
 	<!--
