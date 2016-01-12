@@ -25,7 +25,7 @@
                 </li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">商品管理<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">查看所有商品</a></li>
+                        <li><a href="/product/itemList">查看所有商品</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">结算管理<b class="caret bottom-up"></b></a>
@@ -46,7 +46,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th width="20%">采购单名称</th>
+                <th width="20%">模板名称</th>
                 <th width="20%;">创建人</th>
                 <th width="20%;">采购地点</th>
                 <th>操作</th>

@@ -67,8 +67,8 @@
                 #foreach($detail in $!resultMap.itemList)
                     <tr>
                         <td>$!detail.itemName</td>
-                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.referenceStockPrice)/#if($!detail.referenceUnit==1)斤#elseif($!detail.referenceUnit==2)个#elseif($!detail.referenceUnit==3)箱#end</td>
-                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.referenceSellPrice)/#if($!detail.unit==1)斤#elseif($!detail.unit==2)个#elseif($!detail.unit==3)箱#end</td>
+                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.referenceStockPrice)/#if($!detail.referenceUnit==1)斤#elseif($!detail.referenceUnit==2)个#elseif($!detail.referenceUnit==3)箱#elseif($!detail.referenceUnit==4)袋#elseif($!detail.referenceUnit==5)盒#end</td>
+                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.referenceSellPrice)/#if($!detail.unit==1)斤#elseif($!detail.unit==2)个#elseif($!detail.unit==3)箱#elseif($!detail.unit==4)袋#elseif($!detail.unit==5)盒#end</td>
                     </tr>
                 #end
             </tbody>

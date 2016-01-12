@@ -320,6 +320,8 @@
                 <option value="1" #if($!item.unit==1)selected="selected"#end>斤</option>
                 <option value="2" #if($!item.unit==2)selected="selected"#end>个</option>
                 <option value="3" #if($!item.unit==3)selected="selected"#end>箱</option>
+                <option value="4" #if($!item.unit==4)selected="selected"#end>袋</option>
+                <option value="5" #if($!item.unit==5)selected="selected"#end>盒</option>
 			</select>
 			<input type="hidden" id="unitHid" name="unitHid" value="$!{item.unit}" />
 		</td>
