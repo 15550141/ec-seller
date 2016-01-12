@@ -40,5 +40,6 @@ Config 2.0/" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
     <sqlMap resource="sqlmap/purchase_SqlMap.xml"/>
     <sqlMap resource="sqlmap/purchase_template_item_SqlMap.xml"/>
     <sqlMap resource="sqlmap/purchase_template_SqlMap.xml"/>
+    <sqlMap resource="sqlmap/daily_sales_statistics_SqlMap.xml"/>
 
 </sqlMapConfig>

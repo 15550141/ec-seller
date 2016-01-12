@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="DailySalesStatistics" >
+  <resultMap id="DailySalesStatisticsResult" class="com.ec.seller.domain.DailySalesStatistics" >
+    <result column="id" property="id"  />
+    <result column="statistics_date" property="statisticsDate" />
+    <result column="time_interval" property="timeInterval"  />
+    <result column="total_cash_price" property="totalCashPrice"  />
+    <result column="total_sales_price" property="totalSalesPrice"  />
+    <result column="cash_sales_price" property="cashSalesPrice"  />
+    <result column="card_sales_price" property="cardSalesPrice"  />
+    <result column="pos_sales_price" property="posSalesPrice"  />
+    <result column="wx_sales_price" property="wxSalesPrice"  />
+    <result column="other_sales_price" property="otherSalesPrice"  />
+    <result column="cash_buy_card_price" property="cashBuyCardPrice"  />
+    <result column="pos_buy_card_price" property="posBuyCardPrice"  />
+    <result column="yn" property="yn"  />
+    <result column="remark" property="remark"  />
+    <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
+    <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <!-- 查询内容 -->
+  <sql id="searchColoum" >
+    id, statistics_date, time_interval, total_cash_price, total_sales_price, cash_sales_price, card_sales_price,
+    pos_sales_price, wx_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, yn, remark, created, modified
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="condition" >
+  	<dynamic prepend="where" >
+  	  <isNotNull prepend="and" property="id" >
+        id = #id#
+      </isNotNull>
+      <isNotNull prepend="and" property="DailySalesStatisticsPlace" >
+        yn = #yn#
+      </isNotNull>
+    </dynamic>
+  </sql>
+  
+  <!-- 依据主键进行查询 -->
+  <select id="selectById" resultMap="DailySalesStatisticsResult" parameterClass="java.lang.Integer" >
+    select <include refid="DailySalesStatistics.searchColoum" />
+    from daily_sales_statistics
+    where id = #id#
+  </select>
+  
+  <!-- 添加信息 -->
+  <insert id="insert" parameterClass="com.ec.seller.domain.DailySalesStatistics" >
+    insert into daily_sales_statistics (statistics_date, time_interval, total_cash_price, total_sales_price, cash_sales_price, card_sales_price,
+    pos_sales_price, wx_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, yn, remark, created, modified)
+    values (#statisticsDate#, #timeInterval#, #totalCashPrice#, #totalSalesPrice#, #cashSalesPrice#, #cardSalesPrice#,
+    #posSalesPrice#, #wxSalesPrice#, #otherSalesPrice#, #cashBuyCardPrice#, #posBuyCardPrice#, #yn#, #remark#, now(), now())
+      <!-- 返回自增主键 -->
+      <selectKey resultClass="java.lang.Integer" keyProperty="id">
+			<![CDATA[SELECT @@IDENTITY AS id ]]>
+	  </selectKey>
+  </insert>
+  
+  <!-- 依据主键进行修改 -->
+  <update id="modify" parameterClass="com.ec.seller.domain.DailySalesStatistics" >
+    update daily_sales_statistics set MODIFIED = now()
+    <dynamic>
+      <isNotNull prepend="," property="statisticsDate" >
+        statistics_date = #statisticsDate#
+      </isNotNull>
+      <isNotNull prepend="," property="timeInterval" >
+        time_interval = #timeInterval#
+      </isNotNull>
+      <isNotNull prepend="," property="totalCashPrice" >
+        total_cash_price = #totalCashPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="totalSalesPrice" >
+        total_sales_price = #totalSalesPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="cashSalesPrice" >
+        cash_sales_price = #cashSalesPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="cardSalesPrice" >
+        card_sales_price = #cardSalesPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="posSalesPrice" >
+        pos_sales_price = #posSalesPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="wxSalesPrice" >
+        wx_sales_price = #wxSalesPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="otherSalesPrice" >
+        other_sales_price = #otherSalesPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="cashBuyCardPrice" >
+        cash_buy_card_price = #cashBuyCardPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="posBuyCardPrice" >
+        pos_buy_card_price = #posBuyCardPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="yn" >
+        yn = #yn#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        remark = #remark#
+      </isNotNull>
+    </dynamic>
+    where id = #id#
+  </update>
+
+  <!-- 删除 -->
+  <delete id="delete" >
+    delete from daily_sales_statistics where id=#id#
+  </delete>
+
+  <!-- 条件查询总数 -->
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.DailySalesStatisticsQuery" resultClass="java.lang.Integer" >
+    select count(1) from daily_sales_statistics
+    <include refid="DailySalesStatistics.condition" />
+  </select>
+  
+  <!-- 条件查询列表 -->
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.DailySalesStatisticsQuery" resultMap="DailySalesStatisticsResult" >
+    select <include refid="DailySalesStatistics.searchColoum" />
+    from daily_sales_statistics
+    <include refid="DailySalesStatistics.condition" />
+    order by id desc
+  </select>
+  
+</sqlMap>
