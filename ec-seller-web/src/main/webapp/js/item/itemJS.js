@@ -10,10 +10,6 @@ $("#addProVal").click(function() {
 		alert("销售属性值不能为空！");
 		return;
 	}
-	if(propertyValueName.length>5){
-		alert("销售属性值字数应小于5！");
-		return;
-	}
 	var sortNumber = $("#sortNumber").val();
 	if(sortNumber.length==0){
 		alert("属性排序不能为空！");
