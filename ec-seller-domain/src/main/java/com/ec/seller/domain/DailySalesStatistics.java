@@ -33,6 +33,8 @@ public class DailySalesStatistics implements Serializable {
     private Integer cashBuyCardPrice;
     /** 刷卡办理会员卡金额 */
     private Integer posBuyCardPrice;
+    private Integer userId;
+    private String userName;
     /** 备注 */
     private String remark;
     private Integer yn;
@@ -165,5 +167,21 @@ public class DailySalesStatistics implements Serializable {
 
     public void setModified(Date modified) {
         this.modified = modified;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

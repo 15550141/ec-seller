@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="span6">
+        <ul class="nav nav-tabs">
+            <li class="dropdown #if($!menu==1)active#end" ><a class="dropdown-toggle" data-toggle="dropdown" href="#">采购管理<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/purchase/index" >查看采购单</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/purchaseTemplate/index">查看采购单模板</a></li>
+                </ul>
+            </li>
+            <li class="dropdown #if($!menu==2)active#end"><a class="dropdown-toggle" data-toggle="dropdown" href="#">商品管理<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/product/itemList">查看所有商品</a></li>
+                </ul>
+            </li>
+            <li class="dropdown #if($!menu==3)active#end"><a class="dropdown-toggle" data-toggle="dropdown" href="#">销售统计管理<b class="caret bottom-up"></b></a>
+                <ul class="dropdown-menu bottom-up pull-right">
+                    <li><a href="/sales/index">每日销售统计</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+
+</script>

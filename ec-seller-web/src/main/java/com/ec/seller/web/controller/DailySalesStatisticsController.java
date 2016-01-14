@@ -1,5 +1,6 @@
 package com.ec.seller.web.controller;
 
+import com.ec.seller.common.utils.CookieUtil;
 import com.ec.seller.common.utils.DateFormatUtils;
 import com.ec.seller.common.utils.PaginatedList;
 import com.ec.seller.domain.DailySalesStatistics;
@@ -38,9 +39,17 @@ public class DailySalesStatisticsController {
 	@RequestMapping(value="/insert", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Result insert(DailySalesStatistics dailySalesStatistics, String date, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
-		dailySalesStatistics.setStatisticsDate(DateFormatUtils.parseDate(date, "yyyy-MM-dd"));
-		this.dailySalesStatisticsService.insert(dailySalesStatistics);
-		result.setSuccess(true);
+		try{
+			dailySalesStatistics.setStatisticsDate(DateFormatUtils.parseDate(date, "yyyy-MM-dd"));
+			dailySalesStatistics.setYn(1);
+			dailySalesStatistics.setUserId(CookieUtil.getUserId(request));
+			dailySalesStatistics.setUserName(CookieUtil.getLoginName(request));
+			this.dailySalesStatisticsService.insert(dailySalesStatistics);
+			result.setSuccess(true);
+		}catch (Exception e){
+			result.setSuccess(false);
+			log.error("", e);
+		}
 		return result;
 	}
 
@@ -63,8 +72,8 @@ public class DailySalesStatisticsController {
 			if(id == null || id == 0){
 				return "dailySalesStatisticsService/detail";
 			}
-			DailySalesStatistics dailySalesStatistics = this.dailySalesStatisticsService.selectById(id);
-			content.put("dailySalesStatistics", dailySalesStatistics);
+			DailySalesStatistics detail = this.dailySalesStatisticsService.selectById(id);
+			content.put("detail", detail);
 		}catch (Exception e){
 			log.error("", e);
 		}

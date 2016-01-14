@@ -1,41 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="utf-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <meta content="就是看看bootstrap" name="description">
-    <meta content="缤纷果园 鲜果味道" name="keywords">
-    <title>采购单模板</title>
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-</head>
-<body>
+#set($title="查看采购单模板")
+#set($menu=1)
+#parse("/WEB-INF/vm/common/head.vm")
 <div class="container">
-    <div class="row">
-        <div class="span6">
-            <ul class="nav nav-tabs">
-                <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">采购管理<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/purchase/index">查看采购单</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/purchaseTemplate/index">查看采购单模板</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">商品管理<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/product/itemList">查看所有商品</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">结算管理<b class="caret bottom-up"></b></a>
-                    <ul class="dropdown-menu bottom-up pull-right">
-                        <li><a href="#">日结算单</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
+    #parse("/WEB-INF/vm/common/top.vm")
     <div class="row">&nbsp;</div>
     <div class="row">
         <button class="btn btn-default" onclick="window.location.href='/purchaseTemplate/add'" type="button">
@@ -117,5 +84,4 @@
         });
     }
 </script>
-</body>
-</html>
+#parse("/WEB-INF/vm/common/bottom.vm")

@@ -1,0 +1,44 @@
+#set($title="每日销售统计")
+#set($menu=3)
+#parse("/WEB-INF/vm/common/head.vm")
+<div class="container">
+    #parse("/WEB-INF/vm/common/top.vm")
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <button class="btn btn-default" onclick="window.location.href='/sales/add'" type="button">
+            新增
+        </button>
+    </div>
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>统计日期</th>
+                <th>总销售额</th>
+                <th>总现金收入</th>
+                <th>创建人</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                #foreach($detail in $list)
+                    <tr>
+                        <td>$!dateFormatUtils.format($!{detail.statisticsDate}, "yyyy-MM-dd")&nbsp;#if($!timeInterval==1)上午#elseif($!timeInterval==2)下午#end</td>
+                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalSalesPrice)</td>
+                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalCashPrice)</td>
+                        <td>$!detail.userName</td>
+                        <td>
+                            <button class="btn btn-default btn-sm" onclick="window.location.href='/sales/detail?id=$!detail.id'" type="button">
+                                查看明细
+                            </button>
+                        </td>
+                    </tr>
+                #end
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="application/javascript">
+
+</script>
+#parse("/WEB-INF/vm/common/bottom.vm")

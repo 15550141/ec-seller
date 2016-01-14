@@ -37,6 +37,8 @@ public class DailySalesStatisticsQuery extends BaseSearchForMysqlVo implements S
     private Integer posBuyCardPrice;
     /** 备注 */
     private String remark;
+    private Integer userId;
+    private String userName;
     private Integer yn;
     private Date created;
     private Date modified;
@@ -167,5 +169,21 @@ public class DailySalesStatisticsQuery extends BaseSearchForMysqlVo implements S
 
     public void setModified(Date modified) {
         this.modified = modified;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
