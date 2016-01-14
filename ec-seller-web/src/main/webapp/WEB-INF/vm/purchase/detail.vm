@@ -51,61 +51,67 @@
         </div>
         <div class="row">&nbsp;</div>
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label">采购人姓名：</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">$!purchase.purchaseName</p>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">采购人姓名：</span>
+                        <input type="text" class="form-control" readonly="readonly" value="$!purchase.purchaseName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">采购总金额：</span>
+                        <input type="text" class="form-control" readonly="readonly" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!purchase.totalPrice)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">采购地点：</span>
+                        <input type="text" class="form-control" readonly="readonly" value="$!purchase.purchasePlace">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">当前状态：</span>
+                        <input type="text" class="form-control" readonly="readonly" value="#if($!purchase.status==0)采购中 #else 采购完成#end">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">采购日期：</span>
+                        <input id="purchaseTime" type="date" class="form-control" value="$!dateFormatUtils.format($!{purchase.purchaseTime}, "yyyy-MM-dd")">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">其他费用：</span>
+                        <input id="purchasePrice" type="number" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!purchase.purchasePrice)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">费用明细：</span>
+                        <input id="purchasePriceDetail" type="text" class="form-control" value="$!purchase.purchasePriceDetail">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">采购备注：</span>
+                        <input id="remark" type="text" class="form-control" value="$!purchase.remark">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label">采购地点：</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">$!purchase.purchasePlace</p>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">当前状态：</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">#if($!purchase.status==0)采购中 #else 采购完成#end</p>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">采购总金额：</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">$!purchase.totalPrice</p>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">采购日期：</label>
-            <div class="col-sm-10">
-                <input type="date" class="form-control" value='$!dateFormatUtils.format($!{purchase.purchaseTime}, "yyyy-MM-dd")' id="purchaseTime">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="inputPassword" class="col-sm-2 control-label">其他费用：</label>
-            <div class="col-sm-10">
-                <input type="number" class="form-control" value='$!purchase.purchasePrice' id="purchasePrice">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="inputPassword" class="col-sm-2 control-label">费用明细：</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" value='$!purchase.purchasePriceDetail' id="purchasePriceDetail">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="inputPassword" class="col-sm-2 control-label">采购备注：</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" value='$!purchase.remark' id="remark">
-            </div>
-        </div>
         #if($!purchase.status==0)
             <div class="form-group">
                 <label for="inputPassword" class="col-sm-2 control-label"><button type="button" id="updatePurchaseButton" class="btn btn-default">采购完成</button></label>
@@ -129,10 +135,10 @@
             #foreach($detail in $!purchaseItemList)
                 <tr>
                     <td>$!detail.itemName</td>
-                    <td>$!{detail.referenceStockPrice}/#if($!detail.referenceUnit==1)斤#elseif($!detail.referenceUnit==2)个#elseif($!detail.referenceUnit==3)箱#end</td>
+                    <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!{detail.referenceStockPrice})/#if($!detail.referenceUnit==1)斤#elseif($!detail.referenceUnit==2)个#elseif($!detail.referenceUnit==3)箱#elseif($!detail.referenceUnit==4)袋#elseif($!detail.referenceUnit==5)盒#end</td>
                     <td><input id="num$!detail.id" type="number" style="width: 70px;" value="$!detail.num" /></td>
                     <td>
-                        <input id="totalPrice$!detail.id" type="number" style="width: 70px;" value="$!detail.totalPrice" />
+                        <input id="totalPrice$!detail.id" type="number" style="width: 70px;" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalPrice)" />
                     </td>
                     <td>
                         #if($!purchase.status==0)
@@ -271,6 +277,7 @@
             data : "id="+id+"&num="+num+"&totalPrice="+totalPrice,
             success : function(data) {
                 if (data.success == true) {
+                    alert("修改成功！");
                     window.location.reload();
                 }else{
                     alert(data.resultMessage);
@@ -291,6 +298,7 @@
                 data : "id="+id,
                 success : function(data) {
                     if (data.success == true) {
+                        alert("删除成功！");
                         window.location.reload();
                     }else{
                         alert(data.resultMessage);

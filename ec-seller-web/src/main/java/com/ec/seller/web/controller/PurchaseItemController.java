@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -60,9 +61,13 @@ public class PurchaseItemController {
 	}
 
 	@RequestMapping(value="/update", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result update(PurchaseItem purchaseItem, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result update(Integer id, String totalPrice, Integer num, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
+			PurchaseItem purchaseItem = new PurchaseItem();
+			purchaseItem.setId(id);
+			purchaseItem.setTotalPrice((new BigDecimal(totalPrice).multiply(new BigDecimal(100))).intValue());
+			purchaseItem.setNum(num);
 			purchaseItem.setPrice(purchaseItem.getTotalPrice()/purchaseItem.getNum());
 			this.purchaseItemService.modify(purchaseItem);
 

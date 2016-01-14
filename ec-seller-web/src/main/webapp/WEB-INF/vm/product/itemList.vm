@@ -61,14 +61,40 @@
                 <th>商品名称</th>
                 <th>参考进价</th>
                 <th>参考售价</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
                 #foreach($detail in $!resultMap.itemList)
                     <tr>
                         <td>$!detail.itemName</td>
-                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.referenceStockPrice)/#if($!detail.referenceUnit==1)斤#elseif($!detail.referenceUnit==2)个#elseif($!detail.referenceUnit==3)箱#elseif($!detail.referenceUnit==4)袋#elseif($!detail.referenceUnit==5)盒#end</td>
-                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.referenceSellPrice)/#if($!detail.unit==1)斤#elseif($!detail.unit==2)个#elseif($!detail.unit==3)箱#elseif($!detail.unit==4)袋#elseif($!detail.unit==5)盒#end</td>
+                        <td>
+                            <input id="referenceStockPrice$!detail.itemId" type="number" style="width: 70px;" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.referenceStockPrice)" />
+                            /
+                            <select name="referenceUnit$!detail.itemId" id="referenceUnit$!detail.itemId">
+                                <option value="1" #if($!detail.referenceUnit==1)selected="selected"#end>斤</option>
+                                <option value="2" #if($!detail.referenceUnit==2)selected="selected"#end>个</option>
+                                <option value="3" #if($!detail.referenceUnit==3)selected="selected"#end>箱</option>
+                                <option value="4" #if($!detail.referenceUnit==4)selected="selected"#end>袋</option>
+                                <option value="5" #if($!detail.referenceUnit==5)selected="selected"#end>盒</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input id="referenceSellPrice$!detail.itemId" type="number" style="width: 70px;" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.referenceSellPrice)" />
+                            /
+                            <select name="unit$!detail.itemId" id="unit$!detail.itemId">
+                                <option value="1" #if($!detail.unit==1)selected="selected"#end>斤</option>
+                                <option value="2" #if($!detail.unit==2)selected="selected"#end>个</option>
+                                <option value="3" #if($!detail.unit==3)selected="selected"#end>箱</option>
+                                <option value="4" #if($!detail.unit==4)selected="selected"#end>袋</option>
+                                <option value="5" #if($!detail.unit==5)selected="selected"#end>盒</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-sm" onclick="update($!detail.itemId)" type="button">
+                                修改
+                            </button>
+                        </td>
                     </tr>
                 #end
             </tbody>
@@ -129,6 +155,39 @@
         $("#f1").attr("action", "/product/itemList");
         $("#f1").attr("method", "post");
         $("#f1").submit();
+    }
+
+    function update(id){
+        var referenceStockPrice = $("#referenceStockPrice"+id).val();
+        var referenceSellPrice = $("#referenceSellPrice"+id).val();
+        var unit = $("#unit"+id).val();
+        var referenceUnit = $("#referenceUnit"+id).val();
+        if(!referenceStockPrice){
+            alert("参考进价不能为空！");
+            return;
+        }
+        if(!referenceSellPrice){
+            alert("参考售价不能为空！");
+            return;
+        }
+
+        jQuery.ajax( {
+            url : "/product/updateReference",
+            type : "post",
+            dataType : "json",
+            data : "itemId="+id+"&referenceStockPrice="+referenceStockPrice+"&referenceSellPrice="+referenceSellPrice+"&unit="+unit+"&referenceUnit="+referenceUnit,
+            success : function(data) {
+                if (data.success == true) {
+                    alert("修改成功");
+                    window.location.reload();
+                }else{
+                    alert(data.resultMessage);
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
     }
 
 </script>

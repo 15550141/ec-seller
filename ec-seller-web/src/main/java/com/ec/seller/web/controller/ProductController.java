@@ -11,6 +11,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ec.seller.common.utils.DateFormatUtils;
+import com.ec.seller.domain.*;
+import com.ec.seller.service.result.Result;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,14 +25,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ec.seller.common.utils.CookieUtil;
-import com.ec.seller.domain.Category;
-import com.ec.seller.domain.Item;
-import com.ec.seller.domain.ItemDescription;
-import com.ec.seller.domain.ItemImage;
-import com.ec.seller.domain.PromotionInfo;
-import com.ec.seller.domain.Property;
-import com.ec.seller.domain.PropertyValue;
-import com.ec.seller.domain.Sku;
 import com.ec.seller.domain.query.ItemQuery;
 import com.ec.seller.domain.query.SkuQuery;
 import com.ec.seller.service.CategoryService;
@@ -837,6 +832,26 @@ public class ProductController {
 		Map<String, Object> resultMap = itemService.queryItemList(itemQuery);
 		context.put("resultMap", resultMap);
 		return "product/itemList";
+	}
+
+	@RequestMapping(value="/updateReference", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Result updateReference(String referenceSellPrice, String referenceStockPrice, String itemId, Integer unit, Integer referenceUnit, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+		Result result = new Result();
+		try{
+			Item item = new Item();
+			item.setItemId(Integer.parseInt(itemId));
+			item.setReferenceSellPrice((new BigDecimal(referenceSellPrice).multiply(new BigDecimal(100))).intValue());
+			item.setReferenceStockPrice((new BigDecimal(referenceStockPrice).multiply(new BigDecimal(100))).intValue());
+			item.setUnit(unit);
+			item.setReferenceUnit(referenceUnit);
+			this.itemService.modify(item);
+			result.setSuccess(true);
+		}catch (Exception e){
+			result.setSuccess(false);
+			result.setResultMessage(e.getMessage());
+			LOG.error("", e);
+		}
+		return result;
 	}
 	
 }
