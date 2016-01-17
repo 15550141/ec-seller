@@ -155,6 +155,7 @@ public class ProductController {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			LOG.error("", e);
 		}
 
 
