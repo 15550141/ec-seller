@@ -125,6 +125,9 @@
       <isNotNull prepend="," property="salePrice" >
         sale_price = #salePrice#
       </isNotNull>
+      <isNotNull prepend="," property="originalPrice" >
+        original_price = #originalPrice#
+      </isNotNull>
       <isNotNull prepend="," property="stock" >
         stock = #stock:INTEGER#
       </isNotNull>
@@ -168,6 +171,9 @@
       </isNotNull>
       <isNotNull prepend="," property="salePrice" >
         sale_price = #salePrice#
+      </isNotNull>
+      <isNotNull prepend="," property="originalPrice" >
+        original_price = #originalPrice#
       </isNotNull>
       <isNotNull prepend="," property="stock" >
         stock = #stock:INTEGER#
