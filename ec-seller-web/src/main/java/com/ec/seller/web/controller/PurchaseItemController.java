@@ -81,6 +81,9 @@ public class PurchaseItemController {
 			purchase.setId(dbPurchaseItem.getPurchaseId());
 			purchase.setTotalPrice(0);
 			for(int i=0;i<list.size();i++){
+				if(list.get(i).getTotalPrice() == null){
+					continue;
+				}
 				purchase.setTotalPrice(purchase.getTotalPrice() + list.get(i).getTotalPrice());
 			}
 			this.purchaseService.modify(purchase);

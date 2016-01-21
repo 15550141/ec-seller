@@ -29,6 +29,7 @@ public class PurchaseItemServiceImpl implements PurchaseItemService {
     public void insert(PurchaseItem purchaseItem) {
         PurchaseItemQuery ItemQuery = new PurchaseItemQuery();
         ItemQuery.setItemName(purchaseItem.getItemName());
+        ItemQuery.setPurchaseId(purchaseItem.getPurchaseId());
         List<PurchaseItem> purchaseItemList = this.purchaseItemDao.selectByCondition(ItemQuery);
         if(purchaseItemList != null && purchaseItemList.size() > 0){
             throw new RuntimeException("已添加该商品");
