@@ -143,7 +143,7 @@
 	-->
 	<!-- -->
 	<bean id="velocityViewResolver" class="commons.spring.mvc.view.VelocityLayoutWithCommonToolsViewResolver">
-        <property name="cache" value="true"></property>
+        <property name="cache" value="false"></property>
         <property name="suffix" value=".vm"/>
         <property name="prefix" value="/WEB-INF/vm/" />
         <property name="layoutUrl" value="/WEB-INF/vm/layout/default.vm" />
