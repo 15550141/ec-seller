@@ -41,6 +41,7 @@
 			<mvc:mapping path="/index" />
 			<mvc:mapping path="/index/*" />
 			<mvc:mapping path="/balanceInfo/*" />
+			<mvc:mapping path="/sales/*" />
 			<bean class="com.ec.seller.web.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

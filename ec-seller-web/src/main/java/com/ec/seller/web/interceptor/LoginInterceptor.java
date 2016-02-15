@@ -7,6 +7,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ec.seller.common.utils.CookieUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,14 +34,20 @@ public class LoginInterceptor implements HandlerInterceptor{
 			Object handler) throws Exception {
 		//取cookie
 		Cookie[] cookies =request.getCookies();
-		boolean flag=false;
-		if(cookies!=null){
-			for(Cookie cookie : cookies){
-				if(cookie.getName().equals("loginname")&&cookie.getValue()!=null ){
+		String path = request.getRequestURI();
+
+		String name = CookieUtil.getLoginName(request);
+		if(StringUtils.isNotBlank(name)){
+			if(path.equals("/product/itemList")|| path.equals("/purchase/index")
+					|| path.equals("/purchaseTemplate/index")){
+				if(name.equals("于建明") || name.equals("杨慧斌") || name.equals("张瀚洋") || name.equals("韩建初")){
 					return true;
 				}
+			}else{
+				return true;
 			}
 		}
+
 
 		StringBuffer url = request.getRequestURL();
 		if (request.getQueryString() != null) {
