@@ -85,10 +85,12 @@
 				</td>
             </tr>
             <tr>
-            	<td align="right" style="width:100px">
+                <td align="right" style="width:100px">
+                    收货人手机号：
                 </td>
                 <td align="left" style="width:100px">
-				</td>
+                    <input type="text" name="consigneeMobile" maxlength="30" id="consigneeMobile" value="$!{query.consigneeMobile}"/>
+                </td>
 				<td></td>
 				<td><input type="submit" value="查询" /></td>
             </tr>

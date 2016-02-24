@@ -66,6 +66,18 @@ public class Sku implements Serializable{
     
     private Integer yn;
 
+    private Integer properties;
+
+    private Integer fxPrice;
+
+    public Integer getFxPrice() {
+        return fxPrice;
+    }
+
+    public void setFxPrice(Integer fxPrice) {
+        this.fxPrice = fxPrice;
+    }
+
     public Integer getSkuId() {
         return skuId;
     }
@@ -193,5 +205,13 @@ public class Sku implements Serializable{
 
     public void setOriginalBigDecimalPrice(BigDecimal originalBigDecimalPrice) {
         this.originalBigDecimalPrice = originalBigDecimalPrice;
+    }
+
+    public Integer getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Integer properties) {
+        this.properties = properties;
     }
 }

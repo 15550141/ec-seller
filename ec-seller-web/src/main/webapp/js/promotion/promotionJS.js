@@ -288,7 +288,7 @@ $("#addProductBut").click(function() {
 										"<input type = 'hidden' name= 'skuId' value ='" +sku.skuId+"'/>"+
 										"<input type = 'hidden' name= 'itemIdHid' value ='" +sku.itemId+"'/>"+
 										" <input type = 'hidden' id=tbPrice_"+sku.skuId+" name= 'tbPriceHid' value ='" +sku.tbPrice+"'/></td>"+ 
-								"<td class='tdgoods' style='width: 100px'>"+"" +
+										"<td class='tdgoods' style='width: 100px'>"+"" +
 										"<span id='newPrice_"+sku.skuId+"'></span></td>"+
 								"</tr>");
 				}

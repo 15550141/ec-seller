@@ -182,9 +182,9 @@
 		<td style="width: 80px">
 			<input type="text" name="minSaleNumNoPro" id="minSaleNumNoPro" value="$!{minSaleNumNoPro}" style="width: 80px" />
 		</td>
-		<td align="right" style="width: 100px">条形码：</td>
+		<td align="right" style="width: 100px">分销价：</td>
 		<td style="width: 80px">
-			<input type="text" name="barCodeNpPro" id="barCodeNoPro" value="$!{barCodeNoPro}" style="width: 80px" />
+			<input type="text" name="fxPricePro" id="fxPricePro" value="$!{fxPricePro}" style="width: 80px" />
 		</td>
 		<td></td>
 </table>
@@ -715,8 +715,8 @@ $(document).ready(function(){
 																				"<td style='width: 80px'><input type='text' name='stock' id='stock_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
 																				"<td align='right' style='width: 100px'>*最低起卖量：</td>"+
 																				"<td style='width: 80px'><input type='text' name='leastBuy' id='leastBuy_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
-																				"<td align='right' style='width: 100px'>条形码：</td>"+
-																				"<td style='width: 80px'><input type='text' name='barCode' id='barCode_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
+																				"<td align='right' style='width: 100px'>分销价：</td>"+
+																				"<td style='width: 80px'><input type='text' name='fxPrice' id='fxPrice_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
 																				"<td><input type = 'hidden' id='ifChoose_"+property.propertyValueId+"' name= 'ifChoose' value =''/>"+
 																				"<input type = 'hidden' name= 'propertyId' value ='" +property.propertyId+"'/>"+
 																				"<input type = 'hidden' name= 'propertyValueId' value ='" +property.propertyValueId+"'/></td></tr>");
@@ -731,7 +731,7 @@ $(document).ready(function(){
 																	var tbPriceList = $!{tbPriceList};
 																	var stockList = $!{stockList};
 																	var leastBuyList = $!{leastBuyList};
-																	var barCodeList = $!{barCodeList};
+																	var fxPriceList = $!{fxPriceList};
 																	//alert("属性值数：" + proValIdList.length);
 																	for(var i = 0; i < proValIdList.length; i++){
 																		
@@ -739,11 +739,8 @@ $(document).ready(function(){
 																		var tbPrice = tbPriceList[i];
 																		var stock = stockList[i];
 																		var leastBuy = leastBuyList[i];
+                                                                        var fxPrice = fxPriceList[i];
 																		
-																		//var barCode = barCodeList[i];
-																		
-																		//alert("barCode=="+barCode);
-							
 																		//选择多选按钮
 																		$("#" + id).attr("checked","true");
 																		//显示属性对应的SKU行
@@ -754,17 +751,11 @@ $(document).ready(function(){
 																		document.getElementById("tbPrice_"+id).value=tbPrice;
 																		document.getElementById("stock_"+id).value=stock;
 																		document.getElementById("leastBuy_"+id).value=leastBuy;
-																		if(barCodeList=="" || barCodeList[i]==""){
-																			document.getElementById("barCode_"+id).value="";
-																		}else if(barCodeList[i]==null){
-																			document.getElementById("barCode_"+id).value="";
-																		}else{
-																			document.getElementById("barCode_"+id).value=barCodeList[i];
-																		}
-																		
+																		document.getElementById("fxPrice_"+id).value=fxPrice;
+
 																	}
 																	
-																	}
+																}
 
 						
 															} else {

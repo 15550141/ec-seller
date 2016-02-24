@@ -61,9 +61,9 @@
       <isNotNull prepend="and" property="consigneeCounty" >
         Consignee_county = #consigneeCounty:INTEGER#
       </isNotNull>
-      <isNotNull prepend="and" property="consigneeMobile" >
+      <isNotEmpty prepend="and" property="consigneeMobile" >
         Consignee_mobile = #consigneeMobile:VARCHAR#
-      </isNotNull>
+      </isNotEmpty>
       <isNotNull prepend="and" property="remark" >
         remark = #remark:VARCHAR#
       </isNotNull>
@@ -167,9 +167,9 @@
       <isNotNull prepend="," property="consigneeAddress" >
         Consignee_address = #consigneeAddress:VARCHAR#
       </isNotNull>
-      <isNotNull prepend="," property="consigneeMobile" >
+      <isNotEmpty prepend="," property="consigneeMobile" >
         Consignee_mobile = #consigneeMobile:VARCHAR#
-      </isNotNull>
+      </isNotEmpty>
       <isNotNull prepend="," property="remark" >
         remark = #remark:VARCHAR#
       </isNotNull>

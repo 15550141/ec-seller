@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ec.seller.common.utils.DateFormatUtils;
+import com.ec.seller.common.utils.FlagBitUtil;
+import com.ec.seller.common.utils.PropertyConstants;
 import com.ec.seller.domain.*;
 import com.ec.seller.service.result.Result;
 import org.apache.commons.lang.StringUtils;
@@ -109,20 +111,20 @@ public class ProductController {
 				context.put("tbPriceNoPro", new BigDecimal(skuList.get(0).getSalePrice()).divide(new BigDecimal(100)));
 				context.put("stockNoPro", skuList.get(0).getStock());
 				context.put("minSaleNumNoPro", skuList.get(0).getLeastBuy());
-				context.put("barCodeNoPro", skuList.get(0).getBarCode());
+				context.put("fxPricePro", skuList.get(0).getFxPrice() != null ? new BigDecimal(skuList.get(0).getFxPrice()).divide(new BigDecimal(100)) : null);
 				
 				context.put("proValIdList", "null");
 				context.put("tbPriceList", "null");
 				context.put("stockList", "null");
 				context.put("leastBuyList", "null");
-				context.put("barCodeList", "null");
+				context.put("fxPriceList", "null");
 				
 			}else if(category4.getIfHaveSaleProperty() == 1){//有销售属性
 				List<Integer> proValIdList = new ArrayList();
 				List<BigDecimal> tbPriceList = new ArrayList();
 				List<Integer> stockList = new ArrayList();
 				List<Integer> leastBuyList = new ArrayList();
-				List<String> barCodeList = new ArrayList();
+				List<BigDecimal> fxPriceList = new ArrayList();
 				for(int i=0; i<skuList.size(); i++){
 					Sku sku = skuList.get(i);
 					String propert = sku.getSalesProperty();
@@ -132,14 +134,13 @@ public class ProductController {
 					tbPriceList.add(new BigDecimal(sku.getSalePrice()).divide(new BigDecimal(100)));
 					stockList.add(sku.getStock());
 					leastBuyList.add(sku.getLeastBuy());
-					barCodeList.add(sku.getBarCode());
-					
+					fxPriceList.add(sku.getFxPrice() != null ? new BigDecimal(sku.getFxPrice()).divide(new BigDecimal(100)):BigDecimal.ZERO);
 				}
 				context.put("proValIdList", proValIdList);
 				context.put("tbPriceList", tbPriceList);
 				context.put("stockList", stockList);
 				context.put("leastBuyList", leastBuyList);
-				context.put("barCodeList", barCodeList);
+				context.put("fxPriceList", fxPriceList);
 				
 			}
 			context.put("item", item);
@@ -372,7 +373,7 @@ public class ProductController {
 			String tbPriceNoPro= reuqest.getParameter("tbPriceNoPro");
 			String stockNoPro= reuqest.getParameter("stockNoPro");
 			String minSaleNumNoPro= reuqest.getParameter("minSaleNumNoPro");
-			String barCodeNpPro= reuqest.getParameter("barCodeNpPro");
+			String fxPricePro= reuqest.getParameter("fxPricePro");
 			if(StringUtils.isBlank(tbPriceNoPro)){
 				resultMap.put("msg","priceNull");
 				return resultMap;
@@ -395,7 +396,7 @@ public class ProductController {
 			String[] tbPriceArray=reuqest.getParameterValues("tbPrice");
 			String[] stockArray=reuqest.getParameterValues("stock");
 			String[] leastBuyArray=reuqest.getParameterValues("leastBuy");
-			String[] barCodeArray=reuqest.getParameterValues("barCode");
+			String[] fxPriceArray=reuqest.getParameterValues("fxPrice");
 			String[] ifChooseArray=reuqest.getParameterValues("ifChoose");
 			
 			for(int i=0; i<ifChooseArray.length;i++){
@@ -495,13 +496,20 @@ public class ProductController {
 			String tbPriceNoPro= reuqest.getParameter("tbPriceNoPro");
 			String stockNoPro= reuqest.getParameter("stockNoPro");
 			String minSaleNumNoPro= reuqest.getParameter("minSaleNumNoPro");
-			String barCodeNpPro= reuqest.getParameter("barCodeNpPro");
+			String fxPricePro= reuqest.getParameter("fxPricePro");
 			sku.setItemId(item.getItemId());
 			sku.setSalePrice(new BigDecimal(tbPriceNoPro).multiply(new BigDecimal(100)).intValue());
 			sku.setOriginalPrice(sku.getSalePrice());
 			sku.setStock(Integer.parseInt(stockNoPro));
 			sku.setLeastBuy(Integer.parseInt(minSaleNumNoPro));
-			sku.setBarCode(barCodeNpPro);
+			if(StringUtils.isNotBlank(fxPricePro) && !fxPricePro.equals("0")){
+				sku.setProperties(FlagBitUtil.sign(sku.getProperties(), PropertyConstants.USER_FENXIAOSHANG));
+				sku.setFxPrice(new BigDecimal(fxPricePro).multiply(new BigDecimal(100)).intValue());
+			}else{
+				sku.setProperties(FlagBitUtil.removeSign(sku.getProperties(), PropertyConstants.USER_FENXIAOSHANG));
+				sku.setFxPrice(0);
+			}
+
 			sku.setYn(1);//插入即是有效
 			//Integer skuId = skuService.insert(sku);//插入sku	
 			skuService.modifyByItemId(sku);
@@ -523,7 +531,7 @@ public class ProductController {
 		String[] tbPriceArray=reuqest.getParameterValues("tbPrice");
 		String[] stockArray=reuqest.getParameterValues("stock");
 		String[] leastBuyArray=reuqest.getParameterValues("leastBuy");
-		String[] barCodeArray=reuqest.getParameterValues("barCode");
+		String[] fxPriceArray=reuqest.getParameterValues("fxPrice");
 		
 		String[] propertyIdArray=reuqest.getParameterValues("propertyId");
 		String[] propertyValueIdArray=reuqest.getParameterValues("propertyValueId");
@@ -541,7 +549,15 @@ public class ProductController {
 				sku.setOriginalPrice(sku.getSalePrice());
 				sku.setStock(Integer.parseInt(stockArray[i]));
 				sku.setLeastBuy(Integer.parseInt(leastBuyArray[i]));
-				sku.setBarCode(barCodeArray[i]);
+
+				if(StringUtils.isNotBlank(fxPriceArray[i]) && !fxPriceArray[i].equals("0")){
+					sku.setProperties(FlagBitUtil.sign(sku.getProperties(), PropertyConstants.USER_FENXIAOSHANG));
+					sku.setFxPrice(new BigDecimal(fxPriceArray[i]).multiply(new BigDecimal(100)).intValue());
+				}else{
+					sku.setProperties(FlagBitUtil.removeSign(sku.getProperties(), PropertyConstants.USER_FENXIAOSHANG));
+					sku.setFxPrice(0);
+				}
+
 				sku.setYn(1);//插入即是有效
 				String  salesProperty=propertyIdArray[i]+":"+propertyValueIdArray[i]+"^";
 				//查询属性
@@ -590,7 +606,7 @@ public class ProductController {
 			String tbPriceNoPro= reuqest.getParameter("tbPriceNoPro");
 			String stockNoPro= reuqest.getParameter("stockNoPro");
 			String minSaleNumNoPro= reuqest.getParameter("minSaleNumNoPro");
-			String barCodeNpPro= reuqest.getParameter("barCodeNpPro");
+			String fxPricePro= reuqest.getParameter("fxPricePro");
 			if(StringUtils.isBlank(tbPriceNoPro)){
 				resultMap.put("msg","priceNull");
 				return resultMap;
@@ -603,7 +619,7 @@ public class ProductController {
 				resultMap.put("msg","priceNull");
 				return resultMap;
 			}
-//			if(StringUtils.isBlank(barCodeNpPro)){
+//			if(StringUtils.isBlank(fxPricePro)){
 //				resultMap.put("msg","priceNull");
 //				return resultMap;
 //			}
@@ -613,7 +629,7 @@ public class ProductController {
 			String[] tbPriceArray=reuqest.getParameterValues("tbPrice");
 			String[] stockArray=reuqest.getParameterValues("stock");
 			String[] leastBuyArray=reuqest.getParameterValues("leastBuy");
-			String[] barCodeArray=reuqest.getParameterValues("barCode");
+			String[] fxPriceProArray=reuqest.getParameterValues("fxPricePro");
 			String[] ifChooseArray=reuqest.getParameterValues("ifChoose");
 			//如果没有添加销售属性，该ifChoose数组为空
 			if(ifChooseArray==null){
@@ -751,13 +767,17 @@ public class ProductController {
 			String tbPriceNoPro= reuqest.getParameter("tbPriceNoPro");
 			String stockNoPro= reuqest.getParameter("stockNoPro");
 			String minSaleNumNoPro= reuqest.getParameter("minSaleNumNoPro");
-			String barCodeNpPro= reuqest.getParameter("barCodeNpPro");
+			String fxPricePro= reuqest.getParameter("fxPricePro");
 			sku.setItemId(itemId);
 			sku.setSalePrice(new BigDecimal(tbPriceNoPro).multiply(new BigDecimal(100)).intValue());
 			sku.setOriginalPrice(sku.getSalePrice());
 			sku.setStock(Integer.parseInt(stockNoPro));
 			sku.setLeastBuy(Integer.parseInt(minSaleNumNoPro));
-			sku.setBarCode(barCodeNpPro);
+			if(StringUtils.isNotBlank(fxPricePro) && !fxPricePro.equals("0")){
+				sku.setFxPrice(new BigDecimal(fxPricePro).multiply(new BigDecimal(100)).intValue());
+				sku.setProperties(FlagBitUtil.sign(sku.getProperties(), PropertyConstants.USER_FENXIAOSHANG));
+			}
+
 			sku.setYn(1);//插入即是有效
 			try{
 				Integer skuId = skuService.insert(sku);//插入sku
@@ -778,7 +798,7 @@ public class ProductController {
 		String[] tbPriceArray=reuqest.getParameterValues("tbPrice");
 		String[] stockArray=reuqest.getParameterValues("stock");
 		String[] leastBuyArray=reuqest.getParameterValues("leastBuy");
-		String[] barCodeArray=reuqest.getParameterValues("barCode");
+		String[] fxPriceArray=reuqest.getParameterValues("fxPrice");
 		
 		String[] propertyIdArray=reuqest.getParameterValues("propertyId");
 		String[] propertyValueIdArray=reuqest.getParameterValues("propertyValueId");
@@ -796,7 +816,11 @@ public class ProductController {
 				sku.setOriginalPrice(sku.getSalePrice());
 				sku.setStock(Integer.parseInt(stockArray[i]));
 				sku.setLeastBuy(Integer.parseInt(leastBuyArray[i]));
-				sku.setBarCode(barCodeArray[i]);
+				if(StringUtils.isNotBlank(fxPriceArray[i]) && !fxPriceArray[i].equals("0")){
+					sku.setFxPrice(new BigDecimal(fxPriceArray[i]).multiply(new BigDecimal(100)).intValue());
+					sku.setProperties(FlagBitUtil.sign(sku.getProperties(), PropertyConstants.USER_FENXIAOSHANG));
+				}
+
 				sku.setYn(1);//插入即是有效
 				String  salesProperty=propertyIdArray[i]+":"+propertyValueIdArray[i]+"^";
 				//查询属性

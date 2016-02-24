@@ -171,7 +171,6 @@ public class OrderInfoController {
 	/**
 	 * 收款确认
 	 * @param orderId
-	 * @param remark
 	 * @param reuqest
 	 * @param response
 	 * @param context
@@ -192,7 +191,6 @@ public class OrderInfoController {
 	/**
 	 * 收款确认
 	 * @param orderId
-	 * @param remark
 	 * @param reuqest
 	 * @param response
 	 * @param context
@@ -213,7 +211,6 @@ public class OrderInfoController {
 	/**
 	 * 收款确认
 	 * @param orderId
-	 * @param remark
 	 * @param reuqest
 	 * @param response
 	 * @param context

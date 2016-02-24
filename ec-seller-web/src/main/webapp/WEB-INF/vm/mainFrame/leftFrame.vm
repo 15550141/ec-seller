@@ -35,74 +35,78 @@
 				<div class="menu-content">
 					<div class="menu-item-module">
 
-						<div class="menu-item">
-							<a title="商品管理" href="javascript:void(0)">商品管理</a>
-						</div>
-						<ul class="sub-menu" style="display: none;">
+						#if($!name == "于建明" || $!name == "张瀚洋" || $!name == "杨慧斌" || $!name == "韩建初" || $!name == "苏立强")
+                            <div class="menu-item">
+                                <a title="商品管理" href="javascript:void(0)">商品管理</a>
+                            </div>
+                            <ul class="sub-menu" style="display: none;">
 
-                            <li class="sub-menu-item">
-                                <a title="一级类目管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/category/category1',this);">一级类目管理</a>
-                            </li>
-                            <script type="text/javascript">
-                                menuTransMap.put('', '');
-                            </script>
+                                <li class="sub-menu-item">
+                                    <a title="一级类目管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/category/category1',this);">一级类目管理</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
 
-                            <li class="sub-menu-item">
-                                <a title="二级类目管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/category/category2',this);">二级类目管理</a>
-                            </li>
-                            <script type="text/javascript">
-                                menuTransMap.put('', '');
-                            </script>
+                                <li class="sub-menu-item">
+                                    <a title="二级类目管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/category/category2',this);">二级类目管理</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
 
-                            <li class="sub-menu-item">
-                                <a title="三级类目管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/category/category3',this);">三级类目管理</a>
-                            </li>
-                            <script type="text/javascript">
-                                menuTransMap.put('', '');
-                            </script>
+                                <li class="sub-menu-item">
+                                    <a title="三级类目管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/category/category3',this);">三级类目管理</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
 
-                            <li class="sub-menu-item">
-                                <a title="四级类目管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/category/category4',this);">四级类目管理</a>
-                            </li>
-                            <script type="text/javascript">
-                                menuTransMap.put('', '');
-                            </script>
+                                <li class="sub-menu-item">
+                                    <a title="四级类目管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/category/category4',this);">四级类目管理</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
 
-							<li class="sub-menu-item">
-								<a title="属性管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/item/addPro',this);">属性管理</a>
-							</li>
-							<script type="text/javascript">
-								menuTransMap.put('', '');
-							</script>
+                                <li class="sub-menu-item">
+                                    <a title="属性管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/item/addPro',this);">属性管理</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
 
-							<li class="sub-menu-item">
-								<a title="发布供应新品" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/product/detail',this);">发布供应新品</a>
-							</li>
-							<script type="text/javascript">
-								menuTransMap.put('', '');
-							</script>
+                                <li class="sub-menu-item">
+                                    <a title="发布供应新品" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/product/detail',this);">发布供应新品</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
 
-							<li class="sub-menu-item">
-								<a title="待售商品管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/product/preSaleProduct',this);">待售商品管理</a>
-							</li>
-							<script type="text/javascript">
-								menuTransMap.put('', '');
-							</script>
+                                <li class="sub-menu-item">
+                                    <a title="待售商品管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/product/preSaleProduct',this);">待售商品管理</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
 
-							<li class="sub-menu-item">
-								<a title="在售商品管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/product/onSaleProduct',this);">在售商品管理</a>
-							</li>
-							<script type="text/javascript">
-								menuTransMap.put('', '');
-							</script>
-														<li class="sub-menu-item">
-								<a title="下架商品管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/product/stopSaleProduct',this);">下架商品管理</a>
-							</li>
-							<script type="text/javascript">
-								menuTransMap.put('', '');
-							</script>
+                                <li class="sub-menu-item">
+                                    <a title="在售商品管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/product/onSaleProduct',this);">在售商品管理</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
+                                <li class="sub-menu-item">
+                                    <a title="下架商品管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/product/stopSaleProduct',this);">下架商品管理</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
 
-						</ul>
+                            </ul>
+						#end
+
+						<!--
 						<div class="menu-item">
 							<a title="促销管理" href="javascript:void(0)">促销管理</a>
 						</div>
@@ -129,7 +133,7 @@
 							<script type="text/javascript">
 								menuTransMap.put('', '');
 							</script>
-							
+
 							<li class="sub-menu-item"><a title="待审核促销列表"
 								target="rightFrame" href="javascript:void(0);"
 								onclick="javascript:randomUrl('/promotion/examinedPromotion',this);">待上线促销列表</a>
@@ -137,7 +141,7 @@
 							<script type="text/javascript">
 								menuTransMap.put('', '');
 							</script>
-							
+
 							<li class="sub-menu-item"><a title="待审核促销列表"
 								target="rightFrame" href="javascript:void(0);"
 								onclick="javascript:randomUrl('/promotion/ongoingPromotion',this);">上线促销列表</a>
@@ -145,7 +149,7 @@
 							<script type="text/javascript">
 								menuTransMap.put('', '');
 							</script>
-							
+
 							<li class="sub-menu-item"><a title="待审核促销列表"
 								target="rightFrame" href="javascript:void(0);"
 								onclick="javascript:randomUrl('/promotion/stoppedPromotion',this);">下线促销列表</a>
@@ -159,8 +163,9 @@
 							</li>
 							<script type="text/javascript">
 								menuTransMap.put('', '');
-							</script>							
+							</script>
 						</ul>
+						-->
 						
 						<div class="menu-item">
 							<a title="订单管理" href="javascript:void(0)">订单管理</a>
@@ -176,6 +181,7 @@
 							</script>
 						</ul>
 						
+						<!--
 						<div class="menu-item">
 							<a title="结算管理" href="javascript:void(0)">结算管理</a>
 						</div>
@@ -192,7 +198,7 @@
 								menuTransMap.put('', '');
 							</script>
 						</ul>
-						
+
 						<div class="menu-item">
 							<a title="用户管理" href="javascript:void(0)">用户管理</a>
 						</div>
@@ -205,6 +211,7 @@
 								menuTransMap.put('', '');
 							</script>
 						</ul>
+						-->
 						
 					</div>
 				</div>

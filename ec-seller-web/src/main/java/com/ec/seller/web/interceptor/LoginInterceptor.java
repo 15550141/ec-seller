@@ -37,8 +37,9 @@ public class LoginInterceptor implements HandlerInterceptor{
 		String path = request.getRequestURI();
 
 		String name = CookieUtil.getLoginName(request);
+		request.setAttribute("name", name);
 		if(StringUtils.isNotBlank(name)){
-			if(path.equals("/product/itemList")|| path.equals("/purchase/index")
+			if(path.equals("/product/itemList") || path.equals("/purchase/index")
 					|| path.equals("/purchaseTemplate/index")){
 				if(name.equals("于建明") || name.equals("杨慧斌") || name.equals("张瀚洋") || name.equals("韩建初")){
 					return true;

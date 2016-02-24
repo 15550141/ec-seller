@@ -162,9 +162,9 @@
 		<td style="width: 80px">
 			<input type="text" name="minSaleNumNoPro" id="minSaleNumNoPro" value="" style="width: 80px" />
 		</td>
-		<td align="right" style="width: 100px">条形码：</td>
+		<td align="right" style="width: 100px">分销价：</td>
 		<td style="width: 80px">
-			<input type="text" name="barCodeNpPro" id="barCodeNoPro" value="" style="width: 80px" />
+			<input type="text" name="fxPricePro" id="fxPricePro" value="" style="width: 80px" />
 		</td>
 		<td></td>
 </table>
