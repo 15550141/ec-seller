@@ -484,10 +484,12 @@
     <h1>PC端商品描述：</h1>
     <textarea  rows="20" cols="100" id="contentInfoPC" >$!{itemDescription.pcDescriptionInfo}</textarea>
 </div>
+<!--
 <div class="panel_search1">
     <h1>APP端商品描述：</h1>
     <textarea  rows="20" cols="100" id="contentInfoAPP" >$!{itemDescription.appDescriptionInfo}</textarea>
 </div>
+-->
 
 
 <!--销售属性区结束-->
@@ -855,18 +857,18 @@ $(document).ready(function(){
 				var _msg = msg.toString();
 				alert(_msg);
 		};
-		$('#btnTest2').click(function(){editors.exec('searchReplace');});
+//		$('#btnTest2').click(function(){editors.exec('searchReplace');});
 
-		var editors = $("#contentInfoAPP").xheditor({
-			plugins: plugins,
-            tools:'full',
-            skin:'default',
-			html5Upload:false,
-            upMultiple:false,
-			//wordDeepClean:false,
-            upImgUrl: "/category/upDescripImg",
-            upImgExt: "jpg,jpeg,gif,bmp,png"
-        });
+//		var editors = $("#contentInfoAPP").xheditor({
+//			plugins: plugins,
+//            tools:'full',
+//            skin:'default',
+//			html5Upload:false,
+//            upMultiple:false,
+//			//wordDeepClean:false,
+//            upImgUrl: "/category/upDescripImg",
+//            upImgExt: "jpg,jpeg,gif,bmp,png"
+//        });
 		function insertUpload(msg) {
 				var _msg = msg.toString();
 				alert(_msg);

@@ -11,6 +11,7 @@
     <result column="card_sales_price" property="cardSalesPrice"  />
     <result column="pos_sales_price" property="posSalesPrice"  />
     <result column="wx_sales_price" property="wxSalesPrice"  />
+    <result column="zfb_sales_price" property="zfbSalesPrice"  />
     <result column="other_sales_price" property="otherSalesPrice"  />
     <result column="cash_buy_card_price" property="cashBuyCardPrice"  />
     <result column="pos_buy_card_price" property="posBuyCardPrice"  />
@@ -25,7 +26,7 @@
   <!-- 查询内容 -->
   <sql id="searchColoum" >
     id, statistics_date, time_interval, total_cash_price, total_sales_price, cash_sales_price, card_sales_price,
-    pos_sales_price, wx_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, user_id,user_name, yn, remark, created, modified
+    pos_sales_price, wx_sales_price, zfb_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, user_id,user_name, yn, remark, created, modified
   </sql>
 
   <!-- 查询条件 -->
@@ -53,9 +54,9 @@
   <!-- 添加信息 -->
   <insert id="insert" parameterClass="com.ec.seller.domain.DailySalesStatistics" >
     insert into daily_sales_statistics (statistics_date, time_interval, total_cash_price, total_sales_price, cash_sales_price, card_sales_price,
-    pos_sales_price, wx_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, user_id, user_name, yn, remark, created, modified)
+    pos_sales_price, wx_sales_price, zfb_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, user_id, user_name, yn, remark, created, modified)
     values (#statisticsDate#, #timeInterval#, #totalCashPrice#, #totalSalesPrice#, #cashSalesPrice#, #cardSalesPrice#,
-    #posSalesPrice#, #wxSalesPrice#, #otherSalesPrice#, #cashBuyCardPrice#, #posBuyCardPrice#, #userId#, #userName#, #yn#, #remark#, now(), now())
+    #posSalesPrice#, #wxSalesPrice#, #zfbSalesPrice#, #otherSalesPrice#, #cashBuyCardPrice#, #posBuyCardPrice#, #userId#, #userName#, #yn#, #remark#, now(), now())
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="id">
 			<![CDATA[SELECT @@IDENTITY AS id ]]>
@@ -89,6 +90,9 @@
       </isNotNull>
       <isNotNull prepend="," property="wxSalesPrice" >
         wx_sales_price = #wxSalesPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="zfbSalesPrice" >
+        zfb_sales_price = #zfbSalesPrice#
       </isNotNull>
       <isNotNull prepend="," property="otherSalesPrice" >
         other_sales_price = #otherSalesPrice#

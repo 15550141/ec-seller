@@ -27,6 +27,8 @@ public class DailySalesStatistics implements Serializable {
     private Integer posSalesPrice;
     /** 微信消费金额 */
     private Integer wxSalesPrice;
+    /** 支付宝消费金额 */
+    private Integer zfbSalesPrice;
     /** 其他消费金额 */
     private Integer otherSalesPrice;
     /** 现金办理会员卡金额 */
@@ -183,5 +185,13 @@ public class DailySalesStatistics implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Integer getZfbSalesPrice() {
+        return zfbSalesPrice;
+    }
+
+    public void setZfbSalesPrice(Integer zfbSalesPrice) {
+        this.zfbSalesPrice = zfbSalesPrice;
     }
 }
