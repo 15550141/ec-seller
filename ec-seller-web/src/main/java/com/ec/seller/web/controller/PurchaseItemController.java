@@ -7,6 +7,7 @@ import com.ec.seller.service.ItemService;
 import com.ec.seller.service.PurchaseItemService;
 import com.ec.seller.service.PurchaseService;
 import com.ec.seller.service.result.Result;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +67,16 @@ public class PurchaseItemController {
 		try{
 			PurchaseItem purchaseItem = new PurchaseItem();
 			purchaseItem.setId(id);
-			purchaseItem.setTotalPrice((new BigDecimal(totalPrice).multiply(new BigDecimal(100))).intValue());
-			purchaseItem.setNum(num);
-			purchaseItem.setPrice(purchaseItem.getTotalPrice()/purchaseItem.getNum());
+			if(num != null && num != 0){
+				purchaseItem.setNum(num);
+			}
+			if(StringUtils.isNotBlank(totalPrice) && !"0".equals(totalPrice)){
+				purchaseItem.setTotalPrice((new BigDecimal(totalPrice).multiply(new BigDecimal(100))).intValue());
+			}
+			if(purchaseItem.getNum() != null && purchaseItem.getNum() != 0
+					&& purchaseItem.getTotalPrice() != null && purchaseItem.getTotalPrice() != 0) {
+				purchaseItem.setPrice(purchaseItem.getTotalPrice() / purchaseItem.getNum());
+			}
 			this.purchaseItemService.modify(purchaseItem);
 
 			//修改采购单采购总金额

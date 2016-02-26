@@ -37,6 +37,21 @@
 
 						#if($!name == "于建明" || $!name == "张瀚洋" || $!name == "杨慧斌" || $!name == "韩建初" || $!name == "苏立强")
                             <div class="menu-item">
+                                <a title="采购管理" href="javascript:void(0)">采购管理</a>
+                            </div>
+                            <ul class="sub-menu" style="display: none;">
+
+                                <li class="sub-menu-item"><a title="采购管理"
+                                                             target="rightFrame" href="javascript:void(0);"
+                                                             onclick="javascript:randomUrl('/purchase/index',this);">采购管理</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
+                            </ul>
+
+
+                            <div class="menu-item">
                                 <a title="商品管理" href="javascript:void(0)">商品管理</a>
                             </div>
                             <ul class="sub-menu" style="display: none;">
@@ -98,6 +113,9 @@
                                 </script>
                                 <li class="sub-menu-item">
                                     <a title="下架商品管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/product/stopSaleProduct',this);">下架商品管理</a>
+                                </li>
+                                <li class="sub-menu-item">
+                                    <a title="更改商品参考价" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/product/itemList',this);">更改商品参考价</a>
                                 </li>
                                 <script type="text/javascript">
                                     menuTransMap.put('', '');
@@ -180,6 +198,20 @@
 								menuTransMap.put('', '');
 							</script>
 						</ul>
+
+                        <div class="menu-item">
+                            <a title="结算管理" href="javascript:void(0)">结算管理</a>
+                        </div>
+                        <ul class="sub-menu" style="display: none;">
+
+                            <li class="sub-menu-item"><a title="订单管理"
+                                                         target="rightFrame" href="javascript:void(0);"
+                                                         onclick="javascript:randomUrl('/sales/index',this);">订单管理</a>
+                            </li>
+                            <script type="text/javascript">
+                                menuTransMap.put('', '');
+                            </script>
+                        </ul>
 						
 						<!--
 						<div class="menu-item">
