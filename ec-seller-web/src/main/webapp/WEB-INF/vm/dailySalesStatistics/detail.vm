@@ -55,6 +55,13 @@
 
             <div class="form-group">
                 <div class="input-group">
+                    <span class="input-group-addon">微信消费金额：</span>
+                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.wxSalesPrice)">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
                     <span class="input-group-addon">支付宝消费金额：</span>
                     <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.zfbSalesPrice)">
                 </div>
