@@ -62,20 +62,22 @@ public class PurchaseItemController {
 	}
 
 	@RequestMapping(value="/update", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result update(Integer id, String totalPrice, Integer num, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result update(Integer id, String totalPrice, Integer num, String price, Integer referenceUnit, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
 			PurchaseItem purchaseItem = new PurchaseItem();
 			purchaseItem.setId(id);
+			purchaseItem.setReferenceUnit(referenceUnit);
+
+			if(StringUtils.isNotBlank(price) && !"0".equals(price)){
+				purchaseItem.setPrice((new BigDecimal(price).multiply(new BigDecimal(100))).intValue());
+			}
+
 			if(num != null && num != 0){
 				purchaseItem.setNum(num);
 			}
 			if(StringUtils.isNotBlank(totalPrice) && !"0".equals(totalPrice)){
 				purchaseItem.setTotalPrice((new BigDecimal(totalPrice).multiply(new BigDecimal(100))).intValue());
-			}
-			if(purchaseItem.getNum() != null && purchaseItem.getNum() != 0
-					&& purchaseItem.getTotalPrice() != null && purchaseItem.getTotalPrice() != 0) {
-				purchaseItem.setPrice(purchaseItem.getTotalPrice() / purchaseItem.getNum());
 			}
 			this.purchaseItemService.modify(purchaseItem);
 

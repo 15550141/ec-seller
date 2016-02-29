@@ -72,6 +72,9 @@
       <isNotNull prepend="," property="totalPrice" >
         total_price = #totalPrice#
       </isNotNull>
+      <isNotNull prepend="," property="referenceUnit" >
+        reference_unit = #referenceUnit#
+      </isNotNull>
       <isNotNull prepend="," property="remark" >
         remark = #remark#
       </isNotNull>
