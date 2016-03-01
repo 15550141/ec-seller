@@ -43,6 +43,17 @@ public class DailySalesStatistics implements Serializable {
     private Date created;
     private Date modified;
 
+    /** 店铺名称 */
+    private String shopName;
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
     public Integer getId() {
         return id;
     }

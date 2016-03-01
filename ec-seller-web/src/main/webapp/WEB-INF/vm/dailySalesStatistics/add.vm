@@ -22,6 +22,15 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">店铺：</span>
+                    <select id="shopName" name="shopName">
+                        <option value="1号店">1号店</option>
+                        <option value="2号店">2号店</option>
+                    </select>
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="input-group">
@@ -115,6 +124,7 @@
         var cashBuyCardPrice=$("#cashBuyCardPrice").val();
         var posBuyCardPrice=$("#posBuyCardPrice").val();
         var remark=$("#remark").val();
+        var shopName=$("#shopName").val();
 
         if(!date){
             alert("日期不能为空");
@@ -145,6 +155,9 @@
         }
         if(remark){
             params += "&remark=" + remark;
+        }
+        if(shopName){
+            params += "&shopName=" + shopName;
         }
         jQuery.ajax( {
             url : "/sales/insert",

@@ -21,12 +21,13 @@
     <result column="remark" property="remark"  />
     <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
     <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
+    <result column="shop_name" property="shopName"/>
   </resultMap>
 
   <!-- 查询内容 -->
   <sql id="searchColoum" >
     id, statistics_date, time_interval, total_cash_price, total_sales_price, cash_sales_price, card_sales_price,
-    pos_sales_price, wx_sales_price, zfb_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, user_id,user_name, yn, remark, created, modified
+    pos_sales_price, wx_sales_price, zfb_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, user_id,user_name, yn, remark, created, modified, shop_name
   </sql>
 
   <!-- 查询条件 -->
@@ -41,6 +42,9 @@
       <isNotNull prepend="and" property="yn" >
         yn = #yn#
       </isNotNull>
+      <isNotNull prepend="and" property="shopName" >
+        shop_name = #shopName#
+      </isNotNull>
     </dynamic>
   </sql>
   
@@ -54,9 +58,9 @@
   <!-- 添加信息 -->
   <insert id="insert" parameterClass="com.ec.seller.domain.DailySalesStatistics" >
     insert into daily_sales_statistics (statistics_date, time_interval, total_cash_price, total_sales_price, cash_sales_price, card_sales_price,
-    pos_sales_price, wx_sales_price, zfb_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, user_id, user_name, yn, remark, created, modified)
+    pos_sales_price, wx_sales_price, zfb_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, user_id, user_name, yn, remark, created, modified, shop_name)
     values (#statisticsDate#, #timeInterval#, #totalCashPrice#, #totalSalesPrice#, #cashSalesPrice#, #cardSalesPrice#,
-    #posSalesPrice#, #wxSalesPrice#, #zfbSalesPrice#, #otherSalesPrice#, #cashBuyCardPrice#, #posBuyCardPrice#, #userId#, #userName#, #yn#, #remark#, now(), now())
+    #posSalesPrice#, #wxSalesPrice#, #zfbSalesPrice#, #otherSalesPrice#, #cashBuyCardPrice#, #posBuyCardPrice#, #userId#, #userName#, #yn#, #remark#, now(), now(), #shopName#)
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="id">
 			<![CDATA[SELECT @@IDENTITY AS id ]]>
@@ -114,6 +118,9 @@
       </isNotNull>
       <isNotNull prepend="," property="remark" >
         remark = #remark#
+      </isNotNull>
+      <isNotNull prepend="," property="shopName" >
+        shop_name = #shopName#
       </isNotNull>
     </dynamic>
     where id = #id#

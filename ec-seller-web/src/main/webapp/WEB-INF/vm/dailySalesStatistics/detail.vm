@@ -19,6 +19,12 @@
                     <input type="text" readonly="readonly" class="form-control" value="#if($!detail.timeInterval==1)上午#elseif($!detail.timeInterval==2)下午#end">
                 </div>
             </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">店铺：</span>
+                    <input type="text" readonly="readonly" class="form-control" value="$!detail.shopName">
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="input-group">

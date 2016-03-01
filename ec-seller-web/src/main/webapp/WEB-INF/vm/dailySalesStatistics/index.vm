@@ -23,7 +23,7 @@
             <tbody>
                 #foreach($detail in $list)
                     <tr>
-                        <td>$!dateFormatUtils.format($!{detail.statisticsDate}, "yyyy-MM-dd")&nbsp;#if($!timeInterval==1)上午#elseif($!timeInterval==2)下午#end</td>
+                        <td>$!dateFormatUtils.format($!{detail.statisticsDate}, "yyyy-MM-dd")&nbsp;#if($!detail.timeInterval==1)上午#elseif($!detail.timeInterval==2)下午#end</td>
                         <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalSalesPrice)</td>
                         <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalCashPrice)</td>
                         <td>$!detail.userName</td>
