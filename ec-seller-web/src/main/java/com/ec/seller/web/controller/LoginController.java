@@ -69,11 +69,23 @@ public class LoginController {
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
 		//response.sendRedirect("/");
-		
+
+		Cookie cookie2 = new Cookie("loginusername", null);
+		cookie2.setDomain(".binfenguoyuan.cn");
+		cookie2.setPath("/");
+		cookie2.setMaxAge(0);
+		response.addCookie(cookie2);
+
+		Cookie cookie3 = new Cookie("uid", null);
+		cookie3.setDomain(".binfenguoyuan.cn");
+		cookie3.setPath("/");
+		cookie3.setMaxAge(0);
+		response.addCookie(cookie3);
+
 		//返回给页面值
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("msg", "success");
-		resultMap.put("url","/");//注销后，跳转到的页面		
+		resultMap.put("url","/");//注销后，跳转到的页面
 		return resultMap;
 	}
 	

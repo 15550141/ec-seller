@@ -120,7 +120,7 @@ public class OrderInfoQuery extends BaseSearchForMysqlVo implements
 	}
 
 	public void setVenderUserId(Integer venderUserId) {
-		this.venderUserId = venderUserId;
+//		this.venderUserId = venderUserId;
 	}
 
 	public Integer getUserId() {

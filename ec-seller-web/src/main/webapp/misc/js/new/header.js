@@ -47,7 +47,7 @@ $(function() {
 
 		if(confirm("确定要注销？")){
 			$.ajax( {
-				url : "/logout",
+				url : "/login/logout",
 				type : "post",
 				dataType : "json",
 				data : "promotionId=1",

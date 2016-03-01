@@ -204,9 +204,9 @@
                         </div>
                         <ul class="sub-menu" style="display: none;">
 
-                            <li class="sub-menu-item"><a title="订单管理"
+                            <li class="sub-menu-item"><a title="每日结算管理"
                                                          target="rightFrame" href="javascript:void(0);"
-                                                         onclick="javascript:randomUrl('/sales/index',this);">订单管理</a>
+                                                         onclick="javascript:randomUrl('/sales/index',this);">每日结算管理</a>
                             </li>
                             <script type="text/javascript">
                                 menuTransMap.put('', '');
