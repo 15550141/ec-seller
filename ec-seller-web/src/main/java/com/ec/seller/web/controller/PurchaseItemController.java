@@ -1,5 +1,6 @@
 package com.ec.seller.web.controller;
 
+import com.ec.seller.common.utils.BigDecimalUtils;
 import com.ec.seller.domain.Purchase;
 import com.ec.seller.domain.PurchaseItem;
 import com.ec.seller.domain.query.PurchaseItemQuery;
@@ -62,23 +63,9 @@ public class PurchaseItemController {
 	}
 
 	@RequestMapping(value="/update", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result update(Integer id, String totalPrice, Integer num, String price, Integer referenceUnit, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result update(PurchaseItem purchaseItem, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
-			PurchaseItem purchaseItem = new PurchaseItem();
-			purchaseItem.setId(id);
-			purchaseItem.setReferenceUnit(referenceUnit);
-
-			if(StringUtils.isNotBlank(price) && !"0".equals(price)){
-				purchaseItem.setPrice((new BigDecimal(price).multiply(new BigDecimal(100))).intValue());
-			}
-
-			if(num != null && num != 0){
-				purchaseItem.setNum(num);
-			}
-			if(StringUtils.isNotBlank(totalPrice) && !"0".equals(totalPrice)){
-				purchaseItem.setTotalPrice((new BigDecimal(totalPrice).multiply(new BigDecimal(100))).intValue());
-			}
 			this.purchaseItemService.modify(purchaseItem);
 
 			//修改采购单采购总金额
@@ -89,12 +76,12 @@ public class PurchaseItemController {
 
 			Purchase purchase = new Purchase();
 			purchase.setId(dbPurchaseItem.getPurchaseId());
-			purchase.setTotalPrice(0);
+			purchase.setTotalPrice(BigDecimal.ZERO);
 			for(int i=0;i<list.size();i++){
 				if(list.get(i).getTotalPrice() == null){
 					continue;
 				}
-				purchase.setTotalPrice(purchase.getTotalPrice() + list.get(i).getTotalPrice());
+				purchase.setTotalPrice(purchase.getTotalPrice().add(list.get(i).getTotalPrice()));
 			}
 			this.purchaseService.modify(purchase);
 

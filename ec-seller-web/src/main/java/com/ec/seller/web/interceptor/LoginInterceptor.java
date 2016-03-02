@@ -41,7 +41,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		if(StringUtils.isNotBlank(name)){
 			if(path.equals("/product/itemList") || path.equals("/purchase/index")
 					|| path.equals("/purchaseTemplate/index")){
-				if(name.equals("于建明") || name.equals("杨慧斌") || name.equals("张瀚洋") || name.equals("韩建初")){
+				if(name.equals("于建明") || name.equals("杨慧斌") || name.equals("张瀚洋") || name.equals("韩建初")|| name.equals("苏立强")){
 					return true;
 				}
 			}else{

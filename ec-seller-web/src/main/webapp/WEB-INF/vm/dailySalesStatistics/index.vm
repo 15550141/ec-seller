@@ -15,7 +15,7 @@
             <tr>
                 <th>统计日期</th>
                 <th>总销售额</th>
-                <th>总现金收入</th>
+                <th>入账金额</th>
                 <th>创建人</th>
                 <th>操作</th>
             </tr>
@@ -24,8 +24,8 @@
                 #foreach($detail in $list)
                     <tr>
                         <td>$!dateFormatUtils.format($!{detail.statisticsDate}, "yyyy-MM-dd")&nbsp;#if($!detail.timeInterval==1)上午#elseif($!detail.timeInterval==2)下午#end</td>
-                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalSalesPrice)</td>
-                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalCashPrice)</td>
+                        <td>$!detail.totalSalesPrice</td>
+                        <td>$!detail.totalCashPrice</td>
                         <td>$!detail.userName</td>
                         <td>
                             <button class="btn btn-default btn-sm" onclick="window.location.href='/sales/detail?id=$!detail.id'" type="button">

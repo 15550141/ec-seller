@@ -41,7 +41,6 @@ public class PurchaseItemServiceImpl implements PurchaseItemService {
         }
         purchaseItem.setItemId(list.get(0).getItemId());
         purchaseItem.setItemName(list.get(0).getItemName());
-        purchaseItem.setReferenceStockPrice(list.get(0).getReferenceStockPrice());//参考进价
         purchaseItem.setReferenceUnit(list.get(0).getReferenceUnit());//参考进价单位
         purchaseItemDao.insert(purchaseItem);
     }

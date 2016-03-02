@@ -3,6 +3,7 @@ package com.ec.seller.domain.query;
 import com.ec.seller.domain.common.BaseSearchForMysqlVo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -16,25 +17,25 @@ public class DailySalesStatisticsQuery extends BaseSearchForMysqlVo implements S
     /** 统计日期 */
     private Date statisticsDate;
     /** 时区1上午，2下午 */
-    private Integer timeInterval;
+    private BigDecimal timeInterval;
     /** 总现金收入金额 */
-    private Integer totalCashPrice;
+    private BigDecimal totalCashPrice;
     /** 总销售金额 */
-    private Integer totalSalesPrice;
+    private BigDecimal totalSalesPrice;
     /** 现金消费金额 */
-    private Integer cashSalesPrice;
+    private BigDecimal cashSalesPrice;
     /** 会员卡消费金额 */
-    private Integer cardSalesPrice;
+    private BigDecimal cardSalesPrice;
     /** pos机消费金额 */
-    private Integer posSalesPrice;
+    private BigDecimal posSalesPrice;
     /** 微信消费金额 */
-    private Integer wxSalesPrice;
+    private BigDecimal wxSalesPrice;
     /** 其他消费金额 */
-    private Integer otherSalesPrice;
+    private BigDecimal otherSalesPrice;
     /** 现金办理会员卡金额 */
-    private Integer cashBuyCardPrice;
+    private BigDecimal cashBuyCardPrice;
     /** 刷卡办理会员卡金额 */
-    private Integer posBuyCardPrice;
+    private BigDecimal posBuyCardPrice;
     /** 备注 */
     private String remark;
     private Integer userId;
@@ -70,83 +71,83 @@ public class DailySalesStatisticsQuery extends BaseSearchForMysqlVo implements S
         this.statisticsDate = statisticsDate;
     }
 
-    public Integer getTimeInterval() {
+    public BigDecimal getTimeInterval() {
         return timeInterval;
     }
 
-    public void setTimeInterval(Integer timeInterval) {
+    public void setTimeInterval(BigDecimal timeInterval) {
         this.timeInterval = timeInterval;
     }
 
-    public Integer getTotalCashPrice() {
+    public BigDecimal getTotalCashPrice() {
         return totalCashPrice;
     }
 
-    public void setTotalCashPrice(Integer totalCashPrice) {
+    public void setTotalCashPrice(BigDecimal totalCashPrice) {
         this.totalCashPrice = totalCashPrice;
     }
 
-    public Integer getTotalSalesPrice() {
+    public BigDecimal getTotalSalesPrice() {
         return totalSalesPrice;
     }
 
-    public void setTotalSalesPrice(Integer totalSalesPrice) {
+    public void setTotalSalesPrice(BigDecimal totalSalesPrice) {
         this.totalSalesPrice = totalSalesPrice;
     }
 
-    public Integer getCashSalesPrice() {
+    public BigDecimal getCashSalesPrice() {
         return cashSalesPrice;
     }
 
-    public void setCashSalesPrice(Integer cashSalesPrice) {
+    public void setCashSalesPrice(BigDecimal cashSalesPrice) {
         this.cashSalesPrice = cashSalesPrice;
     }
 
-    public Integer getCardSalesPrice() {
+    public BigDecimal getCardSalesPrice() {
         return cardSalesPrice;
     }
 
-    public void setCardSalesPrice(Integer cardSalesPrice) {
+    public void setCardSalesPrice(BigDecimal cardSalesPrice) {
         this.cardSalesPrice = cardSalesPrice;
     }
 
-    public Integer getPosSalesPrice() {
+    public BigDecimal getPosSalesPrice() {
         return posSalesPrice;
     }
 
-    public void setPosSalesPrice(Integer posSalesPrice) {
+    public void setPosSalesPrice(BigDecimal posSalesPrice) {
         this.posSalesPrice = posSalesPrice;
     }
 
-    public Integer getWxSalesPrice() {
+    public BigDecimal getWxSalesPrice() {
         return wxSalesPrice;
     }
 
-    public void setWxSalesPrice(Integer wxSalesPrice) {
+    public void setWxSalesPrice(BigDecimal wxSalesPrice) {
         this.wxSalesPrice = wxSalesPrice;
     }
 
-    public Integer getOtherSalesPrice() {
+    public BigDecimal getOtherSalesPrice() {
         return otherSalesPrice;
     }
 
-    public void setOtherSalesPrice(Integer otherSalesPrice) {
+    public void setOtherSalesPrice(BigDecimal otherSalesPrice) {
         this.otherSalesPrice = otherSalesPrice;
     }
 
-    public Integer getCashBuyCardPrice() {
+    public BigDecimal getCashBuyCardPrice() {
         return cashBuyCardPrice;
     }
 
-    public void setCashBuyCardPrice(Integer cashBuyCardPrice) {
+    public void setCashBuyCardPrice(BigDecimal cashBuyCardPrice) {
         this.cashBuyCardPrice = cashBuyCardPrice;
     }
 
-    public Integer getPosBuyCardPrice() {
+    public BigDecimal getPosBuyCardPrice() {
         return posBuyCardPrice;
     }
 
-    public void setPosBuyCardPrice(Integer posBuyCardPrice) {
+    public void setPosBuyCardPrice(BigDecimal posBuyCardPrice) {
         this.posBuyCardPrice = posBuyCardPrice;
     }
 

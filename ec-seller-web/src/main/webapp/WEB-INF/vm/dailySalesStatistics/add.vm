@@ -41,7 +41,7 @@
 
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon">总现金收入：</span>
+                    <span class="input-group-addon">入账金额：</span>
                     <input type="number" id="totalCashPrice" name="totalCashPrice" class="form-control" value="">
                 </div>
             </div>
@@ -133,25 +133,25 @@
         var params = "date="+date + "&timeInterval=" + timeInterval
 
         if(totalSalesPrice){
-           params += "&totalSalesPrice=" + totalSalesPrice*100;
+           params += "&totalSalesPrice=" + totalSalesPrice;
         }
         if(totalCashPrice){
-            params += "&totalCashPrice=" + totalCashPrice*100;
+            params += "&totalCashPrice=" + totalCashPrice;
         }
         if(cashSalesPrice){
-            params += "&cashSalesPrice=" + cashSalesPrice*100;
+            params += "&cashSalesPrice=" + cashSalesPrice;
         }
         if(cardSalesPrice){
-            params += "&cardSalesPrice=" + cardSalesPrice*100;
+            params += "&cardSalesPrice=" + cardSalesPrice;
         }
         if(posSalesPrice){
-            params += "&posSalesPrice=" + posSalesPrice*100;
+            params += "&posSalesPrice=" + posSalesPrice;
         }
         if(cashBuyCardPrice){
-            params += "&cashBuyCardPrice=" + cashBuyCardPrice*100;
+            params += "&cashBuyCardPrice=" + cashBuyCardPrice;
         }
         if(posBuyCardPrice){
-            params += "&posBuyCardPrice=" + posBuyCardPrice*100;
+            params += "&posBuyCardPrice=" + posBuyCardPrice;
         }
         if(remark){
             params += "&remark=" + remark;

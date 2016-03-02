@@ -29,68 +29,68 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">总销售金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalSalesPrice)">
+                    <input type="number" readonly="readonly" class="form-control" value="$!detail.totalSalesPrice">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon">总现金收入：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalCashPrice)">
+                    <span class="input-group-addon">入账金额：</span>
+                    <input type="number" readonly="readonly" class="form-control" value="$!detail.totalCashPrice">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">现金消费金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.cashSalesPrice)">
+                    <input type="number" readonly="readonly" class="form-control" value="$!detail.cashSalesPrice">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">会员卡消费金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.cardSalesPrice)">
+                    <input type="number" readonly="readonly" class="form-control" value="$!detail.cardSalesPrice">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">刷卡消费金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.posSalesPrice)">
+                    <input type="number" readonly="readonly" class="form-control" value="$!detail.posSalesPrice">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">微信消费金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.wxSalesPrice)">
+                    <input type="number" readonly="readonly" class="form-control" value="$!detail.wxSalesPrice">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">支付宝消费金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.zfbSalesPrice)">
+                    <input type="number" readonly="readonly" class="form-control" value="$!detail.zfbSalesPrice">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">其他消费金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.otherSalesPrice)">
+                    <input type="number" readonly="readonly" class="form-control" value="$!detail.otherSalesPrice">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">现金办理会员卡金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.cashBuyCardPrice)">
+                    <input type="number" readonly="readonly" class="form-control" value="$!detail.cashBuyCardPrice">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">刷卡办理会员卡金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.posBuyCardPrice)">
+                    <input type="number" readonly="readonly" class="form-control" value="$!detail.posBuyCardPrice">
                 </div>
             </div>
 

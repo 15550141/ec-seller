@@ -3,6 +3,7 @@ package com.ec.seller.domain.query;
 import com.ec.seller.domain.common.BaseSearchForMysqlVo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -17,15 +18,15 @@ public class PurchaseItemQuery extends BaseSearchForMysqlVo implements Serializa
     private Integer itemId;
     private String itemName;
     /** 当前建议进货价格 */
-    private Integer referenceStockPrice;
+    private BigDecimal referenceStockPrice;
     /** 进货参考单位 */
     private Integer referenceUnit;
     /** 进货单价 */
-    private Integer price;
+    private BigDecimal price;
     /** 进货数量 */
-    private Integer num;
+    private Double num;
     /** 总价 */
-    private Integer totalPrice;
+    private BigDecimal totalPrice;
     /** 备注 */
     private String remark;
     private Date created;
@@ -67,35 +68,35 @@ public class PurchaseItemQuery extends BaseSearchForMysqlVo implements Serializa
         this.itemName = itemName;
     }
 
-    public Integer getReferenceStockPrice() {
+    public BigDecimal getReferenceStockPrice() {
         return referenceStockPrice;
     }
 
-    public void setReferenceStockPrice(Integer referenceStockPrice) {
+    public void setReferenceStockPrice(BigDecimal referenceStockPrice) {
         this.referenceStockPrice = referenceStockPrice;
     }
 
-    public Integer getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public Integer getNum() {
+    public Double getNum() {
         return num;
     }
 
-    public void setNum(Integer num) {
+    public void setNum(Double num) {
         this.num = num;
     }
 
-    public Integer getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Integer totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 

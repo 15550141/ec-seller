@@ -81,7 +81,12 @@ public class PurchaseController {
 		if(StringUtils.isNotBlank(purchaseDate)){
 			purchase.setPurchaseTime(DateFormatUtils.parseDate(purchaseDate, "yyyy-MM-dd"));
 		}
+		Purchase purchaseDb = this.purchaseService.selectById(purchase.getId());
+
 		purchase.setStatus(1);//采购完成
+		if(purchase.getPurchasePrice() != null && purchaseDb.getTotalPrice() != null){
+			purchase.setTotalPrice(purchase.getPurchasePrice().add(purchaseDb.getTotalPrice()));
+		}
 		try{
 			this.purchaseService.modify(purchase);
 			result.setSuccess(true);

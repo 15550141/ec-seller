@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -82,11 +83,10 @@ public class PurchaseServiceImpl implements PurchaseService {
             purchaseItem.setPurchaseId(purchase.getId());
             purchaseItem.setItemId(templateItem.getItemId());
             purchaseItem.setItemName(templateItem.getItemName());
-            purchaseItem.setReferenceStockPrice(item.getReferenceStockPrice());
             purchaseItem.setReferenceUnit(item.getReferenceUnit());
-            purchaseItem.setPrice(0);
-            purchaseItem.setNum(0);
-            purchaseItem.setTotalPrice(0);
+            purchaseItem.setPrice(BigDecimal.ZERO);
+            purchaseItem.setNum(0d);
+            purchaseItem.setTotalPrice(BigDecimal.ZERO);
             purchaseItemDao.insert(purchaseItem);
         }
 

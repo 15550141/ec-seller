@@ -3,6 +3,7 @@ package com.ec.seller.domain.query;
 import com.ec.seller.domain.common.BaseSearchForMysqlVo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -16,13 +17,13 @@ public class PurchaseQuery extends BaseSearchForMysqlVo implements Serializable 
     /** 采购日期 */
     private Date purchaseTime;
     /** 总金额 */
-    private Integer totalPrice;
+    private BigDecimal totalPrice;
     /** 采购人id */
     private Integer purchaseUid;
     /** 采购人姓名 */
     private String purchaseName;
     /** 采购所花费用 */
-    private Integer purchasePrice;
+    private BigDecimal purchasePrice;
     /** 采购所花费用明细 */
     private String purchasePriceDetail;
     /** 采购地点 */
@@ -52,13 +53,6 @@ public class PurchaseQuery extends BaseSearchForMysqlVo implements Serializable 
         this.purchaseTime = purchaseTime;
     }
 
-    public Integer getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Integer totalPrice) {
-        this.totalPrice = totalPrice;
-    }
 
     public Integer getPurchaseUid() {
         return purchaseUid;
@@ -76,11 +70,19 @@ public class PurchaseQuery extends BaseSearchForMysqlVo implements Serializable 
         this.purchaseName = purchaseName;
     }
 
-    public Integer getPurchasePrice() {
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public BigDecimal getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(Integer purchasePrice) {
+    public void setPurchasePrice(BigDecimal purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
 

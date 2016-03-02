@@ -25,7 +25,7 @@
                     <tr>
                         <td>$!detail.purchaseName</td>
                         <td>$!detail.purchasePlace</td>
-                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalPrice)</td>
+                        <td>$!detail.totalPrice</td>
                         <td>$!dateFormatUtils.format($!{detail.purchaseTime}, "yyyy-MM-dd")</td>
                         <td>
                             <button class="btn btn-default btn-sm" onclick="window.location.href='/purchase/detail?id=$!detail.id'" type="button">
