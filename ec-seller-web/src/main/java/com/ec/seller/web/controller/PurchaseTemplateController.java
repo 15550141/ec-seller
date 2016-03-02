@@ -44,7 +44,6 @@ public class PurchaseTemplateController {
 	public @ResponseBody Result insert(PurchaseTemplate purchaseTemplate, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		purchaseTemplate.setUserId(CookieUtil.getUserId(request));
-		//TODO 这里少进货人名称
 		purchaseTemplate.setUserName(CookieUtil.getLoginName(request));
 		this.purchaseTemplateService.insert(purchaseTemplate);
 		result.setSuccess(true);

@@ -84,9 +84,6 @@ public class PurchaseServiceImpl implements PurchaseService {
             purchaseItem.setItemId(templateItem.getItemId());
             purchaseItem.setItemName(templateItem.getItemName());
             purchaseItem.setReferenceUnit(item.getReferenceUnit());
-            purchaseItem.setPrice(BigDecimal.ZERO);
-            purchaseItem.setNum(0d);
-            purchaseItem.setTotalPrice(BigDecimal.ZERO);
             purchaseItemDao.insert(purchaseItem);
         }
 
