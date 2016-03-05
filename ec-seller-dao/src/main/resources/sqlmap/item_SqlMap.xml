@@ -126,9 +126,6 @@
       <isNotNull prepend="and" property="categoryId4" >
         CATEGORY_ID4 = #categoryId4:INTEGER#
       </isNotNull>
-      <isNotNull prepend="and" property="venderUserId" >
-        VENDER_USER_ID = #venderUserId:INTEGER#
-      </isNotNull>
       <isNotNull prepend="and" property="itemStatus" >
         ITEM_STATUS = #itemStatus:TINYINT#
       </isNotNull>
@@ -415,9 +412,6 @@
       </isNotNull>
       <isNotNull prepend="and" property="categoryId4" >
         CATEGORY_ID4 = #categoryId4:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="venderUserId" >
-        VENDER_USER_ID = #venderUserId:INTEGER#
       </isNotNull>
       <isNotNull prepend="and" property="itemStatus" >
         ITEM_STATUS = #itemStatus:TINYINT#

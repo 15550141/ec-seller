@@ -39,9 +39,6 @@
       <isNotNull prepend="and" property="itemId" >
         item_id = #itemId:INTEGER#
       </isNotNull>
-      <isNotNull prepend="and" property="venderUserId" >
-        vender_user_id = #venderUserId:INTEGER#
-      </isNotNull>
       <isNotNull prepend="and" property="promotionType" >
         promotion_type = #promotionType:INTEGER#
       </isNotNull>
@@ -212,9 +209,6 @@
       <isNotNull prepend="and" property="promotionName" >
         promotion_name like '%$promotionName$%'
       </isNotNull>
-      <isNotNull prepend="and" property="venderUserId" >
-        vender_user_id = #venderUserId#
-      </isNotNull>
       <isNotNull prepend="and" property="promotionType" >
         promotion_type = #promotionType#
       </isNotNull>
@@ -285,9 +279,6 @@
       </isNotNull>
       <isNotNull prepend="and" property="itemId" >
         item_id = #itemId#
-      </isNotNull>
-      <isNotNull prepend="and" property="venderUserId" >
-        vender_user_id = #venderUserId#
       </isNotNull>
       <isNotNull prepend="and" property="promotionType" >
         promotion_type = #promotionType#
