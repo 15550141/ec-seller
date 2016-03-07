@@ -126,10 +126,11 @@
     where id = #id#
   </update>
 
-  <!-- 删除 -->
-  <delete id="delete" >
-    delete from daily_sales_statistics where id=#id#
-  </delete>
+
+  <update id="delete" parameterClass="Integer" >
+    update daily_sales_statistics set MODIFIED = now(),yn=0
+    where id = #id#
+  </update>
 
   <!-- 条件查询总数 -->
   <select id="countByCondition" parameterClass="com.ec.seller.domain.query.DailySalesStatisticsQuery" resultClass="java.lang.Integer" >

@@ -90,9 +90,8 @@
                 <th>商品分类</th>
                 <th>商品图片</th>
                 <th>商品名称</th>
-                <th>参考进价</th>
-				<th>参考售价</th>
-                <!--<th>库存</th>-->
+                <th>价格(元)</th>
+                <th>库存</th>
                 <th>上架时间</th>
 				<th>操作</th>
             </tr>
@@ -110,10 +109,8 @@
                		#end
                	</td>
                 <td>$!{item.itemName}</td>
-				<td>$!bigDecimalUtils.intDivide100ToBigDecimal($!{item.referenceStockPrice})/#if($!item.referenceUnit==1)斤#elseif($!item.referenceUnit==2)个#elseif($!item.referenceUnit==3)箱#elseif($!item.referenceUnit==4)袋#elseif($!item.referenceUnit==5)盒#end</td>
-                </td>
-                <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!{item.referenceSellPrice})/#if($!item.unit==1)斤#elseif($!item.unit==2)个#elseif($!item.unit==3)箱#elseif($!item.unit==4)袋#elseif($!item.unit==5)盒#end</td>
-                <!-- <td>$!{item.stock}</td> -->
+				<td>$!{item.tbPrice}</td>
+                <td>$!{item.stock}</td>
 				<td>$!dateFormatUtils.format($!{item.onShelfTime},"yyyy-MM-dd HH:mm:ss")</td>
                 <td>
                     <a href="/product/edit?itemId=$!{item.itemId}">修改</a>
