@@ -237,6 +237,12 @@
                 			$!orderInfo.lockReason
                 		</td>
                 	</tr>
+                    <tr>
+                        <td class="TdLabel"><div align="right">备注：</div></td>
+                        <td width="78%" align="left" colspan="10" class="TdValue">
+							$!orderInfo.remark
+                        </td>
+                    </tr>
                 	
 				</table>
 		   </div>

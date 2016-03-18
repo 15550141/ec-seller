@@ -4,6 +4,7 @@ import com.ec.seller.common.utils.CookieUtil;
 import com.ec.seller.common.utils.DateFormatUtils;
 import com.ec.seller.common.utils.PaginatedList;
 import com.ec.seller.domain.Purchase;
+import com.ec.seller.domain.PurchaseItem;
 import com.ec.seller.domain.query.PurchaseItemQuery;
 import com.ec.seller.domain.query.PurchaseQuery;
 import com.ec.seller.service.PurchaseItemService;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/purchase")
@@ -78,16 +80,36 @@ public class PurchaseController {
 	@RequestMapping(value="/update", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Result update(Purchase purchase, String purchaseDate, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
-		if(StringUtils.isNotBlank(purchaseDate)){
-			purchase.setPurchaseTime(DateFormatUtils.parseDate(purchaseDate, "yyyy-MM-dd"));
-		}
-		Purchase purchaseDb = this.purchaseService.selectById(purchase.getId());
-
-		purchase.setStatus(1);//采购完成
-		if(purchase.getPurchasePrice() != null && purchaseDb.getTotalPrice() != null){
-			purchase.setTotalPrice(purchase.getPurchasePrice().add(purchaseDb.getTotalPrice()));
-		}
 		try{
+			if(StringUtils.isNotBlank(purchaseDate)){
+				purchase.setPurchaseTime(DateFormatUtils.parseDate(purchaseDate, "yyyy-MM-dd"));
+			}
+
+			purchase.setStatus(1);//采购完成
+
+			//查询该采购单所有采购商品列表，计算采购商品总金额
+			PurchaseItemQuery query = new PurchaseItemQuery();
+			query.setPurchaseId(purchase.getId());
+			List<PurchaseItem> list =  this.purchaseItemService.findList(query);
+			if(list == null){
+				result.setSuccess(false);
+				result.setResultMessage("没有添加采购商品！");
+				return result;
+			}
+			purchase.setPurchaseTotalPrice(BigDecimal.ZERO);
+			for(int i=0;i<list.size();i++){
+				if(list.get(i).getTotalPrice() == null){
+					continue;
+				}
+				//采购商品总金额
+				purchase.setPurchaseTotalPrice(purchase.getPurchaseTotalPrice().add(list.get(i).getTotalPrice()));
+			}
+			purchase.setTotalPrice(purchase.getPurchaseTotalPrice());
+			if(purchase.getPurchasePrice() != null){
+				//总金额 = 采购商品总金额+采购其他费用
+				purchase.setTotalPrice(purchase.getTotalPrice().add(purchase.getPurchasePrice()));
+			}
+
 			this.purchaseService.modify(purchase);
 			result.setSuccess(true);
 		}catch (Exception e){

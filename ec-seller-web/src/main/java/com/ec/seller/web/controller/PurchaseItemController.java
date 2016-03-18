@@ -76,13 +76,16 @@ public class PurchaseItemController {
 
 			Purchase purchase = new Purchase();
 			purchase.setId(dbPurchaseItem.getPurchaseId());
-			purchase.setTotalPrice(BigDecimal.ZERO);
+			purchase.setPurchaseTotalPrice(BigDecimal.ZERO);
 			for(int i=0;i<list.size();i++){
 				if(list.get(i).getTotalPrice() == null){
 					continue;
 				}
-				purchase.setTotalPrice(purchase.getTotalPrice().add(list.get(i).getTotalPrice()));
+				//采购商品总金额
+				purchase.setPurchaseTotalPrice(purchase.getPurchaseTotalPrice().add(list.get(i).getTotalPrice()));
 			}
+			//总金额 = 采购商品总金额+采购其他费用
+			purchase.setTotalPrice(purchase.getPurchaseTotalPrice());
 			this.purchaseService.modify(purchase);
 
 			result.setSuccess(true);

@@ -35,6 +35,8 @@ public class Purchase implements Serializable {
     private Date created;
     private Date modified;
 
+    //采购商品总费用
+    private BigDecimal purchaseTotalPrice;
     public Integer getId() {
         return id;
     }
@@ -137,5 +139,13 @@ public class Purchase implements Serializable {
 
     public void setModified(Date modified) {
         this.modified = modified;
+    }
+
+    public BigDecimal getPurchaseTotalPrice() {
+        return purchaseTotalPrice;
+    }
+
+    public void setPurchaseTotalPrice(BigDecimal purchaseTotalPrice) {
+        this.purchaseTotalPrice = purchaseTotalPrice;
     }
 }
