@@ -27,7 +27,7 @@
     select user_id, mobile, password, user_type, register_time, register_ip, last_login_time,
       last_login_ip, yn, created, modified, nickname
     from user_info
-    where mobile = #mobile# and password = #password#
+    where mobile = #mobile# and password = #password# and user_type=1
   </select>
   
   <select id="queryByMobile" resultMap="UserInfoResult" parameterClass="java.lang.String" >

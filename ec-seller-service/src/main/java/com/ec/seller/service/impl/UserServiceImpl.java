@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService{
 		Map<String,String> params=new HashMap<String,String>();
 		params.put("mobile", loginname);
 		params.put("password", loginpwd);
+		params.put("userType", "1");
 		UserInfo userInfo = userManager.query(params);
 		return userInfo;
 	}	
