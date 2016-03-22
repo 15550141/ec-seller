@@ -38,15 +38,21 @@ public class LoginInterceptor implements HandlerInterceptor{
 
 		String name = CookieUtil.getLoginName(request);
 		request.setAttribute("name", name);
+
 		if(StringUtils.isNotBlank(name)){
-			if(path.equals("/product/itemList") || path.equals("/purchase/index")
-					|| path.equals("/purchaseTemplate/index")){
-				if(name.equals("于建明") || name.equals("杨慧斌") || name.equals("张瀚洋") || name.equals("韩建初")|| name.equals("苏立强") || name.equals("庞勇")){
-					return true;
-				}
-			}else{
+			if(name.equals("于建明") || name.equals("杨慧斌") || name.equals("张瀚洋") || name.equals("韩建初")|| name.equals("苏立强") || name.equals("庞勇")){
 				return true;
 			}
+
+			if(path.startsWith("/purchase/index")){
+				return true;
+			}
+
+			if(path.startsWith("/product/") || path.equals("/purchase/")
+					|| path.equals("/purchaseTemplate/")){
+				return false;
+			}
+			return true;
 		}
 
 
