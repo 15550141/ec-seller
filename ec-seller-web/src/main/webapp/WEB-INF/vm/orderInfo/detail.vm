@@ -226,7 +226,7 @@
                 			#if($!orderInfo.lockStatus==0)
 		                		未锁定
 		                	#end
-		                	#if($!orderInfo.orderStatus==1)
+		                	#if($!orderInfo.lockStatus==1)
 		                		已锁定
 		                	#end
                 		</td>

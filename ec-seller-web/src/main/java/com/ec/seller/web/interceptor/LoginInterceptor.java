@@ -48,8 +48,8 @@ public class LoginInterceptor implements HandlerInterceptor{
 				return true;
 			}
 
-			if(path.startsWith("/product/") || path.equals("/purchase/")
-					|| path.equals("/purchaseTemplate/")){
+			if(path.startsWith("/product/") || path.startsWith("/purchase/")
+					|| path.startsWith("/purchaseTemplate/")){
 				return false;
 			}
 			return true;
