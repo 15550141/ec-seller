@@ -48,7 +48,7 @@
                                 menuTransMap.put('', '');
                             </script>
                         </ul>
-                        
+
 						#if($!name == "于建明" || $name == "张瀚洋" || $!name == "杨慧斌" || $!name == "韩建初" || $!name == "苏立强" || $!name == "庞勇")
                             <div class="menu-item">
                                 <a title="商品管理" href="javascript:void(0)">商品管理</a>
