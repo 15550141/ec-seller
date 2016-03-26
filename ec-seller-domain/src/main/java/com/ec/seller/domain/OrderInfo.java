@@ -110,16 +110,19 @@ public class OrderInfo implements Serializable{
     private Date modified;
     
     private List<OrderDetail> orderDetails;
-    
-    /** 订单属性标记位 */
-    private Long orderProperty;
-    
+
     /**
      * 有效无效
      * 1有效
      * 0无效
      */
     private Integer yn = 1;
+
+	/** 订单属性标记位 */
+	private Integer properties;
+
+	/** 发货类型，1，自提。2，自有物流 */
+	private Integer sendType;
     
     /**
      * 父订单号
@@ -130,7 +133,23 @@ public class OrderInfo implements Serializable{
      * 订单标记位 key是位置，value 1 是有标
      */
     private Map<Integer, Integer> mapProp;
-	
+
+	public Integer getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Integer properties) {
+		this.properties = properties;
+	}
+
+	public Integer getSendType() {
+		return sendType;
+	}
+
+	public void setSendType(Integer sendType) {
+		this.sendType = sendType;
+	}
+
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -338,16 +357,6 @@ public class OrderInfo implements Serializable{
 
 	public void setOrderDetails(List<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
-	}
-
-
-	
-	public Long getOrderProperty() {
-		return orderProperty;
-	}
-
-	public void setOrderProperty(Long orderProperty) {
-		this.orderProperty = orderProperty;
 	}
 
 	public Map<Integer, Integer> getMapProp() {

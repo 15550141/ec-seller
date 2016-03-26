@@ -107,6 +107,26 @@ public class OrderInfoQuery extends BaseSearchForMysqlVo implements
 
 	private BigDecimal priceEnd;
 
+	private Integer properties;
+
+	private Integer sendType;
+
+	public Integer getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Integer properties) {
+		this.properties = properties;
+	}
+
+	public Integer getSendType() {
+		return sendType;
+	}
+
+	public void setSendType(Integer sendType) {
+		this.sendType = sendType;
+	}
+
 	public Integer getOrderId() {
 		return orderId;
 	}

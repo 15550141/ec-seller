@@ -32,6 +32,8 @@
     <result column="modified" property="modified" jdbcType="TIMESTAMP" />
     <result column="parent_order_id" property="parentOrderId" />
     <result column="yn" property="yn" />
+      <result column="properties" property="properties" />
+      <result column="send_type" property="sendType" />
   </resultMap>
   
   <!-- 查询条件 -->
@@ -115,14 +117,20 @@
  			order_money <= #priceEnd#
 		]]>
       </isNotNull>
-      
+        <isNotNull prepend="and" property="properties" >
+            properties = #properties#
+        </isNotNull>
+        <isNotNull prepend="and" property="sendType" >
+            send_type = #sendType#
+        </isNotNull>
+
     </dynamic>
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="OrderInfoResult" parameterClass="java.lang.Integer" >
     select order_id, order_type, payment_type, vender_user_id, user_id, consignee_name, consignee_province, consignee_city, consignee_county,
     consignee_address, consignee_mobile, remark, order_money, discount_money,discount_info, order_time, pay_time ,hope_arrival_time,send_out_time ,estimate_send_out_time, telephone_call_time, finish_time,
-    order_status, ip, lock_status, lock_reason, created, modified, parent_order_id ,yn 
+    order_status, ip, lock_status, lock_reason, created, modified, parent_order_id ,yn, properties, send_type
     from order_info
     where order_id = #orderId:INTEGER#
   </select>
@@ -130,10 +138,10 @@
   <insert id="insert" parameterClass="com.ec.seller.domain.OrderInfo" >
     insert into order_info ( order_type, payment_type, vender_user_id, user_id, consignee_name, consignee_province, consignee_city, consignee_county,
     consignee_address, consignee_mobile, remark, order_money, discount_money,discount_info, order_time, pay_time ,hope_arrival_time,send_out_time ,estimate_send_out_time, telephone_call_time,finish_time,
-    order_status, ip, lock_status, lock_reason, created, modified, parent_order_id ,yn )
+    order_status, ip, lock_status, lock_reason, created, modified, parent_order_id ,yn, properties, send_type )
     values (#orderType#, #paymentType#, #venderUserId#, #userId#, #consigneeName#, #consigneeProvince#, #consigneeCity#, #consigneeCounty#,
     #consigneeAddress#, #consigneeMobile#, #remark#, #orderMoney#, #discountMoney#, #discountInfo#, now(), #payTime# ,#hopeArrivalTime#,#sendOutTime# ,#estimateSendOutTime#, #telephoneCallTime#,#finishTime#,
-    #orderStatus#, #ip#, #lockStatus#, #lockReason#, now(), #modified#, #parentOrderId# ,#yn# )
+    #orderStatus#, #ip#, #lockStatus#, #lockReason#, now(), #modified#, #parentOrderId# ,#yn#, #properties#, #sendType# )
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="orderId">
 			<![CDATA[SELECT @@IDENTITY AS order_id ]]>
@@ -203,9 +211,15 @@
       <isNotNull prepend="," property="lockStatus" >
         lock_status = #lockStatus:INTEGER#
       </isNotNull>
-      <isNotNull prepend="," property="lockReason" >
-        lock_reason = #lockReason:VARCHAR#
-      </isNotNull>
+        <isNotNull prepend="," property="lockReason" >
+            lock_reason = #lockReason:VARCHAR#
+        </isNotNull>
+        <isNotNull prepend="," property="properties" >
+            properties = #properties#
+        </isNotNull>
+        <isNotNull prepend="," property="sendType" >
+            send_type = #sendType#
+        </isNotNull>
     </dynamic>
     where order_id = #orderId:INTEGER#
   </update>
@@ -218,7 +232,7 @@
   <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.OrderInfoQuery" resultMap="OrderInfoResult" >
     select order_id, order_type, payment_type, vender_user_id, user_id, consignee_name, consignee_province, consignee_city, consignee_county,
     consignee_address, consignee_mobile, remark, order_money, discount_money,discount_info, order_time, pay_time ,hope_arrival_time,send_out_time ,estimate_send_out_time, telephone_call_time, finish_time,
-    order_status, ip, lock_status, lock_reason, created, modified, parent_order_id ,yn 
+    order_status, ip, lock_status, lock_reason, created, modified, parent_order_id ,yn , properties, send_type
     from order_info
     <include refid="OrderInfo.condition" />
   </select>
@@ -226,7 +240,7 @@
   <select id="selectByConditionForPage" parameterClass="com.ec.seller.domain.query.OrderInfoQuery" resultMap="OrderInfoResult" >
     select order_id, order_type, payment_type, vender_user_id, user_id, consignee_name, consignee_province, consignee_city, consignee_county,
     consignee_address, consignee_mobile, remark, order_money, discount_money,discount_info, order_time, pay_time ,hope_arrival_time,send_out_time ,estimate_send_out_time, telephone_call_time, finish_time,
-    order_status, ip, lock_status, lock_reason, created, modified, parent_order_id ,yn 
+    order_status, ip, lock_status, lock_reason, created, modified, parent_order_id ,yn , properties, send_type
     from order_info
     <include refid="OrderInfo.condition" />
     order by order_id desc

@@ -212,10 +212,13 @@
 					#if($!orderInfo.orderStatus == 4)
 						<a href="javascript:void(0);" onClick="estimateSendOutTime($!orderInfo.orderId);">【录入预计发货时间】</a><br /><br />
 					#end
+					#if($!orderInfo.orderStatus == 9)
+                        <a href="javascript:void(0);" onClick="zitibeihuowancheng($!orderInfo.orderId);">【自提备货完成】</a><br /><br />
+					#end
 					#if($!orderInfo.orderStatus == 8)
 						<a href="javascript:void(0);" onClick="sendGoods($!orderInfo.orderId);">【确认发货】</a><br /><br />
 					#end
-					#if($!orderInfo.orderStatus == 13)
+					#if($!orderInfo.orderStatus == 13 || $!orderInfo.orderStatus == 10)
 						<a href="javascript:void(0);" onclick="doFinish($!orderInfo.orderId);">【确认已收货】</a><br /><br />
 					#end
 					#if($!orderInfo.orderStatus == 1 || ($!orderInfo.orderType == 2 && $!orderInfo.orderStatus == 8))
@@ -330,26 +333,46 @@
 		});
 		return;
 	}
-	
-	function sendGoods(orderId){
-		if(confirm("请确保订单已发货？")){
-			$.ajax({
-				type : "post",
-		    	url : "/orderInfo/sendGoods",
-		    	data : "orderId="+orderId,
-		    	contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
-		    	dataType: "json", 
-		    	success : function(data) {
-		    		if(data.success){
-		    			alert("发货成功！");
-		    		}else{
-		    			alert(data.message);
-		    		}
-		    		window.location.reload();
-		    	}
-			});
-		}
-	}
+
+    function sendGoods(orderId){
+        if(confirm("请确保订单已发货？")){
+            $.ajax({
+                type : "post",
+                url : "/orderInfo/sendGoods",
+                data : "orderId="+orderId,
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "json",
+                success : function(data) {
+                    if(data.success){
+                        alert("发货成功！");
+                    }else{
+                        alert(data.message);
+                    }
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
+    function zitibeihuowancheng(orderId){
+        if(confirm("请确保已经备货完成？")){
+            $.ajax({
+                type : "post",
+                url : "/orderInfo/zitibeihuowancheng",
+                data : "orderId="+orderId,
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "json",
+                success : function(data) {
+                    if(data.success){
+                        alert("提交成功！");
+                    }else{
+                        alert(data.message);
+                    }
+                    window.location.reload();
+                }
+            });
+        }
+    }
 	
 	function confirmGetPrice(orderId){
 	  jQuery.get("/orderInfo/confirmGetPrice?orderId="+orderId, function(result){

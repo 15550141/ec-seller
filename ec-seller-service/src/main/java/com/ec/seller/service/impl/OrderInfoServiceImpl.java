@@ -189,7 +189,64 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		
 		return null;
 	}
-	
+
+
+	@Override
+	public Map<String, Object> zitibeihuowancheng(Integer orderId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		OrderInfoQuery query = new OrderInfoQuery();
+		query.setOrderId(orderId);
+		List<OrderInfo> list = orderInfoDao.selectByCondition(query);
+
+		if(list == null || list.size() == 0){
+			map.put("success", false);
+			map.put("message", "订单不存在");
+			return map;
+		}
+
+		OrderInfo orderInfo = list.get(0);
+		if(orderInfo.getOrderStatus() == 51){//订单已取消
+			map.put("success", false);
+			map.put("message", "该订单已被取消");
+			return map;
+		}
+		if(orderInfo.getOrderStatus() >= 10){
+			map.put("success", false);
+			map.put("message", "该订单已发货");
+			return map;
+		}
+
+		orderInfo.setOrderId(orderId);
+		orderInfo.setSendOutTime(new Date());//点击确认发货时间
+		orderInfo.setOrderStatus(10);//上门自提
+		int result = 0;
+		try{
+			result = orderInfoDao.modify(orderInfo);
+
+			//添加任务表
+			Task task = new Task();
+			Map<String, Integer> taskMap = new HashMap<String, Integer>();
+			taskMap.put("orderId", orderInfo.getOrderId());
+			taskMap.put("userId", orderInfo.getUserId());
+			task.setContent(JsonUtils.writeValue(taskMap));//内容
+			task.setStatus(0);//初始状态
+			task.setType(4);//上门自提
+			task.setYn(1);//有效
+			taskDao.insert(task);
+		}catch (Exception e) {
+			log.error("", e);
+		}
+
+		if(result == 0){
+			map.put("success", false);
+			map.put("message", "修改失败");
+		}else{
+			map.put("success", true);
+		}
+		return map;
+	}
+
 	@Override
 	public Map<String, Object> sendGoods(Integer orderId, Integer venderId, Date estimateSendOutTime) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -282,7 +339,23 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		orderInfo.setFinishTime(new Date());
 		orderInfo.setOrderStatus(50);//标记为订单完成
 		
-		int result = orderInfoDao.modify(orderInfo);
+		int result = 0;
+		try{
+			result = orderInfoDao.modify(orderInfo);
+
+			//添加任务表
+			Task task = new Task();
+			Map<String, Integer> taskMap = new HashMap<String, Integer>();
+			taskMap.put("orderId", orderInfo.getOrderId());
+			taskMap.put("userId", orderInfo.getUserId());
+			task.setContent(JsonUtils.writeValue(taskMap));//内容
+			task.setStatus(0);//初始状态
+			task.setType(5);//订单完成
+			task.setYn(1);//有效
+			taskDao.insert(task);
+		}catch (Exception e) {
+			log.error("", e);
+		}
 		if(result == 0){
 			map.put("success", false);
 			map.put("message", "修改失败");

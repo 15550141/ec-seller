@@ -42,28 +42,24 @@ public interface OrderInfoService {
 	
 	/**
 	 * 确认收款
-	 * @param orderInfo
 	 * @return
 	 */
 	public Map<String, Object> confirmGetPrice(Integer orderId, Integer venderUserId);
 	
 	/**
 	 * 尾款收款
-	 * @param orderInfo
 	 * @return
 	 */
 	public Map<String, Object> confirmGetLastPrice(Integer orderId, Integer venderUserId);
 	
 	/**
 	 * 订单完成
-	 * @param orderInfo
 	 * @return
 	 */
 	public Map<String, Object> updateOrderInfoFinish(Integer orderId, Integer venderUserId);
 	
 	/**
 	 * 取消订单
-	 * @param orderInfo
 	 * @return
 	 */
 	public Map<String, Object> cancelOrder(Integer orderId, Integer venderUserId);
@@ -81,4 +77,6 @@ public interface OrderInfoService {
 	public Map<String, Object> sendGoods(Integer orderId, Integer venderId, Date estimateSendOutTime);
 	
 	public Map<String, Object> doEstimateSendOutTime(Integer orderId, Integer venderId, Date estimateSendOutTime);
+
+	public Map<String, Object> zitibeihuowancheng(Integer orderId);
 }

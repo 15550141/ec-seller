@@ -176,26 +176,6 @@ public class OrderInfoController {
 	 * @param context
 	 * @return
 	 */
-	@RequestMapping(value="/doConfirmGetPrice", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Map<String, Object> doConfirmGetPrice(Integer orderId, HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
-		Map<String, Object> map = new HashMap<String, Object>();
-		if(orderId == null){
-			map.put("success", false);
-			map.put("message", "订单号不能为空");
-			return map;
-		}
-		
-		return orderInfoService.confirmGetPrice(orderId, CookieUtil.getUserId(reuqest));
-	}
-	
-	/**
-	 * 收款确认
-	 * @param orderId
-	 * @param reuqest
-	 * @param response
-	 * @param context
-	 * @return
-	 */
 	@RequestMapping(value="/doFinish", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Map<String, Object> doFinish(Integer orderId,HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -273,7 +253,7 @@ public class OrderInfoController {
 		}
 		return orderInfoService.lockOrder(orderId, CookieUtil.getUserId(reuqest), lockReason);
 	}
-	
+
 	/**
 	 * 确认发货
 	 * @param orderId
@@ -292,9 +272,28 @@ public class OrderInfoController {
 		}
 		return orderInfoService.sendGoods(orderId, CookieUtil.getUserId(reuqest), estimateSendOutTime);
 	}
-	
+
 	/**
 	 * 确认发货
+	 * @param orderId
+	 * @param reuqest
+	 * @param response
+	 * @param context
+	 * @return
+	 */
+	@RequestMapping(value="/zitibeihuowancheng", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Map<String, Object> zitibeihuowancheng(Integer orderId, HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(orderId == null){
+			map.put("success", false);
+			map.put("message", "订单号不能为空");
+			return map;
+		}
+		return orderInfoService.zitibeihuowancheng(orderId);
+	}
+	
+	/**
+	 * 填写预计发货时间
 	 * @param orderId
 	 * @param reuqest
 	 * @param response
