@@ -168,7 +168,7 @@
                 		等待发货
                 	#end
                 	#if($!orderInfo.orderStatus==9)
-                		自提途中
+                		自提备货中
                 	#end
                 	#if($!orderInfo.orderStatus==10)
                 		上门提货
@@ -218,8 +218,11 @@
 					#if($!orderInfo.orderStatus == 8)
 						<a href="javascript:void(0);" onClick="sendGoods($!orderInfo.orderId);">【确认发货】</a><br /><br />
 					#end
-					#if($!orderInfo.orderStatus == 13 || $!orderInfo.orderStatus == 10)
+					#if($!orderInfo.orderStatus == 13)
 						<a href="javascript:void(0);" onclick="doFinish($!orderInfo.orderId);">【确认已收货】</a><br /><br />
+					#end
+					#if($!orderInfo.orderStatus == 10)
+                        <a href="javascript:void(0);" onclick="doFinish($!orderInfo.orderId);">【确认已自提】</a><br /><br />
 					#end
 					#if($!orderInfo.orderStatus == 1 || ($!orderInfo.orderType == 2 && $!orderInfo.orderStatus == 8))
 						<a href="javascript:void(0);" onclick="doCancel($!orderInfo.orderId);">【取消订单】</a><br /><br />
