@@ -209,6 +209,11 @@
       </isNotNull>
     </dynamic>
   </insert>
-  
- 
+
+
+  <update id="rollbackSkuStock" parameterClass="com.ec.seller.domain.Sku" >
+    update sku set stock=stock+#stock:INTEGER#,modified=now()
+    where SKU_ID = #skuId:INTEGER#
+  </update>
+
 </sqlMap>

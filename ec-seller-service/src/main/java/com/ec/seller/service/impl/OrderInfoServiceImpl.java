@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ec.seller.dao.*;
+import com.ec.seller.domain.Sku;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -14,10 +16,6 @@ import org.springframework.stereotype.Service;
 import com.ec.seller.common.utils.JsonUtils;
 import com.ec.seller.common.utils.PaginatedList;
 import com.ec.seller.common.utils.impl.PaginatedArrayList;
-import com.ec.seller.dao.OrderDetailDao;
-import com.ec.seller.dao.OrderInfoDao;
-import com.ec.seller.dao.SellerEntryDao;
-import com.ec.seller.dao.TaskDao;
 import com.ec.seller.domain.OrderDetail;
 import com.ec.seller.domain.OrderInfo;
 import com.ec.seller.domain.Task;
@@ -32,6 +30,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 	private SellerEntryDao sellerEntryDao;
 	private DataSourceTransactionManager transactionManager;
 	private TaskDao taskDao;
+	private SkuDao skuDao;
 	
 	@Override
 	public PaginatedList<OrderInfo> getOrderInfosByPage(OrderInfoQuery orderInfoQuery) {
@@ -372,17 +371,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		
 		OrderInfoQuery query = new OrderInfoQuery();
 		query.setOrderId(orderId);
-		query.setVenderUserId(venderUserId);
-		List<OrderInfo> list = orderInfoDao.selectByCondition(query);
-		
-		if(list == null || list.size() == 0){
-			map.put("success", false);
-			map.put("message", "订单不存在");
-			return map;
-		}
-		
-		OrderInfo orderInfo = list.get(0);
-		if(orderInfo.getOrderStatus() == 50 || orderInfo.getOrderStatus() == 51){//订单已完成或者已取消
+
+		OrderInfo orderInfo = this.getOrderInfoByOrderId(query);
+		if(orderInfo == null || orderInfo.getOrderStatus() == 50 || orderInfo.getOrderStatus() == 51){//订单已完成或者已取消
 			map.put("success", false);
 			map.put("message", "该订单已完成或已取消");
 			return map;
@@ -393,6 +384,11 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		orderInfo.setOrderStatus(51);//标记为订单已取消
 		
 		int result = orderInfoDao.modify(orderInfo);
+
+		for(OrderDetail detail : orderInfo.getOrderDetails()){
+			skuDao.rollbackSkuStock(detail.getSkuId(), detail.getNum());
+		}
+
 		if(result == 0){
 			map.put("success", false);
 			map.put("message", "修改失败");
@@ -462,6 +458,10 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
 	public void setSellerEntryDao(SellerEntryDao sellerEntryDao) {
 		this.sellerEntryDao = sellerEntryDao;
+	}
+
+	public void setSkuDao(SkuDao skuDao) {
+		this.skuDao = skuDao;
 	}
 
 	public void setTransactionManager(

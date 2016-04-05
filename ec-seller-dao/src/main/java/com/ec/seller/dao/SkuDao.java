@@ -58,5 +58,6 @@ public interface SkuDao {
 	 * @param sku
 	 */
 	public void insertOrUpdate(Sku sku);
-	
+
+	public void rollbackSkuStock(Integer skuId, Integer stock);
 }

@@ -47,6 +47,13 @@ public class SkuDaoImpl extends SqlMapClientTemplate implements SkuDao {
 		insert("Sku.insertOrUpdate",sku);
 	}
 
+	@Override
+	public void rollbackSkuStock(Integer skuId, Integer stock) {
+		Sku sku = new Sku();
+		sku.setSkuId(skuId);
+		sku.setStock(stock);
+		update("Sku.rollbackSkuStock", sku);
+	}
 
 
 }
