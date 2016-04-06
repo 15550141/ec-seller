@@ -46,6 +46,8 @@ public class DailySalesStatistics implements Serializable {
 
     /** 店铺名称 */
     private String shopName;
+    /** 最后修改人 */
+    private String lastUpdateUserName;
 
     public String getShopName() {
         return shopName;
@@ -205,5 +207,13 @@ public class DailySalesStatistics implements Serializable {
 
     public void setPosBuyCardPrice(BigDecimal posBuyCardPrice) {
         this.posBuyCardPrice = posBuyCardPrice;
+    }
+
+    public String getLastUpdateUserName() {
+        return lastUpdateUserName;
+    }
+
+    public void setLastUpdateUserName(String lastUpdateUserName) {
+        this.lastUpdateUserName = lastUpdateUserName;
     }
 }

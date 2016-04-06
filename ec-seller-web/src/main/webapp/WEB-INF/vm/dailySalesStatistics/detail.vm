@@ -29,82 +29,69 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">总销售金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!detail.totalSalesPrice">
+                    <input readonly="readonly" class="form-control" value="$!detail.totalSalesPrice">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">入账金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!detail.totalCashPrice">
+                    <input readonly="readonly" class="form-control" value="$!detail.totalCashPrice">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">现金消费金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!detail.cashSalesPrice">
+                    <input readonly="readonly" class="form-control" value="$!detail.cashSalesPrice">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">会员卡消费金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!detail.cardSalesPrice">
+                    <input readonly="readonly" class="form-control" value="$!detail.cardSalesPrice">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon">刷卡消费金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!detail.posSalesPrice">
+                    <span class="input-group-addon">pos机消费金额：</span>
+                    <input readonly="readonly" class="form-control" value="$!detail.posSalesPrice">
                 </div>
             </div>
-
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">微信消费金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!detail.wxSalesPrice">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">支付宝消费金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!detail.zfbSalesPrice">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">其他消费金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!detail.otherSalesPrice">
-                </div>
-            </div>
-
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">现金办理会员卡金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!detail.cashBuyCardPrice">
+                    <input readonly="readonly" class="form-control" value="$!detail.cashBuyCardPrice">
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">刷卡办理会员卡金额：</span>
-                    <input type="number" readonly="readonly" class="form-control" value="$!detail.posBuyCardPrice">
+                    <input readonly="readonly" class="form-control" value="$!detail.posBuyCardPrice">
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon">创建人：</span>
-                    <input type="text" readonly="readonly" class="form-control" value="$!detail.userName">
+                    <span class="input-group-addon">支付宝消费金额：</span>
+                    <input readonly="readonly" class="form-control" value="$!detail.zfbSalesPrice">
                 </div>
             </div>
-
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">微信消费金额：</span>
+                    <input readonly="readonly" class="form-control" value="$!detail.wxSalesPrice">
+                </div>
+            </div>
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">采购备注：</span>
                     <input id="remark" type="text" class="form-control" value="$!detail.remark">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">创建人：</span>
+                    <input type="text" readonly="readonly" class="form-control" value="$!detail.userName">
                 </div>
             </div>
         </div>

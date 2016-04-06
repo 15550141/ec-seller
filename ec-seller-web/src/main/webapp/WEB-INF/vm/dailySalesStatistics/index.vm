@@ -31,6 +31,9 @@
                             <button class="btn btn-default btn-sm" onclick="window.location.href='/sales/detail?id=$!detail.id'" type="button">
                                 查看明细
                             </button>
+                            <button class="btn btn-default btn-sm" onclick="doSubmit($!detail.id)" type="button">
+                                删除
+                            </button>
                         </td>
                     </tr>
                 #end
@@ -39,6 +42,23 @@
     </div>
 </div>
 <script type="application/javascript">
-
+    function doSubmit(id){
+        jQuery.ajax( {
+            url : "/sales/delete?id="+id,
+            type : "post",
+            dataType : "json",
+            success : function(data) {
+                if (data.success == true) {
+                    alert("删除成功！");
+                    window.location.href="/sales/index";
+                }else{
+                    alert("系统异常！请重试");
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    }
 </script>
 #parse("/WEB-INF/vm/common/bottom.vm")
