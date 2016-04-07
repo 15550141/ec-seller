@@ -26,17 +26,20 @@ public class Test {
                     try{
                         BigDecimal money = new BigDecimal(arr[6].replace(",",""));
                         String date = getDate(arr[1]);
-                        BigDecimal value = map.get(date);
-                        if(value == null){
-                            value = BigDecimal.ZERO;
+                        if(arr[1].startsWith("2016/3/11 ")){
+                            System.out.println(detail);
+                            BigDecimal value = map.get(date);
+                            if(value == null){
+                                value = BigDecimal.ZERO;
+                            }
+                            if(money.compareTo(new BigDecimal(110)) == 0){
+                                money = new BigDecimal(100);
+                            }
+                            if(money.compareTo(new BigDecimal(215)) == 0){
+                                money = new BigDecimal(200);
+                            }
+                            map.put(date, value.add(money));
                         }
-                        if(money.compareTo(new BigDecimal(110)) == 0){
-                            money = new BigDecimal(100);
-                        }
-                        if(money.compareTo(new BigDecimal(215)) == 0){
-                            money = new BigDecimal(200);
-                        }
-                        map.put(date, value.add(money));
                     }catch (Exception e){
                         e.printStackTrace();
                         continue;
@@ -44,9 +47,12 @@ public class Test {
                 }
             }
 
+            BigDecimal sum = new BigDecimal(0);
             for(String key : map.keySet()){
-                System.out.println(key+"    "+map.get(key));
+                sum = sum.add(map.get(key));
+                System.out.println(key+","+map.get(key));
             }
+            System.out.println(sum);
 
         } catch (IOException e) {
             e.printStackTrace();
