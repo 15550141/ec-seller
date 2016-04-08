@@ -32,12 +32,12 @@ public class Test {
                             if(value == null){
                                 value = BigDecimal.ZERO;
                             }
-                            if(money.compareTo(new BigDecimal(110)) == 0){
-                                money = new BigDecimal(100);
-                            }
-                            if(money.compareTo(new BigDecimal(215)) == 0){
-                                money = new BigDecimal(200);
-                            }
+//                            if(money.compareTo(new BigDecimal(110)) == 0){
+//                                money = new BigDecimal(100);
+//                            }
+//                            if(money.compareTo(new BigDecimal(215)) == 0){
+//                                money = new BigDecimal(200);
+//                            }
                             map.put(date, value.add(money));
                         }
                     }catch (Exception e){
