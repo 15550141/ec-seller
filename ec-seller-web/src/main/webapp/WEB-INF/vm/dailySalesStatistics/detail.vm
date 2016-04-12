@@ -16,7 +16,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">时区：</span>
-                    <input type="text" readonly="readonly" class="form-control" value="#if($!detail.timeInterval==1)上午#elseif($!detail.timeInterval==2)下午#end">
+                    <input type="text" readonly="readonly" class="form-control" value="$!detail.timeInterval">
                 </div>
             </div>
             <div class="form-group">
@@ -60,25 +60,31 @@
             </div>
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon">现金办理会员卡金额：</span>
-                    <input readonly="readonly" class="form-control" value="$!detail.cashBuyCardPrice">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">刷卡办理会员卡金额：</span>
-                    <input readonly="readonly" class="form-control" value="$!detail.posBuyCardPrice">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
                     <span class="input-group-addon">支付宝消费金额：</span>
                     <input readonly="readonly" class="form-control" value="$!detail.zfbSalesPrice">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon">微信消费金额：</span>
+                    <span class="input-group-addon">现金办理会员卡金额：</span>
+                    <input readonly="readonly" class="form-control" value="$!detail.cashBuyCardPrice">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">pos机办理会员卡金额：</span>
+                    <input readonly="readonly" class="form-control" value="$!detail.posBuyCardPrice">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">支付宝办卡金额：</span>
+                    <input readonly="readonly" class="form-control" value="$!detail.zfbBuyCardPrice">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">微信支付金额：</span>
                     <input readonly="readonly" class="form-control" value="$!detail.wxSalesPrice">
                 </div>
             </div>

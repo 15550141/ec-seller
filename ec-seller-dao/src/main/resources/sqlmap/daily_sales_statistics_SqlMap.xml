@@ -23,12 +23,14 @@
     <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
     <result column="shop_name" property="shopName"/>
     <result column="last_update_user_name" property="lastUpdateUserName"/>
+    <result column="zfb_buy_card_price" property="zfbBuyCardPrice"/>
   </resultMap>
 
   <!-- 查询内容 -->
   <sql id="searchColoum" >
     id, statistics_date, time_interval, total_cash_price, total_sales_price, cash_sales_price, card_sales_price,
-    pos_sales_price, wx_sales_price, zfb_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, user_id,user_name, yn, remark, created, modified, shop_name,last_update_user_name
+    pos_sales_price, wx_sales_price, zfb_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, user_id,user_name, yn,
+    remark, created, modified, shop_name,last_update_user_name, zfb_buy_card_price
   </sql>
 
   <!-- 查询条件 -->
@@ -59,9 +61,11 @@
   <!-- 添加信息 -->
   <insert id="insert" parameterClass="com.ec.seller.domain.DailySalesStatistics" >
     insert into daily_sales_statistics (statistics_date, time_interval, total_cash_price, total_sales_price, cash_sales_price, card_sales_price,
-    pos_sales_price, wx_sales_price, zfb_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, user_id, user_name, yn, remark, created, modified, shop_name, last_update_user_name)
+    pos_sales_price, wx_sales_price, zfb_sales_price, other_sales_price, cash_buy_card_price, pos_buy_card_price, user_id,
+    user_name, yn, remark, created, modified, shop_name, last_update_user_name, zfb_buy_card_price)
     values (#statisticsDate#, #timeInterval#, #totalCashPrice#, #totalSalesPrice#, #cashSalesPrice#, #cardSalesPrice#,
-    #posSalesPrice#, #wxSalesPrice#, #zfbSalesPrice#, #otherSalesPrice#, #cashBuyCardPrice#, #posBuyCardPrice#, #userId#, #userName#, #yn#, #remark#, now(), now(), #shopName#, #lastUpdateUserName#)
+    #posSalesPrice#, #wxSalesPrice#, #zfbSalesPrice#, #otherSalesPrice#, #cashBuyCardPrice#, #posBuyCardPrice#, #userId#,
+    #userName#, #yn#, #remark#, now(), now(), #shopName#, #lastUpdateUserName#, #zfbBuyCardPrice#)
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="id">
 			<![CDATA[SELECT @@IDENTITY AS id ]]>
@@ -125,6 +129,9 @@
       </isNotNull>
       <isNotNull prepend="," property="lastUpdateUserName" >
         last_update_user_name = #lastUpdateUserName#
+      </isNotNull>
+      <isNotNull prepend="," property="zfbBuyCardPrice" >
+        zfb_buy_card_price = #zfbBuyCardPrice#
       </isNotNull>
 
     </dynamic>
