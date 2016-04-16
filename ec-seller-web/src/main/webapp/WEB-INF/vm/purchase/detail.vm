@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">采购总金额：</span>
-                        <input type="text" class="form-control" readonly="readonly" value="$!purchase.totalPrice">
+                        <input type="text" class="form-control" readonly="readonly" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!purchase.totalPrice)">
                     </div>
                 </div>
                 <div class="form-group">
@@ -61,7 +61,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">其他费用：</span>
-                        <input id="purchasePrice" type="number" class="form-control" #if($!purchase.status==1)readonly="readonly"#end value="$!purchase.purchasePrice">
+                        <input id="purchasePrice" type="number" class="form-control" #if($!purchase.status==1)readonly="readonly"#end value="$!bigDecimalUtils.intDivide100ToBigDecimal($!purchase.purchasePrice)">
                     </div>
                 </div>
 
@@ -105,7 +105,7 @@
                 <tr>
                     <td>$!detail.itemName</td>
                     <td>
-                        <input id="price$!detail.id" #if($!purchase.status!=0)readonly="readonly"#end type="number" style="width: 70px;" value="$!detail.price" />/
+                        <input id="price$!detail.id" #if($!purchase.status!=0)readonly="readonly"#end type="number" style="width: 70px;" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.price)" />/
                         <select id="referenceUnit$!detail.id" #if($!purchase.status!=0)readonly="readonly"#end>
                             <option value="1" #if($!detail.referenceUnit==1)selected="selected"#end>斤</option>
                             <option value="3" #if($!detail.referenceUnit==3)selected="selected"#end>箱</option>
@@ -116,7 +116,7 @@
                     </td>
                     <td><input id="num$!detail.id" type="number" #if($!purchase.status!=0)readonly="readonly" #end style="width: 70px;" value="$!detail.num" /></td>
                     <td>
-                        <input id="totalPrice$!detail.id" #if($!purchase.status!=0)readonly="readonly" #end type="number" style="width: 70px;" value="$!detail.totalPrice" />
+                        <input id="totalPrice$!detail.id" #if($!purchase.status!=0)readonly="readonly" #end type="number" style="width: 70px;" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalPrice)" />
                     </td>
                     <td>
                         #if($!purchase.status==0)
@@ -146,7 +146,7 @@
             params += "&purchaseDate="+purchaseTime;
         }
         if(purchasePrice){
-            params += "&purchasePrice="+purchasePrice;
+            params += "&purchasePrice="+(purchasePrice*100);
         }
         if(purchasePriceDetail){
             params += "&purchasePriceDetail="+purchasePriceDetail;
@@ -238,18 +238,6 @@
         var totalPrice = $("#totalPrice"+id).val();
         var price = $("#price"+id).val();
         var referenceUnit = $("#referenceUnit"+id).val();
-        if(!num || num == 0){
-            alert("进货数量不能为空");
-            return;
-        }
-        if(!totalPrice || totalPrice == 0 ){
-            alert("进货金额不能为空");
-            return;
-        }
-        if(!price || price == 0){
-            alert("参考价不能为空");
-            return;
-        }
         jQuery.ajax( {
             url : "/purchaseItem/update",
             type : "post",

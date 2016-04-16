@@ -19,79 +19,86 @@
                     <input type="text" readonly="readonly" class="form-control" value="#if($!detail.timeInterval==1)上午#elseif($!detail.timeInterval==2)下午#end">
                 </div>
             </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">店铺：</span>
-                    <input type="text" readonly="readonly" class="form-control" value="$!detail.shopName">
-                </div>
-            </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">总销售金额：</span>
-                    <input readonly="readonly" class="form-control" value="$!detail.totalSalesPrice">
+                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalSalesPrice)">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon">入账金额：</span>
-                    <input readonly="readonly" class="form-control" value="$!detail.totalCashPrice">
+                    <span class="input-group-addon">总现金收入：</span>
+                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalCashPrice)">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">现金消费金额：</span>
-                    <input readonly="readonly" class="form-control" value="$!detail.cashSalesPrice">
+                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.cashSalesPrice)">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">会员卡消费金额：</span>
-                    <input readonly="readonly" class="form-control" value="$!detail.cardSalesPrice">
+                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.cardSalesPrice)">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon">pos机消费金额：</span>
-                    <input readonly="readonly" class="form-control" value="$!detail.posSalesPrice">
+                    <span class="input-group-addon">刷卡消费金额：</span>
+                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.posSalesPrice)">
                 </div>
             </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">现金办理会员卡金额：</span>
-                    <input readonly="readonly" class="form-control" value="$!detail.cashBuyCardPrice">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">刷卡办理会员卡金额：</span>
-                    <input readonly="readonly" class="form-control" value="$!detail.posBuyCardPrice">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">支付宝消费金额：</span>
-                    <input readonly="readonly" class="form-control" value="$!detail.zfbSalesPrice">
-                </div>
-            </div>
+
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">微信消费金额：</span>
-                    <input readonly="readonly" class="form-control" value="$!detail.wxSalesPrice">
+                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.wxSalesPrice)">
                 </div>
             </div>
+
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon">采购备注：</span>
-                    <input id="remark" type="text" class="form-control" value="$!detail.remark">
+                    <span class="input-group-addon">支付宝消费金额：</span>
+                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.zfbSalesPrice)">
                 </div>
             </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">其他消费金额：</span>
+                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.otherSalesPrice)">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">现金办理会员卡金额：</span>
+                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.cashBuyCardPrice)">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">刷卡办理会员卡金额：</span>
+                    <input type="number" readonly="readonly" class="form-control" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.posBuyCardPrice)">
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">创建人：</span>
                     <input type="text" readonly="readonly" class="form-control" value="$!detail.userName">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">采购备注：</span>
+                    <input id="remark" type="text" class="form-control" value="$!detail.remark">
                 </div>
             </div>
         </div>

@@ -35,61 +35,61 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">总销售金额：</span>
-                    <input id="totalSalesPrice" name="totalSalesPrice" class="form-control" value="">
+                    <input type="number" id="totalSalesPrice" name="totalSalesPrice" class="form-control" value="">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon">入账金额：</span>
-                    <input id="totalCashPrice" name="totalCashPrice" class="form-control" value="">
+                    <span class="input-group-addon">总现金收入：</span>
+                    <input type="number" id="totalCashPrice" name="totalCashPrice" class="form-control" value="">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">现金消费金额：</span>
-                    <input id="cashSalesPrice" name="cashSalesPrice" class="form-control" value="">
+                    <input type="number" id="cashSalesPrice" name="cashSalesPrice" class="form-control" value="">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">会员卡消费金额：</span>
-                    <input id="cardSalesPrice" name="cardSalesPrice" class="form-control" value="">
+                    <input type="number" id="cardSalesPrice" name="cardSalesPrice" class="form-control" value="">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">pos机消费金额：</span>
-                    <input id="posSalesPrice" name="posSalesPrice" class="form-control" value="">
+                    <input type="number" id="posSalesPrice" name="posSalesPrice" class="form-control" value="">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">现金办理会员卡金额：</span>
-                    <input id="cashBuyCardPrice" name="cashBuyCardPrice" class="form-control" value="">
+                    <input type="number" id="cashBuyCardPrice" name="cashBuyCardPrice" class="form-control" value="">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">刷卡办理会员卡金额：</span>
-                    <input id="posBuyCardPrice" name="posBuyCardPrice" class="form-control" value="">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">支付宝消费金额：</span>
-                    <input id="zfbSalesPrice" name="zfbSalesPrice" class="form-control" value="">
+                    <input type="number" id="posBuyCardPrice" name="posBuyCardPrice" class="form-control" value="">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">微信消费金额：</span>
-                    <input id="wxSalesPrice" name="wxSalesPrice" class="form-control" value="">
+                    <input type="number" id="zfbSalesPrice" name="zfbSalesPrice" class="form-control" value="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">支付宝消费金额：</span>
+                    <input type="number" id="wxSalesPrice" name="wxSalesPrice" class="form-control" value="">
                 </div>
             </div>
 
@@ -125,8 +125,6 @@
         var posBuyCardPrice=$("#posBuyCardPrice").val();
         var remark=$("#remark").val();
         var shopName=$("#shopName").val();
-        var zfbSalesPrice=$("#zfbSalesPrice").val();
-        var wxSalesPrice=$("#wxSalesPrice").val();
 
         if(!date){
             alert("日期不能为空");
@@ -135,37 +133,31 @@
         var params = "date="+date + "&timeInterval=" + timeInterval
 
         if(totalSalesPrice){
-           params += "&totalSalesPrice=" + totalSalesPrice;
+           params += "&totalSalesPrice=" + totalSalesPrice*100;
         }
         if(totalCashPrice){
-            params += "&totalCashPrice=" + totalCashPrice;
+            params += "&totalCashPrice=" + totalCashPrice*100;
         }
         if(cashSalesPrice){
-            params += "&cashSalesPrice=" + cashSalesPrice;
+            params += "&cashSalesPrice=" + cashSalesPrice*100;
         }
         if(cardSalesPrice){
-            params += "&cardSalesPrice=" + cardSalesPrice;
+            params += "&cardSalesPrice=" + cardSalesPrice*100;
         }
         if(posSalesPrice){
-            params += "&posSalesPrice=" + posSalesPrice;
+            params += "&posSalesPrice=" + posSalesPrice*100;
         }
         if(cashBuyCardPrice){
-            params += "&cashBuyCardPrice=" + cashBuyCardPrice;
+            params += "&cashBuyCardPrice=" + cashBuyCardPrice*100;
         }
         if(posBuyCardPrice){
-            params += "&posBuyCardPrice=" + posBuyCardPrice;
+            params += "&posBuyCardPrice=" + posBuyCardPrice*100;
         }
         if(remark){
             params += "&remark=" + remark;
         }
         if(shopName){
             params += "&shopName=" + shopName;
-        }
-        if(zfbSalesPrice){
-            params += "&zfbSalesPrice=" + zfbSalesPrice;
-        }
-        if(wxSalesPrice){
-            params += "&wxSalesPrice=" + wxSalesPrice;
         }
         jQuery.ajax( {
             url : "/sales/insert",
