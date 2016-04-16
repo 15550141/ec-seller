@@ -17,8 +17,8 @@
                 <div class="input-group">
                     <span class="input-group-addon">时区：</span>
                     <select id="timeInterval" name="timeInterval">
-                        <option value="1">上午</option>
-                        <option value="2">下午</option>
+                        <option value="上午">上午</option>
+                        <option value="下午">下午</option>
                     </select>
                 </div>
             </div>
@@ -64,32 +64,39 @@
                     <input type="number" id="posSalesPrice" name="posSalesPrice" class="form-control" value="">
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon">现金办理会员卡金额：</span>
-                    <input type="number" id="cashBuyCardPrice" name="cashBuyCardPrice" class="form-control" value="">
-                </div>
-            </div>
 
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">刷卡办理会员卡金额：</span>
-                    <input type="number" id="posBuyCardPrice" name="posBuyCardPrice" class="form-control" value="">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">微信消费金额：</span>
-                    <input type="number" id="zfbSalesPrice" name="zfbSalesPrice" class="form-control" value="">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="input-group">
                     <span class="input-group-addon">支付宝消费金额：</span>
-                    <input type="number" id="wxSalesPrice" name="wxSalesPrice" class="form-control" value="">
+                    <input id="zfbSalesPrice" name="zfbSalesPrice" class="form-control" value="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+
+                    <span class="input-group-addon">现金办理会员卡金额：</span>
+                    <input id="cashBuyCardPrice" name="cashBuyCardPrice" class="form-control" value="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+
+                    <span class="input-group-addon">pos机办理会员卡金额：</span>
+                    <input id="posBuyCardPrice" name="posBuyCardPrice" class="form-control" value="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+
+                    <span class="input-group-addon">支付宝办卡金额：</span>
+                    <input id="zfbBuyCardPrice" name="zfbBuyCardPrice" class="form-control" value="">
+
                 </div>
             </div>
 
@@ -126,6 +133,12 @@
         var remark=$("#remark").val();
         var shopName=$("#shopName").val();
 
+        var zfbSalesPrice=$("#zfbSalesPrice").val();
+        var wxSalesPrice=$("#wxSalesPrice").val();
+        var zfbBuyCardPrice=$("#zfbBuyCardPrice").val();
+
+
+
         if(!date){
             alert("日期不能为空");
             return;
@@ -159,6 +172,18 @@
         if(shopName){
             params += "&shopName=" + shopName;
         }
+
+        if(zfbSalesPrice){
+            params += "&zfbSalesPrice=" + zfbSalesPrice;
+        }
+        if(wxSalesPrice){
+            params += "&wxSalesPrice=" + wxSalesPrice;
+        }
+        if(zfbBuyCardPrice){
+            params += "&zfbBuyCardPrice=" + zfbBuyCardPrice;
+        }
+
+
         jQuery.ajax( {
             url : "/sales/insert",
             type : "post",

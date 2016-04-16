@@ -15,7 +15,7 @@ public class DailySalesStatistics implements Serializable {
     /** 统计日期 */
     private Date statisticsDate;
     /** 时区1上午，2下午 */
-    private BigDecimal timeInterval;
+    private String timeInterval;
     /** 总现金收入金额 */
     private BigDecimal totalCashPrice;
     /** 总销售金额 */
@@ -48,6 +48,16 @@ public class DailySalesStatistics implements Serializable {
     private String shopName;
     /** 最后修改人 */
     private String lastUpdateUserName;
+    /** 支付宝办卡金额 */
+    private BigDecimal zfbBuyCardPrice;
+
+    public BigDecimal getZfbBuyCardPrice() {
+        return zfbBuyCardPrice;
+    }
+
+    public void setZfbBuyCardPrice(BigDecimal zfbBuyCardPrice) {
+        this.zfbBuyCardPrice = zfbBuyCardPrice;
+    }
 
     public String getShopName() {
         return shopName;
@@ -121,11 +131,11 @@ public class DailySalesStatistics implements Serializable {
         this.userName = userName;
     }
 
-    public BigDecimal getTimeInterval() {
+    public String getTimeInterval() {
         return timeInterval;
     }
 
-    public void setTimeInterval(BigDecimal timeInterval) {
+    public void setTimeInterval(String timeInterval) {
         this.timeInterval = timeInterval;
     }
 

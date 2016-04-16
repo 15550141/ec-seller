@@ -23,9 +23,11 @@
             <tbody>
                 #foreach($detail in $list)
                     <tr>
-                        <td>$!dateFormatUtils.format($!{detail.statisticsDate}, "yyyy-MM-dd")&nbsp;#if($!timeInterval==1)上午#elseif($!timeInterval==2)下午#end</td>
-                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalSalesPrice)</td>
-                        <td>$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.totalCashPrice)</td>
+
+                        <td>$!dateFormatUtils.format($!{detail.statisticsDate}, "yyyy-MM-dd")&nbsp;$!detail.timeInterval</td>
+                        <td>$!detail.totalSalesPrice</td>
+                        <td>$!detail.totalCashPrice</td>
+
                         <td>$!detail.userName</td>
                         <td>
                             <button class="btn btn-default btn-sm" onclick="window.location.href='/sales/detail?id=$!detail.id'" type="button">
