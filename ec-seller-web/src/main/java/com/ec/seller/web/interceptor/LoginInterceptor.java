@@ -44,6 +44,14 @@ public class LoginInterceptor implements HandlerInterceptor{
 				return true;
 			}
 
+			if(name.equals("张宏宇")){
+				if(path.startsWith("/sales/") || path.startsWith("/index") || path.equals("/") || path.equals("")){
+					return true;
+				}else{
+					return false;
+				}
+			}
+
 			if(path.startsWith("/purchase/index")){
 				return true;
 			}
