@@ -28,8 +28,8 @@
                     <select id="shopName" name="shopName">
                         <option value="1号店">1号店</option>
                         <option value="2号店">2号店</option>
-                        <option value="2号店">道南店</option>
-                        <option value="2号店">在水一方店</option>
+                        <option value="道南店">道南店</option>
+                        <option value="在水一方店">在水一方店</option>
                     </select>
                 </div>
             </div>
