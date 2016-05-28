@@ -13,6 +13,7 @@
 		<module>ec-seller-domain</module>
 		<module>ec-seller-manager</module>
 		<module>ec-seller-dao</module>
+		<module>ec-seller-wx</module>
 		<module>ec-seller-service</module>
 		<module>ec-seller-web</module>
 	</modules>
