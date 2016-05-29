@@ -19,8 +19,13 @@
 		<property name="sqlMapClient" ref="sqlMapClient"></property>
 		<property name="dataSource" ref="ecDataSource"></property>
 	</bean>
-	
+
 	<bean id="venderInfoDAO" class="com.ec.seller.dao.impl.VenderInfoDAOImpl" >
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+		<property name="dataSource" ref="ecDataSource"></property>
+	</bean>
+
+	<bean id="wxOrderDao" class="com.ec.seller.dao.impl.WxOrderDaoImpl" >
 		<property name="sqlMapClient" ref="sqlMapClient"></property>
 		<property name="dataSource" ref="ecDataSource"></property>
 	</bean>

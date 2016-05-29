@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="WxOrder" >
+  <resultMap id="WxOrderResult" class="com.ec.seller.domain.WxOrder" >
+    <result column="order_id" property="orderId"  />
+    <result column="auth_code" property="authCode" />
+    <result column="body" property="body"  />
+    <result column="attach" property="attach"  />
+    <result column="total_fee" property="totalFee"  />
+    <result column="device_info" property="deviceInfo"  />
+    <result column="goods_tag" property="goodsTag"  />
+    <result column="status" property="status"  />
+    <result column="yn" property="yn"  />
+    <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
+    <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <!-- 查询内容 -->
+  <sql id="searchColoum" >
+    order_id,auth_code,body,attach,total_fee,device_info,goods_tag,status,yn,CREATED,MODIFIED
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="condition" >
+  	<dynamic prepend="where" >
+  	  <isNotNull prepend="and" property="orderId" >
+        order_id = #orderId#
+      </isNotNull>
+      <isNotNull prepend="and" property="status" >
+        status = #status#
+      </isNotNull>
+      <isNotNull prepend="and" property="yn" >
+        yn = #yn#
+      </isNotNull>
+      <isNotNull prepend="and" property="deviceInfo" >
+        device_info = #deviceInfo#
+      </isNotNull>
+      <isNotNull prepend="and" property="totalFee" >
+        total_fee = #totalFee#
+      </isNotNull>
+    </dynamic>
+  </sql>
+  
+  <!-- 依据主键进行查询 -->
+  <select id="selectById" resultMap="WxOrderResult" parameterClass="java.lang.Integer" >
+    select <include refid="WxOrder.searchColoum" />
+    from wx_order
+    where id = #id#
+  </select>
+  
+  <!-- 添加信息 -->
+  <insert id="insert" parameterClass="com.ec.seller.domain.WxOrder" >
+    insert into wx_order (auth_code,body,attach,total_fee,device_info,goods_tag,status,yn,CREATED,MODIFIED)
+    values (#authCode#,#body#,#attach#,#totalFee#,#deviceInfo#,#goodsTag#,#status#,#yn#,now(),now())
+      <!-- 返回自增主键 -->
+      <selectKey resultClass="java.lang.Integer" keyProperty="id">
+			<![CDATA[SELECT @@IDENTITY AS id ]]>
+	  </selectKey>
+  </insert>
+  
+  <!-- 依据主键进行修改 -->
+  <update id="modify" parameterClass="com.ec.seller.domain.WxOrder" >
+    update wx_order set MODIFIED = now()
+    <dynamic>
+      <isNotNull prepend="," property="status" >
+        status = #status#
+      </isNotNull>
+      <isNotNull prepend="," property="yn" >
+        yn = #yn#
+      </isNotNull>
+    </dynamic>
+    where id = #id#
+  </update>
+
+  <!-- 条件查询总数 -->
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.WxOrderQuery" resultClass="java.lang.Integer" >
+    select count(1) from wx_order
+    <include refid="WxOrder.condition" />
+  </select>
+  
+  <!-- 条件查询列表 -->
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.WxOrderQuery" resultMap="WxOrderResult" >
+    select <include refid="WxOrder.searchColoum" />
+    from wx_order
+    <include refid="WxOrder.condition" />
+    order by id desc
+  </select>
+  
+</sqlMap>
