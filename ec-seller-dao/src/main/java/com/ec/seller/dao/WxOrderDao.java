@@ -46,4 +46,6 @@ public interface WxOrderDao {
     public List<WxOrder> selectByCondition(WxOrderQuery object);
 
     public PaginatedList<WxOrder> findPage(WxOrderQuery query);
+
+    public List<WxOrder> getNonePayWxOrder(WxOrderQuery query);
 }

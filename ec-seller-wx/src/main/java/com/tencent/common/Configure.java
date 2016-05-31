@@ -23,7 +23,7 @@ public class Configure {
 	private static String subMchID = "";
 
 	//HTTPS证书的本地路径
-	private static String certLocalPath = "C:\\workspace\\binfen\\ec-seller\\doc\\apiclient_cert.p12";
+	private static String certLocalPath = "/usr/local/tomcat/seller/apiclient_cert.p12";
 
 	//HTTPS证书密码，默认密码等于商户号MCHID
 	private static String certPassword = "1267232401";

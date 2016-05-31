@@ -20,11 +20,11 @@ public class WxOrderQuery extends BaseSearchForMysqlVo implements Serializable {
     /**
      * 会显示到用户订单完成页面
      */
-    private String body = "鲜果味道微信支付订单";
+    private String body;
     /**
      * 原样返回
      */
-    private String attach = "tingshuoyuanyangfanhui";
+    private String attach;
     /**
      * 总消费金额，单位是分
      */
@@ -54,6 +54,36 @@ public class WxOrderQuery extends BaseSearchForMysqlVo implements Serializable {
      * 订单状态，0是新建订单，1是支付完成
      */
     private Integer status = 0;
+
+    private Integer userId;
+
+    private String userName;
+
+    private String transactionId;
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public Long getOrderId() {
         return orderId;

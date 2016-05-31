@@ -4,10 +4,15 @@ import com.ec.seller.common.utils.JsonUtils;
 import com.ec.seller.service.wx.ScanPayListener;
 import com.tencent.WXPay;
 import com.tencent.business.ScanPayBusiness;
+import com.tencent.common.Util;
 import com.tencent.protocol.pay_protocol.ScanPayReqData;
+import com.tencent.protocol.pay_query_protocol.ScanPayQueryReqData;
+import com.tencent.protocol.pay_query_protocol.ScanPayQueryResData;
+import com.tencent.protocol.refund_protocol.RefundResData;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
+import org.apache.commons.lang.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,20 +36,31 @@ public class WXPayTest {
 //         * @param goodsTag 商品标记，微信平台配置的商品标记，用于优惠券或者满减使用
 //         */
 //
-        String authCode = "130965893820972131";
-        String body = "新接入测试";
-        String attach = "tingshuoyuanyangfanhui";
-        String outTradeNo = "dingdan5";
-        int totalFee = 1;
-        String deviceInfo = "燕山大街店";
-        String spBillCreateIP = "127.0.0.1";
-        String goodsTag = "";
+//        String authCode = "1";
+//        String body = "鲜果味道微信支付订单";
+//        String attach = "tingshuoyuanyangfanhui";
+//        String outTradeNo = "dingdan4";
+//        int totalFee = 1;
+//        String deviceInfo = "燕山大街店";
+//        String spBillCreateIP = "127.0.0.1";
+//        String goodsTag = "";
+//
+//        ScanPayReqData scanPayReqData = new ScanPayReqData(authCode, body, attach, outTradeNo, totalFee, deviceInfo, spBillCreateIP, "", "", goodsTag);
+//        System.out.println(JsonUtils.writeValue(scanPayReqData));
+//        WXPay.doScanPayBusiness(scanPayReqData , new ScanPayListener());
+//        System.out.println("支付成功");
 
-        ScanPayReqData scanPayReqData = new ScanPayReqData(authCode, body, attach, outTradeNo, totalFee, deviceInfo, spBillCreateIP, "", "", goodsTag);
 
-        System.out.println(WXPay.requestScanPayService(scanPayReqData));
-        WXPay.doScanPayBusiness(scanPayReqData , new ScanPayListener());
-        System.out.println("支付成功");
+        ScanPayQueryReqData reqData = new ScanPayQueryReqData("", "69");
+        String result = WXPay.requestScanPayQueryService(reqData);
+        ScanPayQueryResData refundResData = (ScanPayQueryResData) Util.getObjectFromXML(result, ScanPayQueryResData.class);
+        if("SUCCESS".equals(refundResData.getTrade_state())){
+            //修改数据库状态
+            System.out.println("success");
+        }
+
+
+        System.out.println();;
     }
 
 }

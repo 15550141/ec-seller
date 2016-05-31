@@ -211,6 +211,33 @@
                                 menuTransMap.put('', '');
                             </script>
                         </ul>
+
+                        <div class="menu-item">
+                            <a title="微信支付" href="javascript:void(0)">微信支付</a>
+                        </div>
+                        <ul class="sub-menu" style="display: none;">
+
+                            <li class="sub-menu-item"><a title="长城店"
+                                                         target="rightFrame" href="javascript:void(0);"
+                                                         onclick="javascript:randomUrl('/wxOrder/index?index=1',this);">长城店</a>
+                            </li>
+                            <li class="sub-menu-item"><a title="在水一方店"
+                                                         target="rightFrame" href="javascript:void(0);"
+                                                         onclick="javascript:randomUrl('/wxOrder/index?index=2',this);">在水一方店</a>
+                            </li>
+                            <li class="sub-menu-item"><a title="道南店"
+                                                         target="rightFrame" href="javascript:void(0);"
+                                                         onclick="javascript:randomUrl('/wxOrder/index?index=3',this);">道南店</a>
+                            </li>
+                            <li class="sub-menu-item"><a title="开发区店"
+                                                         target="rightFrame" href="javascript:void(0);"
+                                                         onclick="javascript:randomUrl('/wxOrder/index?index=4',this);">开发区店</a>
+                            </li>
+                            <script type="text/javascript">
+                                menuTransMap.put('', '');
+                            </script>
+                        </ul>
+
 						
 						<!--
 						<div class="menu-item">

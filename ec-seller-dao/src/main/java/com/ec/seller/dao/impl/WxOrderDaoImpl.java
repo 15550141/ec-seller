@@ -50,8 +50,14 @@ public class WxOrderDaoImpl  extends SqlMapClientTemplate implements WxOrderDao 
 
             list.addAll(this.selectByCondition(query));
         }catch (Exception e){
+            logger.error("", e);
         }
         return list;
+    }
+
+    @Override
+    public List<WxOrder> getNonePayWxOrder(WxOrderQuery query) {
+        return (List<WxOrder>)queryForList("WxOrder.getNonePayWxOrder", query);
     }
 
     @Override

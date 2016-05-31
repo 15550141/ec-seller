@@ -9,6 +9,7 @@ import org.apache.http.impl.cookie.DateUtils;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.util.*;
 
 /**
@@ -59,7 +60,13 @@ public class Test {
 //            e.printStackTrace();
 //        }
 
-        System.out.println(MD5Util.md5Hex("123123").toUpperCase());
+//        System.out.println(MD5Util.md5Hex("123123").toUpperCase());
+
+        //方法一：中文操作系统中打印GBK
+        System.out.println(System.getProperty("file.encoding"));
+
+        //方法二：中文操作系统中打印GBK
+        System.out.println(Charset.defaultCharset());
     }
 
     private static String getDate(String date) throws DateParseException {

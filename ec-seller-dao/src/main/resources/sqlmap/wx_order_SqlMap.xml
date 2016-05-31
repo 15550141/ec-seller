@@ -11,23 +11,24 @@
     <result column="goods_tag" property="goodsTag"  />
     <result column="status" property="status"  />
     <result column="yn" property="yn"  />
+    <result column="user_id" property="userId"  />
+    <result column="user_name" property="userName"  />
     <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
     <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
+    <result column="transaction_id" property="transactionId"  />
   </resultMap>
 
   <!-- 查询内容 -->
   <sql id="searchColoum" >
-    order_id,auth_code,body,attach,total_fee,device_info,goods_tag,status,yn,CREATED,MODIFIED
+    order_id,auth_code,body,attach,total_fee,device_info,goods_tag,status,yn,user_name,user_id,CREATED,MODIFIED,transaction_id
   </sql>
 
   <!-- 查询条件 -->
   <sql id="condition" >
   	<dynamic prepend="where" >
+      status >= 1 and
   	  <isNotNull prepend="and" property="orderId" >
         order_id = #orderId#
-      </isNotNull>
-      <isNotNull prepend="and" property="status" >
-        status = #status#
       </isNotNull>
       <isNotNull prepend="and" property="yn" >
         yn = #yn#
@@ -35,26 +36,32 @@
       <isNotNull prepend="and" property="deviceInfo" >
         device_info = #deviceInfo#
       </isNotNull>
+      <isNotNull prepend="and" property="userName" >
+        user_name = #userName#
+      </isNotNull>
       <isNotNull prepend="and" property="totalFee" >
         total_fee = #totalFee#
+      </isNotNull>
+      <isNotNull prepend="and" property="transactionId" >
+        transaction_id = #transactionId#
       </isNotNull>
     </dynamic>
   </sql>
   
   <!-- 依据主键进行查询 -->
-  <select id="selectById" resultMap="WxOrderResult" parameterClass="java.lang.Integer" >
+  <select id="selectById" resultMap="WxOrderResult" parameterClass="java.lang.Long" >
     select <include refid="WxOrder.searchColoum" />
     from wx_order
-    where id = #id#
+    where order_id = #orderId#
   </select>
   
   <!-- 添加信息 -->
   <insert id="insert" parameterClass="com.ec.seller.domain.WxOrder" >
-    insert into wx_order (auth_code,body,attach,total_fee,device_info,goods_tag,status,yn,CREATED,MODIFIED)
-    values (#authCode#,#body#,#attach#,#totalFee#,#deviceInfo#,#goodsTag#,#status#,#yn#,now(),now())
+    insert into wx_order (auth_code,body,attach,total_fee,device_info,goods_tag,status,yn,CREATED,MODIFIED,user_id,user_name, transaction_id)
+    values (#authCode#,#body#,#attach#,#totalFee#,#deviceInfo#,#goodsTag#,#status#,#yn#,now(),now(),#userId#,#userName#,#transactionId#)
       <!-- 返回自增主键 -->
-      <selectKey resultClass="java.lang.Integer" keyProperty="id">
-			<![CDATA[SELECT @@IDENTITY AS id ]]>
+      <selectKey resultClass="java.lang.Long" keyProperty="orderId">
+			<![CDATA[SELECT @@IDENTITY AS orderId ]]>
 	  </selectKey>
   </insert>
   
@@ -68,8 +75,14 @@
       <isNotNull prepend="," property="yn" >
         yn = #yn#
       </isNotNull>
+      <isNotNull prepend="," property="authCode" >
+        auth_code = #authCode#
+      </isNotNull>
+      <isNotNull prepend="," property="transactionId" >
+        transaction_id = #transactionId#
+      </isNotNull>
     </dynamic>
-    where id = #id#
+    where order_id = #orderId#
   </update>
 
   <!-- 条件查询总数 -->
@@ -77,13 +90,19 @@
     select count(1) from wx_order
     <include refid="WxOrder.condition" />
   </select>
-  
+
   <!-- 条件查询列表 -->
   <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.WxOrderQuery" resultMap="WxOrderResult" >
     select <include refid="WxOrder.searchColoum" />
     from wx_order
     <include refid="WxOrder.condition" />
-    order by id desc
+    order by order_id desc
+  </select>
+
+  <!-- 查询所有未微信支付成功订单，10分钟以内 -->
+  <select id="getNonePayWxOrder" parameterClass="com.ec.seller.domain.query.WxOrderQuery" resultMap="WxOrderResult" >
+    select <include refid="WxOrder.searchColoum" />
+    from wx_order where created >= #created# and yn = 1 and status = 1
   </select>
   
 </sqlMap>

@@ -18,11 +18,11 @@ public class WxOrder {
     /**
      * 会显示到用户订单完成页面
      */
-    private String body = "鲜果味道微信支付订单";
+    private String body;
     /**
      * 原样返回
      */
-    private String attach = "tingshuoyuanyangfanhui";
+    private String attach;
     /**
      * 总消费金额，单位是分
      */
@@ -62,6 +62,16 @@ public class WxOrder {
      * 添加人id
      */
     private Integer userId;
+
+    private String transactionId;
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
 
     public String getUserName() {
         return userName;
@@ -171,5 +181,12 @@ public class WxOrder {
         if(bigDecimal != null && bigDecimal.compareTo(BigDecimal.ZERO) > 0){
             this.totalFee = bigDecimal.multiply(new BigDecimal(100)).intValue();
         }
+    }
+
+    public BigDecimal getTotalFeePrice(){
+        if(this.totalFee == null){
+            return null;
+        }
+        return new BigDecimal(totalFee).divide(new BigDecimal(100));
     }
 }

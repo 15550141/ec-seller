@@ -155,9 +155,9 @@ public class WXPay {
          */
 
         String authCode = "131017430164433152";
-        String body = "新接入测试";
+        String body = "鲜果味道微信支付订单";
         String attach = "tingshuoyuanyangfanhui";
-        String outTradeNo = "dingdan1";
+        String outTradeNo = "dingdan10";
         int totalFee = 1;
         String deviceInfo = "燕山大街店";
         String spBillCreateIP = "1";

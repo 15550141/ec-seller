@@ -42,7 +42,7 @@ public class EcUrl implements Cloneable {
     private EcUrl ecUrl;
 
     private EcUrlIntercept intercept;
-    private String charsetName = "gbk";
+    private String charsetName = "utf-8";
 
     public String getUsername() {
         return username;
