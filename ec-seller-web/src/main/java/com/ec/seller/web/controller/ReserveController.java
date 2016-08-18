@@ -72,7 +72,7 @@ public class ReserveController {
 	}
 
 	@RequestMapping(value="/delete", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result delete(Integer id, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result delete(Long id, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		this.reserveService.delete(id);
 		result.setSuccess(true);
