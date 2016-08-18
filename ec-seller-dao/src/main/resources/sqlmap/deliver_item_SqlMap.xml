@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="DeliverItem" >
+  <resultMap id="DeliverItemResult" class="com.ec.seller.domain.DeliverItem" >
+    <result column="id" property="id"  />
+    <result column="item_code" property="itemCode" />
+    <result column="item_name" property="itemName"  />
+    <result column="item_category" property="itemCategory"  />
+    <result column="unit" property="unit"  />
+    <result column="reserve_num" property="reserveNum"  />
+    <result column="actual_num" property="actualNum"  />
+    <result column="created" property="created"  />
+  </resultMap>
+
+  <!-- 查询内容 -->
+  <sql id="searchColoum" >
+    id,item_code ,item_name,item_category,unit,reserve_num,actual_num,created
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="condition" >
+  	<dynamic prepend="where" >
+  	  <isNotNull prepend="and" property="id" >
+        id = #id#
+      </isNotNull>
+      <isNotNull prepend="and" property="itemCode" >
+        item_code = #itemCode#
+      </isNotNull>
+    </dynamic>
+  </sql>
+  
+  <!-- 依据主键进行查询 -->
+  <select id="selectById" resultMap="DeliverItemResult" parameterClass="java.lang.Integer" >
+    select <include refid="DeliverItem.searchColoum" />
+    from deliver_item
+    where id = #id#
+  </select>
+  
+  <!-- 添加信息 -->
+  <insert id="insert" parameterClass="com.ec.seller.domain.DeliverItem" >
+    insert into deliver_item (item_code ,item_name,item_category,unit,reserve_num,actual_num,created)
+    values (#itemCode# ,#itemName#,#itemCategory#,#unit#,#reserveNum#,#actualNum#,now())
+      <!-- 返回自增主键 -->
+      <selectKey resultClass="java.lang.Long" keyProperty="id">
+			<![CDATA[SELECT @@IDENTITY AS id ]]>
+	  </selectKey>
+  </insert>
+  
+  <!-- 依据主键进行修改 -->
+  <update id="modify" parameterClass="com.ec.seller.domain.DeliverItem" >
+    update deliver_item set MODIFIED = now()
+    <dynamic>
+      <isNotNull prepend="," property="itemCode" >
+        item_code = #itemCode#
+      </isNotNull>
+      <isNotNull prepend="," property="itemName" >
+        item_name = #itemName#
+      </isNotNull>
+      <isNotNull prepend="," property="itemCategory" >
+        item_category = #itemCategory#
+      </isNotNull>
+      <isNotNull prepend="," property="unit" >
+        unit = #unit#
+      </isNotNull>
+      <isNotNull prepend="," property="reserveNum" >
+        reserve_num = #reserveNum#
+      </isNotNull>
+      <isNotNull prepend="," property="actualNum" >
+        actual_num = #actualNum#
+      </isNotNull>
+
+    </dynamic>
+    where id = #id#
+  </update>
+
+
+  <update id="delete" parameterClass="Integer" >
+    delete from deliver_item where id = #id#
+  </update>
+
+  <!-- 条件查询总数 -->
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.DeliverItemQuery" resultClass="java.lang.Integer" >
+    select count(1) from deliver_item
+    <include refid="DeliverItem.condition" />
+  </select>
+  
+  <!-- 条件查询列表 -->
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.DeliverItemQuery" resultMap="DeliverItemResult" >
+    select <include refid="DeliverItem.searchColoum" />
+    from deliver_item
+    <include refid="DeliverItem.condition" />
+    order by id desc
+  </select>
+  
+</sqlMap>

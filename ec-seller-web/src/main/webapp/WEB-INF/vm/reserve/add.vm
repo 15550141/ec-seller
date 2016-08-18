@@ -1,0 +1,68 @@
+#set($title="新增订购单")
+#set($menu=1)
+#parse("/WEB-INF/vm/common/head.vm")
+<div class="container">
+    #parse("/WEB-INF/vm/common/top.vm")
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">订购日期</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="reserveDate">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">店铺</label>
+                <div class="col-sm-10">
+                    <select id="shopName">
+                        <option value="长城店">长城店</option>
+                        <option value="在水一方店">在水一方店</option>
+                        <option value="道南店">道南店</option>
+                        <option value="开发区店">开发区店</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">备注</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="remark">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" onclick="doSubmit();" class="btn btn-default">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="application/javascript">
+    function doSubmit(){
+        var reserveDate = $("#reserveDate").val();
+        var shopName = $("#shopName").val();
+        var remark = $("#remark").val();
+        if(!reserveDate){
+            alert("订购日期不能为空");
+            return;
+        }
+        jQuery.ajax( {
+            url : "/reserve/insert",
+            type : "post",
+            dataType : "json",
+            data : "date="+reserveDate+"&shopName="+shopName+"&remark="+remark,
+            success : function(data) {
+                if (data.success == true) {
+                    window.location.href="/reserve/index";
+                }else{
+                    alert("系统异常！请重试");
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    }
+</script>
+#parse("/WEB-INF/vm/common/bottom.vm")

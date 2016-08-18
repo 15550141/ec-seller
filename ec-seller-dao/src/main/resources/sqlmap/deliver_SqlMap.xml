@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Deliver" >
+  <resultMap id="DeliverResult" class="com.ec.seller.domain.Deliver" >
+    <result column="id" property="id"  />
+    <result column="shop_name" property="shopName" />
+    <result column="remark" property="remark"  />
+    <result column="user_name" property="userName"  />
+    <result column="user_id" property="userId"  />
+    <result column="deliver_date" property="deliverDate"  />
+    <result column="created" property="created"  />
+    <result column="yn" property="yn"  />
+    <result column="status" property="status"  />
+  </resultMap>
+
+  <!-- 查询内容 -->
+  <sql id="searchColoum" >
+    id, shop_name,remark,user_name,user_id,deliver_date,created,yn,status
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="condition" >
+  	<dynamic prepend="where" >
+      <isNotNull prepend="and" property="id" >
+        id = #id#
+      </isNotNull>
+      <isNotNull prepend="and" property="status" >
+        status = #status#
+      </isNotNull>
+      <isNotNull prepend="and" property="yn" >
+        yn = #yn#
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <!-- 依据主键进行修改 -->
+  <update id="modify" parameterClass="com.ec.seller.domain.Deliver" >
+    update Deliver set MODIFIED = now()
+    <dynamic>
+      <isNotNull prepend="," property="status" >
+        status = #status#
+      </isNotNull>
+    </dynamic>
+    where id = #id#
+  </update>
+  
+  <!-- 依据主键进行查询 -->
+  <select id="selectById" resultMap="DeliverResult" parameterClass="java.lang.Integer" >
+    select <include refid="Deliver.searchColoum" />
+    from deliver
+    where id = #id#
+  </select>
+  
+  <!-- 添加信息 -->
+  <insert id="insert" parameterClass="com.ec.seller.domain.Deliver" >
+    insert into deliver (shop_name,remark,user_name,user_id,deliver_date,created,yn,status)
+    values (#shopName#,#remark#,#userName#,#userId#,#deliverDate#,now(),1,#status#)
+      <!-- 返回自增主键 -->
+      <selectKey resultClass="java.lang.Long" keyProperty="id">
+			<![CDATA[SELECT @@IDENTITY AS id ]]>
+	  </selectKey>
+  </insert>
+  
+  <update id="delete" parameterClass="Integer" >
+    delete from deliver set where id = #id#
+  </update>
+
+  <!-- 条件查询总数 -->
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.DeliverQuery" resultClass="java.lang.Integer" >
+    select count(1) from Deliver
+    <include refid="Deliver.condition" />
+  </select>
+  
+  <!-- 条件查询列表 -->
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.DeliverQuery" resultMap="DeliverResult" >
+    select <include refid="Deliver.searchColoum" />
+    from Deliver
+    <include refid="Deliver.condition" />
+    order by id desc
+    limit #start#,#pageSize#
+  </select>
+  
+</sqlMap>

@@ -39,9 +39,27 @@
                 #end
             </tbody>
         </table>
+        <nav>
+            <ul class="pagination">
+                #if($!list.previousPageAvailable) ##如果能向上翻页
+                    <li><a href="javascript:search($!list.previousPage);">上一页</a></li>
+                #end
+
+                <li class="active"><a href="#">$!list.index</a></li>
+                #if($!list.nextPageAvailable) ##显示后面的页
+                    <li><a href="javascript:search($!list.nextPage);" >下一页</a></li>
+                #end
+            </ul>
+        </nav>
     </div>
 </div>
 <script type="application/javascript">
+
+    function search(index){
+        window.location.href="/sales/index?pageNo="+index;
+    }
+
+
     function doSubmit(id){
         jQuery.ajax( {
             url : "/sales/delete?id="+id,

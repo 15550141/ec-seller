@@ -26,10 +26,10 @@
                 <div class="input-group">
                     <span class="input-group-addon">店铺：</span>
                     <select id="shopName" name="shopName">
-                        <option value="1号店">1号店</option>
-                        <option value="2号店">2号店</option>
-                        <option value="道南店">道南店</option>
+                        <option value="长城店">长城店</option>
                         <option value="在水一方店">在水一方店</option>
+                        <option value="道南店">道南店</option>
+                        <option value="开发区店">开发区店</option>
                     </select>
                 </div>
             </div>

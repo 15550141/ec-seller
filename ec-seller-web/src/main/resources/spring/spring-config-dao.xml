@@ -171,6 +171,24 @@
 		<property name="sqlMapClient" ref="sqlMapClient"></property>
 		<property name="dataSource" ref="ecDataSource"></property>
 	</bean>
+
+	<bean id="reserveDao" class="com.ec.seller.dao.impl.ReserveDaoImpl" >
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+		<property name="dataSource" ref="ecDataSource"></property>
+	</bean>
+	<bean id="reserveItemDao" class="com.ec.seller.dao.impl.ReserveItemDaoImpl" >
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+		<property name="dataSource" ref="ecDataSource"></property>
+	</bean>
+	<bean id="deliverDao" class="com.ec.seller.dao.impl.DeliverDaoImpl" >
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+		<property name="dataSource" ref="ecDataSource"></property>
+	</bean>
+	<bean id="deliverItemDao" class="com.ec.seller.dao.impl.DeliverItemDaoImpl" >
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+		<property name="dataSource" ref="ecDataSource"></property>
+	</bean>
+
 	
 </beans>
 

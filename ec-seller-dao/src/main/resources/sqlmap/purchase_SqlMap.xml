@@ -112,6 +112,7 @@
     from purchase
     <include refid="Purchase.condition" />
     order by id desc
+    limit #start#,#pageSize#
   </select>
   
 </sqlMap>

@@ -2,40 +2,37 @@
 #set($menu=1)
 #parse("/WEB-INF/vm/common/head.vm")
 <div class="container">
-    #parse("/WEB-INF/vm/common/top.vm")
     <div class="row">&nbsp;</div>
     <div class="row">
-        <button class="btn btn-default" onclick="window.location.href='/purchase/add'" type="button">
-            新增采购单
+        <button class="btn btn-default" onclick="window.location.href='/reserve/add'" type="button">
+            新增订购单
         </button>
     </div>
     <div class="row">
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>采购人</th>
-                <th>采购地点</th>
-                <th>采购总额</th>
-                <th>采购日期</th>
+                <th>店铺</th>
+                <th>订购日期</th>
+                <th>订购人</th>
+                <th>备注</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
                 #foreach($detail in $list)
                     <tr>
-                        <td>$!detail.purchaseName</td>
-                        <td>$!detail.purchasePlace</td>
-                        <td>$!detail.totalPrice</td>
-                        <td>$!dateFormatUtils.format($!{detail.purchaseTime}, "yyyy-MM-dd")</td>
+                        <td>$!detail.shopName</td>
+                        <td>$!dateFormatUtils.format($!{detail.reserveDate}, "yyyy-MM-dd")</td>
+                        <td>$!detail.userName</td>
+                        <td>$!detail.remark</td>
                         <td>
-                            <button class="btn btn-default btn-sm" onclick="window.location.href='/purchase/detail?id=$!detail.id'" type="button">
+                            <button class="btn btn-default btn-sm" onclick="window.location.href='/reserve/detail?id=$!detail.id'" type="button">
                                 查看
                             </button>
-                            <!--
                             <button class="btn btn-default btn-sm" onclick="del($!detail.id);" type="button">
                                 删除
                             </button>
-                            -->
                         </td>
                     </tr>
                 #end
@@ -57,13 +54,13 @@
 </div>
 <script type="application/javascript">
     function search(index){
-        window.location.href="/purchase/index?pageNo="+index;
+        window.location.href="/reserve/index?pageNo="+index;
     }
 
     function del(id){
         if(confirm("确定删除？")){
             jQuery.ajax( {
-                url : "/purchase/delete",
+                url : "/reserve/delete",
                 type : "post",
                 dataType : "json",
                 data : "id="+id,

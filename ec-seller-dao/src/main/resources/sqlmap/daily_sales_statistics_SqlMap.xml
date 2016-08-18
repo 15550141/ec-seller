@@ -156,6 +156,7 @@
     from daily_sales_statistics
     <include refid="DailySalesStatistics.condition" />
     order by id desc
+    limit #start#,#pageSize#
   </select>
   
 </sqlMap>
