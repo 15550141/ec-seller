@@ -29,24 +29,25 @@ public class ReserveItemServiceImpl implements ReserveItemService {
     private ReserveItemDao reserveItemDao;
 
     @Override
-    public List<ReserveItem> findPage(ReserveItemQuery query) {
-        PaginatedList<ReserveItem> list = new PaginatedArrayList<Reserve>(query.getPageNo(),query.getPageSize());
-        try{
-            int count = reserveItemDao.countByCondition(query);
-            list.setTotalItem(count);
-            int start = list.getStartRow();
-            if(start <= 0){
-                start = 1;
-            }
-            query.setStart(start-1);
-
-//            reserveItemDao
-
-            list.addAll(reserveItemDao.selectByCondition(query));
-        }catch (Exception e){
-            log.error("", e);
-        }
-        return list;
+    public List<ReserveItem> findList(ReserveItemQuery query) {
+//        PaginatedList<ReserveItem> list = new PaginatedArrayList<Reserve>(query.getPageNo(),query.getPageSize());
+//        try{
+//            int count = reserveItemDao.countByCondition(query);
+//            list.setTotalItem(count);
+//            int start = list.getStartRow();
+//            if(start <= 0){
+//                start = 1;
+//            }
+//            query.setStart(start-1);
+//
+////            reserveItemDao
+//
+//            list.addAll(reserveItemDao.selectByCondition(query));
+//        }catch (Exception e){
+//            log.error("", e);
+//        }
+//        return list;
+        return null;
     }
 
 

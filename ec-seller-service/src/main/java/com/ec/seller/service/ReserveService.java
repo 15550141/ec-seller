@@ -14,7 +14,7 @@ public interface ReserveService {
 
     public void insert(Reserve object);
 
-    public void delete(Integer id);
+    public void delete(Long id);
 
     public void modify(Reserve object);
 

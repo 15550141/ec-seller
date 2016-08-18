@@ -48,7 +48,7 @@ public class ReserveServiceImpl implements ReserveService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         this.reserveDao.delete(id);
     }
 
