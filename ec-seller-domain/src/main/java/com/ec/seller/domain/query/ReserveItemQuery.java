@@ -16,6 +16,15 @@ public class ReserveItemQuery extends BaseSearchForMysqlVo implements Serializab
     private String unit;
     private Integer num;
     private Date created;
+    private Long reserveId;
+
+    public Long getReserveId() {
+        return reserveId;
+    }
+
+    public void setReserveId(Long reserveId) {
+        this.reserveId = reserveId;
+    }
 
     public Long getId() {
         return id;

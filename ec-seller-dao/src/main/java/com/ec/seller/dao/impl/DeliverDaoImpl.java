@@ -17,7 +17,7 @@ public class DeliverDaoImpl extends SqlMapClientTemplate implements DeliverDao {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         delete("Deliver.delete", id);
     }
 
@@ -27,7 +27,7 @@ public class DeliverDaoImpl extends SqlMapClientTemplate implements DeliverDao {
     }
 
     @Override
-    public Deliver selectById(int id) {
+    public Deliver selectById(Long id) {
         return (Deliver) queryForObject("Deliver.selectById", id);
     }
 

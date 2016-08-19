@@ -37,7 +37,7 @@
   </sql>
   
   <!-- 依据主键进行查询 -->
-  <select id="selectById" resultMap="ReserveResult" parameterClass="java.lang.Integer" >
+  <select id="selectById" resultMap="ReserveResult" parameterClass="java.lang.Long" >
     select <include refid="Reserve.searchColoum" />
     from reserve
     where id = #id#
@@ -53,7 +53,7 @@
 	  </selectKey>
   </insert>
   
-  <update id="delete" parameterClass="Integer" >
+  <update id="delete" parameterClass="Long" >
     update reserve set yn=0 where id = #id#
   </update>
 

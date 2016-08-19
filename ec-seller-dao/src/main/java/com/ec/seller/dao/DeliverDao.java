@@ -21,7 +21,7 @@ public interface DeliverDao {
 	 * 根据id删除
 	 * @param id
 	 */
-	public void delete(Integer id);
+	public void delete(Long id);
 
 	/**
 	 * 修改
@@ -34,7 +34,7 @@ public interface DeliverDao {
 	 * @param id
 	 * @return
 	 */
-	public Deliver selectById(int id);
+	public Deliver selectById(Long id);
 	
 	/**
 	 * 根据条件查询总数

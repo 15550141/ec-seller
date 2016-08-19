@@ -45,6 +45,7 @@
       <result column="reference_stock_price" property="referenceStockPrice" />
       <result column="reference_sell_price" property="referenceSellPrice" />
       <result column="reference_unit" property="referenceUnit" />
+      <result column="item_code" property="itemCode" />
   </resultMap>
   
    <resultMap id="ItemQueryResult" class="com.ec.seller.domain.query.ItemQuery" >
@@ -90,6 +91,7 @@
        <result column="reference_stock_price" property="referenceStockPrice" />
        <result column="reference_sell_price" property="referenceSellPrice" />
        <result column="reference_unit" property="referenceUnit" />
+       <result column="item_code" property="itemCode" />
   </resultMap>
 
 
@@ -100,7 +102,7 @@
         origin_province,origin_city,origin_county,origin_address,supply_province,supply_city,supply_county ,Weight,
         differ_Weight, Packing_type,Packing_type_custom, length, Wide, High, sales_property_set,
         unit,if_have_zjbg,if_have_cprz,market_start_time,market_end_time,YN, CREATED,
-        MODIFIED,reference_stock_price,reference_sell_price,reference_unit
+        MODIFIED,reference_stock_price,reference_sell_price,reference_unit,item_code
     </sql>
   <!-- 查询条件 -->
   <sql id="condition" >
@@ -219,6 +221,9 @@
         <isNotNull prepend="and" property="referenceSellPrice" >
             reference_sell_price = #referenceSellPrice#
         </isNotNull>
+        <isNotNull prepend="and" property="itemCode" >
+            item_code = #itemCode#
+        </isNotNull>
     </dynamic>
   </sql>
 
@@ -235,7 +240,7 @@
       origin_province,origin_city,origin_county,origin_address,supply_province,supply_city,supply_county , Weight,
        differ_Weight, Packing_type,Packing_type_custom, length, Wide, High,sales_property_set,
        unit,if_have_zjbg,if_have_cprz,market_start_time,market_end_time, YN, CREATED,
-      MODIFIED,reference_stock_price,reference_sell_price, reference_unit)
+      MODIFIED,reference_stock_price,reference_sell_price, reference_unit, item_code)
     values (#itemName:VARCHAR#, #itemType:INTEGER#, #categoryId1:INTEGER#,
       #categoryId2:INTEGER#, #categoryId3:INTEGER#,#categoryId4:INTEGER#,
       #venderUserId:INTEGER#, #itemStatus:INTEGER#, 
@@ -244,7 +249,7 @@
       #depositRate:INTEGER#, #originProvince:INTEGER#, #originCity:INTEGER#, #originCounty:INTEGER#,#originAddress:VARCHAR#,#supplyProvince:INTEGER#,#supplyCity:INTEGER#, #supplyCounty:INTEGER# , #weight:VARCHAR#, #differWeight:VARCHAR#,
       #packingType:INTEGER#, #packingTypeCustom:VARCHAR#,#length:VARCHAR#, #wide:VARCHAR#, #high:VARCHAR#, #salesPropertySet:VARCHAR#,
       #unit:INTEGER#, #ifHaveZjbg:INTEGER#, #ifHaveCprz:INTEGER#,#marketStartTime:TIMESTAMP#,#marketEndTime:TIMESTAMP#,1,
-      now(),now(),#referenceStockPrice#,#referenceSellPrice#, #referenceUnit#)
+      now(),now(),#referenceStockPrice#,#referenceSellPrice#, #referenceUnit#, #itemCode#)
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="itemId">
 			<![CDATA[SELECT @@IDENTITY AS ITEM_ID ]]>
@@ -374,6 +379,9 @@
         <isNotNull prepend="," property="referenceUnit" >
             reference_unit = #referenceUnit#
         </isNotNull>
+        <isNotNull prepend="," property="itemCode" >
+            item_code = #itemCode#
+        </isNotNull>
     </dynamic>
     where ITEM_ID = #itemId#
   </update>
@@ -497,9 +505,12 @@
       <isNotNull prepend="and" property="marketEndTime" >
         market_end_time = #marketEndTime:TIMESTAMP#
       </isNotNull>
-      <isNotNull prepend="and" property="yn" >
-        YN = #yn:TINYINT#
-      </isNotNull>
+        <isNotNull prepend="and" property="yn" >
+            YN = #yn:TINYINT#
+        </isNotNull>
+        <isNotNull prepend="and" property="itemCode" >
+            item_code = #itemCode#
+        </isNotNull>
     </dynamic>
     
   </select>
@@ -554,6 +565,10 @@
 
     <select id="vagueQueryItemName" parameterClass="java.lang.String" resultClass="java.lang.String" >
         select item_name from item where item_name like '%$value$%';
+    </select>
+
+    <select id="vagueQueryByItemCode" parameterClass="java.lang.String" resultMap="ItemResult" >
+        select <include refid="Item.searchColoum" /> from item where item_code like '%$value$%';
     </select>
 
     <select id="selectByItemName" parameterClass="java.lang.String" resultMap="ItemResult" >

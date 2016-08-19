@@ -15,12 +15,12 @@ import java.util.List;
  */
 public class DeliverItemDaoImpl extends SqlMapClientTemplate implements DeliverItemDao {
     @Override
-    public Integer insert(DeliverItem object) {
-        return (Integer) insert("DeliverItem.insert", object);
+    public Long insert(DeliverItem object) {
+        return (Long) insert("DeliverItem.insert", object);
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         delete("DeliverItem.delete", id);
     }
 
@@ -30,7 +30,7 @@ public class DeliverItemDaoImpl extends SqlMapClientTemplate implements DeliverI
     }
 
     @Override
-    public DeliverItem selectById(int id) {
+    public DeliverItem selectById(Long id) {
         return (DeliverItem) queryForObject("DeliverItem.selectById", id);
     }
 

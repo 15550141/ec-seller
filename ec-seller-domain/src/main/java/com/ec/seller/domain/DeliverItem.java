@@ -21,6 +21,16 @@ public class DeliverItem {
     private Integer actualNum;
     private Date created;
 
+    private Long deliverId;
+
+    public Long getDeliverId() {
+        return deliverId;
+    }
+
+    public void setDeliverId(Long deliverId) {
+        this.deliverId = deliverId;
+    }
+
     public Long getId() {
         return id;
     }

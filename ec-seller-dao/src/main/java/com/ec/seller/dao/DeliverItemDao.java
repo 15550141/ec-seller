@@ -15,13 +15,13 @@ public interface DeliverItemDao {
 	 * @param object
 	 * @return
 	 */
-	public Integer insert(DeliverItem object);
+	public Long insert(DeliverItem object);
 
 	/**
 	 * 根据id删除
 	 * @param id
 	 */
-	public void delete(Integer id);
+	public void delete(Long id);
 
 	/**
 	 * 修改
@@ -34,7 +34,7 @@ public interface DeliverItemDao {
 	 * @param id
 	 * @return
 	 */
-	public DeliverItem selectById(int id);
+	public DeliverItem selectById(Long id);
 	
 	/**
 	 * 根据条件查询总数

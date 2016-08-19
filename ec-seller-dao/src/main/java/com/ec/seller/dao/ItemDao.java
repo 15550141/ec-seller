@@ -62,14 +62,12 @@ public interface ItemDao{
 	public int countByConditionForPage(ItemQuery itemQuery);
 	/**
 	 * 查询要上架的商品列表
-	 * @param itemQuery
 	 * @return
 	 */
 	public List<ItemQuery> queryOnSheftList(Integer offsetOnSheft);
 	
 	/**
 	 * 查询要下架的商品列表
-	 * @param itemQuery
 	 * @return
 	 */
 	public List<ItemQuery> queryOffSheftList(Integer offsetOffSheft);
@@ -82,6 +80,8 @@ public interface ItemDao{
 	public void offSheft(ItemQuery item);
 
 	public List<String> vagueQueryItemName(String itemName);
+
+	public List<Item> vagueQueryByItemCode(String itemCode);
 
 	public List<Item> selectByItemName(String itemName);
 }

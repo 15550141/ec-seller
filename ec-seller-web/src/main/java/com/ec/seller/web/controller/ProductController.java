@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ec.seller.common.utils.DateFormatUtils;
 import com.ec.seller.common.utils.FlagBitUtil;
 import com.ec.seller.common.utils.PropertyConstants;
+import com.ec.seller.dao.ItemDao;
 import com.ec.seller.domain.*;
 import com.ec.seller.service.result.Result;
 import org.apache.commons.lang.StringUtils;
@@ -57,7 +58,8 @@ public class ProductController {
 	private PropertyService propertyService;
 	@Autowired
 	private PropertyValueService propertyValueService;
-	
+	@Autowired
+	private ItemDao itemDao;
 	
 	
 	private final static Log LOG = LogFactory.getLog(ProductController.class);
@@ -878,6 +880,18 @@ public class ProductController {
 		}
 		return result;
 	}
-	
+
+
+	@RequestMapping(value="/vagueQuery", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Result vagueQuery(String itemCode, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+		Result result = new Result();
+		try{
+			result.setResult(itemDao.vagueQueryByItemCode(itemCode));
+			result.setSuccess(true);
+		}catch (Exception e){
+		}
+		return result;
+	}
+
 }
 

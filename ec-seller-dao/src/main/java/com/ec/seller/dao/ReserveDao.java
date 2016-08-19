@@ -34,7 +34,7 @@ public interface ReserveDao {
 	 * @param id
 	 * @return
 	 */
-	public Reserve selectById(int id);
+	public Reserve selectById(Long id);
 	
 	/**
 	 * 根据条件查询总数

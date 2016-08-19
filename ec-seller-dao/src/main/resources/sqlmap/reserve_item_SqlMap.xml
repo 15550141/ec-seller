@@ -9,18 +9,22 @@
     <result column="unit" property="unit"  />
     <result column="num" property="num"  />
     <result column="created" property="created"  />
+    <result column="reserve_id" property="reserveId"  />
   </resultMap>
 
   <!-- 查询内容 -->
   <sql id="searchColoum" >
-    id, item_code,item_name,item_category,unit,num,created
+    id, item_code,item_name,item_category,unit,num,created,reserve_id
   </sql>
 
   <!-- 查询条件 -->
   <sql id="condition" >
   	<dynamic prepend="where" >
-  	  <isNotNull prepend="and" property="id" >
+      <isNotNull prepend="and" property="id" >
         id = #id#
+      </isNotNull>
+      <isNotNull prepend="and" property="reserveId" >
+        reserve_id = #reserveId#
       </isNotNull>
     </dynamic>
   </sql>
@@ -34,8 +38,8 @@
   
   <!-- 添加信息 -->
   <insert id="insert" parameterClass="com.ec.seller.domain.ReserveItem" >
-    insert into reserve_item (item_code,item_name,item_category,unit,num,created)
-    values (#itemCode#,#itemName#,#itemCategory#,#unit#,#num#,now())
+    insert into reserve_item (item_code,item_name,item_category,unit,num,created,reserve_id)
+    values (#itemCode#,#itemName#,#itemCategory#,#unit#,#num#,now(),#reserveId#)
       <!-- 返回自增主键 -->
         <selectKey resultClass="java.lang.Long" keyProperty="id">
 			<![CDATA[SELECT @@IDENTITY AS id ]]>
@@ -61,14 +65,17 @@
       <isNotNull prepend="," property="num" >
         num = #num#
       </isNotNull>
+      <isNotNull prepend="," property="reserveId" >
+        reserve_id = #reserveId#
+      </isNotNull>
     </dynamic>
     where id = #id#
   </update>
 
 
-  <update id="delete" parameterClass="Integer" >
+  <delete id="delete" parameterClass="Long" >
     delete from reserve_item where id = #id#
-  </update>
+  </delete>
 
   <!-- 条件查询总数 -->
   <select id="countByCondition" parameterClass="com.ec.seller.domain.query.ReserveItemQuery" resultClass="java.lang.Integer" >
@@ -83,5 +90,5 @@
     <include refid="ReserveItem.condition" />
     order by id desc
   </select>
-  
+
 </sqlMap>

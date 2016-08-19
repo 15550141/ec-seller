@@ -18,7 +18,7 @@ public interface ReserveService {
 
     public void modify(Reserve object);
 
-    public Reserve selectById(Integer id);
+    public Reserve selectById(Long id);
 
 }
 

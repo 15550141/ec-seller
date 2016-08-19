@@ -40,7 +40,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		request.setAttribute("name", name);
 
 		if(StringUtils.isNotBlank(name)){
-			if(name.equals("于建明") || name.equals("杨慧斌") || name.equals("张瀚洋") || name.equals("韩建初")|| name.equals("苏立强") || name.equals("庞勇")){
+			if(name.equals("于建明") || name.equals("杨慧斌") || name.equals("张瀚洋") || name.equals("韩建初")|| name.equals("苏立强") || name.equals("庞勇") || name.equals("王闯")){
 				return true;
 			}
 

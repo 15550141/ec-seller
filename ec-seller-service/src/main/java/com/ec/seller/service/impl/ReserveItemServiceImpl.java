@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by yujianming on 2016/1/7.
  */
-@Service(value="reserveService")
+@Service(value="reserveItemService")
 public class ReserveItemServiceImpl implements ReserveItemService {
 
     private final static Log log = LogFactory.getLog(ReserveItemServiceImpl.class);
@@ -30,23 +30,6 @@ public class ReserveItemServiceImpl implements ReserveItemService {
 
     @Override
     public List<ReserveItem> findList(ReserveItemQuery query) {
-//        PaginatedList<ReserveItem> list = new PaginatedArrayList<Reserve>(query.getPageNo(),query.getPageSize());
-//        try{
-//            int count = reserveItemDao.countByCondition(query);
-//            list.setTotalItem(count);
-//            int start = list.getStartRow();
-//            if(start <= 0){
-//                start = 1;
-//            }
-//            query.setStart(start-1);
-//
-////            reserveItemDao
-//
-//            list.addAll(reserveItemDao.selectByCondition(query));
-//        }catch (Exception e){
-//            log.error("", e);
-//        }
-//        return list;
         return null;
     }
 

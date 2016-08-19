@@ -30,7 +30,7 @@ public class ReserveDaoImpl extends SqlMapClientTemplate implements ReserveDao {
     }
 
     @Override
-    public Reserve selectById(int id) {
+    public Reserve selectById(Long id) {
         return (Reserve) queryForObject("Reserve.selectById", id);
     }
 

@@ -147,6 +147,16 @@ public class Item implements Serializable{
     /** 参考进货单位 */
     private Integer referenceUnit;
 
+    private String itemCode;
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+
     public Integer getItemId() {
         return itemId;
     }

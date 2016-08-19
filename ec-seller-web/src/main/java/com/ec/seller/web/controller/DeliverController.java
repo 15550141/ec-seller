@@ -3,17 +3,23 @@ package com.ec.seller.web.controller;
 import com.ec.seller.common.utils.CookieUtil;
 import com.ec.seller.common.utils.DateFormatUtils;
 import com.ec.seller.common.utils.PaginatedList;
+import com.ec.seller.dao.DeliverItemDao;
 import com.ec.seller.dao.ItemDao;
 import com.ec.seller.dao.ReserveItemDao;
-import com.ec.seller.domain.Item;
+import com.ec.seller.domain.Deliver;
+import com.ec.seller.domain.DeliverItem;
 import com.ec.seller.domain.Reserve;
 import com.ec.seller.domain.ReserveItem;
+import com.ec.seller.domain.query.DeliverItemQuery;
+import com.ec.seller.domain.query.DeliverQuery;
 import com.ec.seller.domain.query.ReserveItemQuery;
 import com.ec.seller.domain.query.ReserveQuery;
+import com.ec.seller.service.DeliverService;
 import com.ec.seller.service.ReserveService;
 import com.ec.seller.service.result.Result;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.velocity.runtime.directive.Foreach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,42 +32,67 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
-@RequestMapping("/reserve")
-public class ReserveController {
+@RequestMapping("/deliver")
+public class DeliverController {
 
-	@Autowired
-	private ReserveService reserveService;
-
-	@Autowired
-	private ReserveItemDao reserveItemDao;
 	@Autowired
 	private ItemDao itemDao;
 
-	private final static Log log = LogFactory.getLog(ReserveController.class);
+	@Autowired
+	private DeliverService deliverService;
+
+	@Autowired
+	private DeliverItemDao deliverItemDao;
+
+	@Autowired
+	private ReserveService reserveService;
+	@Autowired
+	private ReserveItemDao reserveItemDao;
+
+	private final static Log log = LogFactory.getLog(DeliverController.class);
 
 	@RequestMapping(value="/index", method={ RequestMethod.GET, RequestMethod.POST })
-	public String index(ReserveQuery query, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public String index(DeliverQuery query, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		query.setYn(1);
 		String userName = CookieUtil.getLoginName(request);
 		if(userName.equals("张宏宇")){
 			query.setUserName(userName);
 		}
-		PaginatedList<Reserve> list = reserveService.findPage(query);
+		PaginatedList<Deliver> list = deliverService.findPage(query);
 		content.put("list", list);
 		content.put("query", query);
 		return "reserve/index";
 	}
 
 	@RequestMapping(value="/insert", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result insert(Reserve reserve, String date, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result insert(Long id, String date, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
-            reserve.setYn(1);
-            reserve.setReserveDate(DateFormatUtils.parseDate(date, "yyyy-MM-dd"));
-            reserve.setStatus(0);
-            reserve.setUserId(CookieUtil.getUserId(request));
-            reserve.setUserName(CookieUtil.getLoginName(request));
-			this.reserveService.insert(reserve);
+			Reserve reserve = reserveService.selectById(id);
+			Deliver deliver = new Deliver();
+			deliver.setStatus(0);
+			deliver.setDeliverDate(reserve.getReserveDate());
+			deliver.setShopName(reserve.getShopName());
+			deliver.setYn(1);
+			deliver.setUserId(CookieUtil.getUserId(request));
+			deliver.setUserName(CookieUtil.getLoginName(request));
+			Long deliverId = this.deliverService.insert(deliver);
+
+
+			ReserveItemQuery query = new ReserveItemQuery();
+			query.setReserveId(id);
+			List<ReserveItem> list = reserveItemDao.selectByCondition(query);
+			if(list != null){
+				for(ReserveItem item : list){
+					DeliverItem deliverItem = new DeliverItem();
+					deliverItem.setDeliverId(deliverId);
+					deliverItem.setItemCode(item.getItemCode());
+					deliverItem.setItemName(item.getItemName());
+					deliverItem.setUnit(item.getUnit());
+					deliverItem.setReserveNum(item.getNum());
+					deliverItemDao.insert(deliverItem);
+				}
+			}
 			result.setSuccess(true);
 		}catch (Exception e){
 			result.setSuccess(false);
@@ -78,7 +109,7 @@ public class ReserveController {
 	@RequestMapping(value="/delete", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Result delete(Long id, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
-		this.reserveService.delete(id);
+		this.deliverService.delete(id);
 		result.setSuccess(true);
 		return result;
 	}
@@ -89,12 +120,12 @@ public class ReserveController {
 			if(id == null || id == 0){
 				return "reserve/detail";
 			}
-            Reserve reserve = this.reserveService.selectById(id);
+            Deliver deliver = this.deliverService.selectById(id);
 
-			ReserveItemQuery query = new ReserveItemQuery();
-			query.setReserveId(id);
-			List<ReserveItem> list = this.reserveItemDao.selectByCondition(query);
-			content.put("reserve", reserve);
+			DeliverItemQuery query = new DeliverItemQuery();
+			query.setDeliverId(id);
+			List<DeliverItem> list = this.deliverItemDao.selectByCondition(query);
+			content.put("deliver", deliver);
 			content.put("list", list);
 //			List<ReserveItem> list =
 		}catch (Exception e){
@@ -104,11 +135,11 @@ public class ReserveController {
 		return "reserve/detail";
 	}
 
-	@RequestMapping(value="/addReserveItem", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result addReserveItem(ReserveItem reserveItem, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	@RequestMapping(value="/addDeliverItem", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Result addDeliverItem(DeliverItem deliverItem, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
-			reserveItemDao.insert(reserveItem);
+			deliverItemDao.insert(deliverItem);
 			result.setSuccess(true);
 		}catch (Exception e){
 			result.setSuccess(false);
@@ -117,11 +148,11 @@ public class ReserveController {
 		return result;
 	}
 
-	@RequestMapping(value="/deleteReserveItem", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result deleteReserveItem(Long id, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	@RequestMapping(value="/deleteDeliverItem", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Result deleteDeliverItem(Long id, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try {
-			this.reserveItemDao.delete(id);
+			this.deliverItemDao.delete(id);
 		}catch (Exception e){
 			log.error("", e);
 		}
@@ -130,11 +161,11 @@ public class ReserveController {
 	}
 
 	@RequestMapping(value="/updateStatus", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result updateStatus(Reserve reserve, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result updateStatus(Deliver deliver, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
-			reserve.setStatus(1);
-			this.reserveService.modify(reserve);
+			deliver.setStatus(1);
+			this.deliverService.modify(deliver);
 		}catch (Exception e){
 			log.error("", e);
 		}
