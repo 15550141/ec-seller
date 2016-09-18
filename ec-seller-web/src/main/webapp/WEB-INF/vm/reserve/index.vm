@@ -67,13 +67,13 @@
     function addDeliver(id){
         if(confirm("确定生成送货单？")) {
             jQuery.ajax({
-                url: "/deliver/insert",
+                url: "/deliver/insertByReserve",
                 type: "post",
                 dataType: "json",
                 data: "id=" + id,
                 success: function (data) {
                     if (data.success == true) {
-                        window.location.href = "/deliver/index?id=" + data.id;
+                        window.location.href = "/deliver/detail?id=" + data.result;
                     } else {
                         alert(data.resultMessage);
                     }

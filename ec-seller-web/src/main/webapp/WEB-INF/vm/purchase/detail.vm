@@ -164,7 +164,7 @@
             success : function(data) {
                 if (data.success == true) {
                     alert("修改成功！");
-                    window.location.reload(true);
+                    window.location.reload();
                 }else{
                     alert(data.resultMessage);
                 }

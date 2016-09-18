@@ -7,6 +7,7 @@
         <input id="reserveId" type="hidden" value="$!reserve.id" >
         <div class="row">&nbsp;</div>
         #if($!reserve.status==0)
+            <input id="itemId" type="hidden" value="" >
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -76,7 +77,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">订购人：</span>
-                        <input type="text" class="form-control" value="$!reserve.userName">
+                        <input type="text" class="form-control" readonly="readonly" value="$!reserve.userName">
                     </div>
                 </div>
 
@@ -142,7 +143,7 @@
                 success : function(data) {
                     if (data.success == true) {
                         alert("修改成功！");
-                        window.location.reload(true);
+                        window.location.reload();
                     }else{
                         alert(data.resultMessage);
                     }
@@ -170,7 +171,7 @@
                 if (data.success == true) {
                     var list = "";
                     data.result.forEach(function(e){
-                        list += '<li><a href="#" onclick="clickIt(\''+e.itemCode+'\',\''+ e.itemName+'\');">'+ e.itemCode + e.itemName+'</a></li>';
+                        list += '<li><a href="#" onclick="clickIt(\''+e.itemCode+'\',\''+ e.itemName+'\',\''+ e.itemId+'\');">'+ e.itemCode + e.itemName+'</a></li>';
                     })
 
                     $("#itemNameList").html(list);
@@ -186,13 +187,15 @@
 
 
 
-    function clickIt(itemCode, itemName){
+    function clickIt(itemCode, itemName, itemId){
         $("#itemCode").val(itemCode);
         $("#itemName").val(itemName);
+        $("#itemId").val(itemId);
     }
 
     $("#addButton").click(function(){
         var itemCode = $("#itemCode").val();
+        var itemId = $("#itemId").val();
         var itemName = $("#itemName").val();
         var num = $("#num").val();
         var unit = $("#unit").val();
@@ -210,7 +213,7 @@
             url : "/reserve/addReserveItem",
             type : "post",
             dataType : "json",
-            data : "itemCode="+itemCode+"&num="+num+"&unit="+unit+"&itemName="+itemName+"&reserveId="+reserveId,
+            data : "itemCode="+itemCode+"&num="+num+"&unit="+unit+"&itemName="+itemName+"&reserveId="+reserveId+"&itemId="+itemId,
             success : function(data) {
                 if (data.success == true) {
                     window.location.reload();

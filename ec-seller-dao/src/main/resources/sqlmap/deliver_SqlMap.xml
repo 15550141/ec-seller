@@ -11,11 +11,13 @@
     <result column="created" property="created"  />
     <result column="yn" property="yn"  />
     <result column="status" property="status"  />
+    <result column="reserve_user_id" property="reserveUserId"  />
+    <result column="reserve_user_name" property="reserveUserName"  />
   </resultMap>
 
   <!-- 查询内容 -->
   <sql id="searchColoum" >
-    id, shop_name,remark,user_name,user_id,deliver_date,created,yn,status
+    id, shop_name,remark,user_name,user_id,deliver_date,created,yn,status,reserve_user_id,reserve_user_name
   </sql>
 
   <!-- 查询条件 -->
@@ -35,7 +37,7 @@
 
   <!-- 依据主键进行修改 -->
   <update id="modify" parameterClass="com.ec.seller.domain.Deliver" >
-    update Deliver set MODIFIED = now()
+    update deliver set MODIFIED = now()
     <dynamic>
       <isNotNull prepend="," property="status" >
         status = #status#
@@ -45,7 +47,7 @@
   </update>
   
   <!-- 依据主键进行查询 -->
-  <select id="selectById" resultMap="DeliverResult" parameterClass="java.lang.Integer" >
+  <select id="selectById" resultMap="DeliverResult" parameterClass="java.lang.Long" >
     select <include refid="Deliver.searchColoum" />
     from deliver
     where id = #id#
@@ -61,20 +63,20 @@
 	  </selectKey>
   </insert>
   
-  <update id="delete" parameterClass="Integer" >
+  <update id="delete" parameterClass="java.lang.Long" >
     delete from deliver set where id = #id#
   </update>
 
   <!-- 条件查询总数 -->
   <select id="countByCondition" parameterClass="com.ec.seller.domain.query.DeliverQuery" resultClass="java.lang.Integer" >
-    select count(1) from Deliver
+    select count(1) from deliver
     <include refid="Deliver.condition" />
   </select>
   
   <!-- 条件查询列表 -->
   <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.DeliverQuery" resultMap="DeliverResult" >
     select <include refid="Deliver.searchColoum" />
-    from Deliver
+    from deliver
     <include refid="Deliver.condition" />
     order by id desc
     limit #start#,#pageSize#

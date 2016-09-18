@@ -11,6 +11,7 @@ import java.util.Date;
 public class DeliverItemQuery extends BaseSearchForMysqlVo implements Serializable {
     private Long id;
     private Integer itemId;
+    private String itemCode;
     private String itemName;
     private String itemCategory;
     private String unit;
@@ -25,20 +26,28 @@ public class DeliverItemQuery extends BaseSearchForMysqlVo implements Serializab
     private Date created;
     private Long deliverId;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Integer getItemId() {
         return itemId;
     }
 
     public void setItemId(Integer itemId) {
         this.itemId = itemId;
+    }
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getItemName() {

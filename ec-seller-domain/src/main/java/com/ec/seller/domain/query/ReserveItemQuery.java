@@ -11,12 +11,21 @@ import java.util.Date;
 public class ReserveItemQuery extends BaseSearchForMysqlVo implements Serializable {
     private Long id;
     private Integer itemId;
+    private String itemCode;
     private String itemName;
     private String itemCategory;
     private String unit;
     private Integer num;
     private Date created;
     private Long reserveId;
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
 
     public Long getReserveId() {
         return reserveId;

@@ -6,9 +6,8 @@
     <div class="row">&nbsp;</div>
     <div class="row">
         <form id="f1" name="f1" method="post">
-            <input type="hidden" value="$!resultMap.item.index" name="pageNo" id="pageNo" />
             <div class="input-group col-xs-7">
-                <input id="itemName" name="itemName" type="text" value="$!resultMap.item.itemName" class="form-control dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                <input id="itemCode" name="itemCode" type="text" value="$!resultMap.item.itemCode" class="form-control dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                 <ul id="itemNameList" class="dropdown-menu">
                 </ul>
                 <div class="input-group-btn">
@@ -25,19 +24,19 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th>商品编号</th>
                 <th>商品名称</th>
-                <th>参考进价</th>
-                <th>参考售价</th>
+                <th>单位</th>
+                <th>库存数量</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
                 #foreach($detail in $!resultMap.itemList)
                     <tr>
+                        <td>$!detail.itemCode</td>
                         <td>$!detail.itemName</td>
                         <td>
-                            <input id="referenceStockPrice$!detail.itemId" type="number" style="width: 70px;" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.referenceStockPrice)" />
-                            /
                             <select name="referenceUnit$!detail.itemId" id="referenceUnit$!detail.itemId">
                                 <option value="1" #if($!detail.referenceUnit==1)selected="selected"#end>斤</option>
                                 <option value="2" #if($!detail.referenceUnit==2)selected="selected"#end>个</option>
@@ -46,17 +45,7 @@
                                 <option value="5" #if($!detail.referenceUnit==5)selected="selected"#end>盒</option>
                             </select>
                         </td>
-                        <td>
-                            <input id="referenceSellPrice$!detail.itemId" type="number" style="width: 70px;" value="$!bigDecimalUtils.intDivide100ToBigDecimal($!detail.referenceSellPrice)" />
-                            /
-                            <select name="unit$!detail.itemId" id="unit$!detail.itemId">
-                                <option value="1" #if($!detail.unit==1)selected="selected"#end>斤</option>
-                                <option value="2" #if($!detail.unit==2)selected="selected"#end>个</option>
-                                <option value="3" #if($!detail.unit==3)selected="selected"#end>箱</option>
-                                <option value="4" #if($!detail.unit==4)selected="selected"#end>袋</option>
-                                <option value="5" #if($!detail.unit==5)selected="selected"#end>盒</option>
-                            </select>
-                        </td>
+                        <td><input type="text" id="stockNum$!detail.itemId" value="$!detail.stockNum" /></td>
                         <td>
                             <button class="btn btn-default btn-sm" onclick="update($!detail.itemId)" type="button">
                                 修改
@@ -82,22 +71,22 @@
 </div>
 <script type="application/javascript">
 
-    $("#itemName").keyup(function(){
-        var itemName = $("#itemName").val();
-        if(!itemName){
+    $("#itemCode").keyup(function(){
+        var itemCode = $("#itemCode").val();
+        if(!itemCode){
             $("#itemNameList").html("");
             return;
         }
         jQuery.ajax( {
-            url : "/purchaseTemplateItem/vagueQuery",
+            url : "/product/vagueQuery",
             type : "post",
             dataType : "json",
-            data : "itemName="+$("#itemName").val(),
+            data : "itemCode="+itemCode,
             success : function(data) {
                 if (data.success == true) {
                     var list = "";
                     data.result.forEach(function(e){
-                        list += '<li><a href="#" onclick="clickIt(\''+e+'\');">'+e+'</a></li>';
+                        list += '<li><a href="#" onclick="clickIt(\''+e.itemCode+'\');">'+ e.itemCode + e.itemName+'</a></li>';
                     })
 
                     $("#itemNameList").html(list);
@@ -109,12 +98,12 @@
                 alert("系统超时！请重试");
             }
         });
-
     });
 
 
-    function clickIt(itemName){
-        $("#itemName").val(itemName);
+
+    function clickIt(itemCode, itemName, itemId){
+        $("#itemCode").val(itemCode);
     }
 
     function search(index){
@@ -125,24 +114,13 @@
     }
 
     function update(id){
-        var referenceStockPrice = $("#referenceStockPrice"+id).val();
-        var referenceSellPrice = $("#referenceSellPrice"+id).val();
-        var unit = $("#unit"+id).val();
         var referenceUnit = $("#referenceUnit"+id).val();
-        if(!referenceStockPrice){
-            alert("参考进价不能为空！");
-            return;
-        }
-        if(!referenceSellPrice){
-            alert("参考售价不能为空！");
-            return;
-        }
-
+        var stockNum = $("#stockNum"+id).val();
         jQuery.ajax( {
             url : "/product/updateReference",
             type : "post",
             dataType : "json",
-            data : "itemId="+id+"&referenceStockPrice="+referenceStockPrice+"&referenceSellPrice="+referenceSellPrice+"&unit="+unit+"&referenceUnit="+referenceUnit,
+            data : "itemId="+id+"&referenceUnit="+referenceUnit + "&stockNum="+stockNum,
             success : function(data) {
                 if (data.success == true) {
                     alert("修改成功");

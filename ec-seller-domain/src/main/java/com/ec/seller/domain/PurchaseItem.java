@@ -14,6 +14,7 @@ public class PurchaseItem implements Serializable {
     /** 采购单id */
     private Integer purchaseId;
     private Integer itemId;
+    private String itemCode;
     private String itemName;
     /** 当前建议进货价格 */
     private BigDecimal referenceStockPrice;
@@ -32,6 +33,14 @@ public class PurchaseItem implements Serializable {
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
     }
 
     public Integer getId() {

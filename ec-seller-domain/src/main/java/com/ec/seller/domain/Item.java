@@ -149,6 +149,16 @@ public class Item implements Serializable{
 
     private String itemCode;
 
+    private BigDecimal stockNum;
+
+    public BigDecimal getStockNum() {
+        return stockNum;
+    }
+
+    public void setStockNum(BigDecimal stockNum) {
+        this.stockNum = stockNum;
+    }
+
     public String getItemCode() {
         return itemCode;
     }

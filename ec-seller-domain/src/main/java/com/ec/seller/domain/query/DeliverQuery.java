@@ -18,6 +18,26 @@ public class DeliverQuery extends BaseSearchForMysqlVo implements Serializable {
     private Date created;
     private Integer yn;
     private Integer status;
+    //订货人id
+    private Integer reserveUserId;
+    //订货人名称
+    private String reserveUserName;
+
+    public Integer getReserveUserId() {
+        return reserveUserId;
+    }
+
+    public void setReserveUserId(Integer reserveUserId) {
+        this.reserveUserId = reserveUserId;
+    }
+
+    public String getReserveUserName() {
+        return reserveUserName;
+    }
+
+    public void setReserveUserName(String reserveUserName) {
+        this.reserveUserName = reserveUserName;
+    }
 
     public Integer getYn() {
         return yn;

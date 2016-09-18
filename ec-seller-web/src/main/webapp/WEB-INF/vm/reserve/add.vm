@@ -2,8 +2,6 @@
 #set($menu=1)
 #parse("/WEB-INF/vm/common/head.vm")
 <div class="container">
-    #parse("/WEB-INF/vm/common/top.vm")
-    <div class="row">&nbsp;</div>
     <div class="row">
         <form class="form-horizontal">
             <div class="form-group">

@@ -6,20 +6,15 @@ import com.ec.seller.common.utils.PaginatedList;
 import com.ec.seller.dao.DeliverItemDao;
 import com.ec.seller.dao.ItemDao;
 import com.ec.seller.dao.ReserveItemDao;
-import com.ec.seller.domain.Deliver;
-import com.ec.seller.domain.DeliverItem;
-import com.ec.seller.domain.Reserve;
-import com.ec.seller.domain.ReserveItem;
+import com.ec.seller.domain.*;
 import com.ec.seller.domain.query.DeliverItemQuery;
 import com.ec.seller.domain.query.DeliverQuery;
 import com.ec.seller.domain.query.ReserveItemQuery;
-import com.ec.seller.domain.query.ReserveQuery;
 import com.ec.seller.service.DeliverService;
 import com.ec.seller.service.ReserveService;
 import com.ec.seller.service.result.Result;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.velocity.runtime.directive.Foreach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -61,11 +57,32 @@ public class DeliverController {
 		PaginatedList<Deliver> list = deliverService.findPage(query);
 		content.put("list", list);
 		content.put("query", query);
-		return "reserve/index";
+		return "deliver/index";
 	}
 
 	@RequestMapping(value="/insert", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result insert(Long id, String date, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result insert(Deliver deliver, String date, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+		Result result = new Result();
+		try{
+			deliver.setStatus(0);
+			deliver.setDeliverDate(DateFormatUtils.parseDate(date, "yyyy-MM-dd"));
+			deliver.setShopName(deliver.getShopName());
+			deliver.setYn(1);
+			deliver.setUserId(CookieUtil.getUserId(request));
+			deliver.setUserName(CookieUtil.getLoginName(request));
+
+			this.deliverService.insert(deliver);
+
+			result.setSuccess(true);
+		}catch (Exception e){
+			result.setSuccess(false);
+			log.error("", e);
+		}
+		return result;
+	}
+
+	@RequestMapping(value="/insertByReserve", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Result insertByReserve(Long id, String date, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
 			Reserve reserve = reserveService.selectById(id);
@@ -76,8 +93,10 @@ public class DeliverController {
 			deliver.setYn(1);
 			deliver.setUserId(CookieUtil.getUserId(request));
 			deliver.setUserName(CookieUtil.getLoginName(request));
-			Long deliverId = this.deliverService.insert(deliver);
+			deliver.setReserveUserId(reserve.getUserId());
+			deliver.setReserveUserName(reserve.getUserName());
 
+			Long deliverId = this.deliverService.insert(deliver);
 
 			ReserveItemQuery query = new ReserveItemQuery();
 			query.setReserveId(id);
@@ -90,10 +109,12 @@ public class DeliverController {
 					deliverItem.setItemName(item.getItemName());
 					deliverItem.setUnit(item.getUnit());
 					deliverItem.setReserveNum(item.getNum());
+					deliverItem.setItemId(item.getItemId());
 					deliverItemDao.insert(deliverItem);
 				}
 			}
 			result.setSuccess(true);
+			result.setResult(deliverId);
 		}catch (Exception e){
 			result.setSuccess(false);
 			log.error("", e);
@@ -103,7 +124,7 @@ public class DeliverController {
 
 	@RequestMapping(value="/add", method={ RequestMethod.GET, RequestMethod.POST })
 	public String add(HttpServletResponse response, HttpServletRequest request, ModelMap content) {
-		return "reserve/add";
+		return "deliver/add";
 	}
 
 	@RequestMapping(value="/delete", method={ RequestMethod.GET, RequestMethod.POST })
@@ -118,7 +139,7 @@ public class DeliverController {
 	public String detail(Long id, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		try{
 			if(id == null || id == 0){
-				return "reserve/detail";
+				return "deliver/detail";
 			}
             Deliver deliver = this.deliverService.selectById(id);
 
@@ -132,7 +153,7 @@ public class DeliverController {
 			log.error("", e);
 		}
 
-		return "reserve/detail";
+		return "deliver/detail";
 	}
 
 	@RequestMapping(value="/addDeliverItem", method={ RequestMethod.GET, RequestMethod.POST })
@@ -160,11 +181,42 @@ public class DeliverController {
 		return result;
 	}
 
-	@RequestMapping(value="/updateStatus", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result updateStatus(Deliver deliver, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	@RequestMapping(value="/updateDeliverNum", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Result updateDeliverNum(Long id, Integer actualNum, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
+			DeliverItem deliverItem = this.deliverItemDao.selectById(id);
+			deliverItem.setActualNum(actualNum);
+			this.deliverItemDao.modify(deliverItem);
+			result.setSuccess(true);
+		}catch (Exception e){
+			result.setSuccess(false);
+			log.error("", e);
+		}
+
+		return result;
+	}
+
+
+	@RequestMapping(value="/updateStatus", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Result updateStatus(Long id, String remark, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+		Result result = new Result();
+		try{
+			Deliver deliver = this.deliverService.selectById(id);
 			deliver.setStatus(1);
+			deliver.setRemark(remark);
+
+			DeliverItemQuery query = new DeliverItemQuery();
+			query.setDeliverId(id);
+			List<DeliverItem> list = this.deliverItemDao.selectByCondition(query);
+			for(DeliverItem deliverItem : list){
+				if(deliverItem != null && deliverItem.getActualNum() != null && deliverItem.getActualNum() > 0){
+					Item item = itemDao.selectByItemId(deliverItem.getItemId());
+					item.setStockNum(item.getStockNum().subtract(new BigDecimal(deliverItem.getActualNum())));
+					itemDao.modify(item);
+				}
+			}
+
 			this.deliverService.modify(deliver);
 		}catch (Exception e){
 			log.error("", e);

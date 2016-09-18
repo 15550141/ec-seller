@@ -3,6 +3,7 @@ package com.ec.seller.domain;
 import java.util.Date;
 
 /**
+ * 订货表
  * Created by yujianming on 2016/8/18.
  */
 public class Reserve {
@@ -11,9 +12,11 @@ public class Reserve {
     private String remark;
     private String userName;
     private Integer userId;
+    //订货日期
     private Date reserveDate;
     private Date created;
     private Integer yn;
+    //订货状态，0是新建，1是已提交
     private Integer status;
 
     public Integer getStatus() {

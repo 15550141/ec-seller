@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row">&nbsp;</div>
     <div class="row">
-        <button class="btn btn-default" onclick="window.location.href='/reserve/add'" type="button">
-            新增订购单
+        <button class="btn btn-default" onclick="window.location.href='/deliver/add'" type="button">
+            新增配送单
         </button>
     </div>
     <div class="row">
@@ -13,8 +13,8 @@
             <thead>
             <tr>
                 <th>店铺</th>
-                <th>订购日期</th>
-                <th>订购人</th>
+                <th>配送日期</th>
+                <th>创建人</th>
                 <th>备注</th>
                 <th>操作</th>
             </tr>
@@ -23,21 +23,16 @@
                 #foreach($detail in $list)
                     <tr>
                         <td>$!detail.shopName</td>
-                        <td>$!dateFormatUtils.format($!{detail.reserveDate}, "yyyy-MM-dd")</td>
+                        <td>$!dateFormatUtils.format($!{detail.deliverDate}, "yyyy-MM-dd")</td>
                         <td>$!detail.userName</td>
                         <td>$!detail.remark</td>
                         <td>
-                            <button class="btn btn-default btn-sm" onclick="window.location.href='/reserve/detail?id=$!detail.id'" type="button">
+                            <button class="btn btn-default btn-sm" onclick="window.location.href='/deliver/detail?id=$!detail.id'" type="button">
                                 查看
                             </button>
                             #if($!detail.status == 0)
                                 <button class="btn btn-default btn-sm" onclick="del($!detail.id);" type="button">
                                     删除
-                                </button>
-                            #end
-                            #if($!detail.status == 1)
-                                <button class="btn btn-default btn-sm" onclick="addDeliver($!detail.id);" type="button">
-                                    生成配送单
                                 </button>
                             #end
                         </td>
@@ -61,29 +56,8 @@
 </div>
 <script type="application/javascript">
     function search(index){
-        window.location.href="/reserve/index?pageNo="+index;
+        window.location.href="/deliver/index?pageNo="+index;
     }
-
-    function addDeliver(id){
-        if(confirm("确定生成送货单？")) {
-            jQuery.ajax({
-                url: "/deliver/insert",
-                type: "post",
-                dataType: "json",
-                data: "id=" + id,
-                success: function (data) {
-                    if (data.success == true) {
-                        window.location.href = "/deliver/index?id=" + data.id;
-                    } else {
-                        alert(data.resultMessage);
-                    }
-                },
-                error: function () {
-                    alert("系统超时！请重试");
-                }
-            });
-        }
-    };
 
     function del(id){
         if(confirm("确定删除？")){

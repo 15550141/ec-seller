@@ -130,15 +130,20 @@ public class ReserveController {
 	}
 
 	@RequestMapping(value="/updateStatus", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result updateStatus(Reserve reserve, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result updateStatus(Long id, String remark, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
+			Reserve reserve = this.reserveService.selectById(id);
 			reserve.setStatus(1);
+			reserve.setRemark(remark);
 			this.reserveService.modify(reserve);
+			result.setSuccess(true);
 		}catch (Exception e){
+			result.setSuccess(false);
+			result.setResultMessage(e.getMessage());
 			log.error("", e);
 		}
-		result.setSuccess(true);
+
 		return result;
 	}
 

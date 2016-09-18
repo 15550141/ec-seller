@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class DeliverItem {
     private Long id;
+    private Integer itemId;
     private String itemCode;
     private String itemName;
     private String itemCategory;
@@ -22,6 +23,14 @@ public class DeliverItem {
     private Date created;
 
     private Long deliverId;
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
+    }
 
     public Long getDeliverId() {
         return deliverId;

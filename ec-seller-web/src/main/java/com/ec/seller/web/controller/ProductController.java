@@ -862,15 +862,13 @@ public class ProductController {
 	}
 
 	@RequestMapping(value="/updateReference", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result updateReference(String referenceSellPrice, String referenceStockPrice, String itemId, Integer unit, Integer referenceUnit, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result updateReference(String itemId, Integer referenceUnit,BigDecimal stockNum ,HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
 			Item item = new Item();
 			item.setItemId(Integer.parseInt(itemId));
-			item.setReferenceSellPrice((new BigDecimal(referenceSellPrice).multiply(new BigDecimal(100))).intValue());
-			item.setReferenceStockPrice((new BigDecimal(referenceStockPrice).multiply(new BigDecimal(100))).intValue());
-			item.setUnit(unit);
 			item.setReferenceUnit(referenceUnit);
+			item.setStockNum(stockNum);
 			this.itemService.modify(item);
 			result.setSuccess(true);
 		}catch (Exception e){

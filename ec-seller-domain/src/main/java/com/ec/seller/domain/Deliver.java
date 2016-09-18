@@ -3,6 +3,7 @@ package com.ec.seller.domain;
 import java.util.Date;
 
 /**
+ * 送货表
  * Created by yujianming on 2016/8/18.
  */
 public class Deliver {
@@ -15,6 +16,24 @@ public class Deliver {
     private Date created;
     private Integer yn;
     private Integer status;
+    private Integer reserveUserId;
+    private String reserveUserName;
+
+    public Integer getReserveUserId() {
+        return reserveUserId;
+    }
+
+    public void setReserveUserId(Integer reserveUserId) {
+        this.reserveUserId = reserveUserId;
+    }
+
+    public String getReserveUserName() {
+        return reserveUserName;
+    }
+
+    public void setReserveUserName(String reserveUserName) {
+        this.reserveUserName = reserveUserName;
+    }
 
     public Integer getStatus() {
         return status;

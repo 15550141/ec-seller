@@ -3,6 +3,8 @@ package com.ec.seller.web.controller;
 import com.ec.seller.common.utils.CookieUtil;
 import com.ec.seller.common.utils.DateFormatUtils;
 import com.ec.seller.common.utils.PaginatedList;
+import com.ec.seller.dao.ItemDao;
+import com.ec.seller.domain.Item;
 import com.ec.seller.domain.Purchase;
 import com.ec.seller.domain.PurchaseItem;
 import com.ec.seller.domain.query.PurchaseItemQuery;
@@ -33,6 +35,9 @@ public class PurchaseController {
 
 	@Autowired
 	private PurchaseItemService purchaseItemService;
+
+	@Autowired
+	private ItemDao itemDao;
 
 	private final static Log log = LogFactory.getLog(PurchaseController.class);
 
@@ -98,7 +103,14 @@ public class PurchaseController {
 			}
 			purchase.setPurchaseTotalPrice(BigDecimal.ZERO);
 			for(int i=0;i<list.size();i++){
-				if(list.get(i).getTotalPrice() == null){
+				PurchaseItem purchaseItem = list.get(i);
+				if(purchaseItem.getNum() != null && purchaseItem.getNum() != 0d){
+					Item item = itemDao.selectByItemId(purchaseItem.getItemId());
+					item.setStockNum(item.getStockNum().add(new BigDecimal(purchaseItem.getNum())));
+					itemDao.modify(item);
+				}
+
+				if(purchaseItem.getTotalPrice() == null){
 					continue;
 				}
 				//采购商品总金额

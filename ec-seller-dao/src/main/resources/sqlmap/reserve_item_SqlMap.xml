@@ -10,11 +10,12 @@
     <result column="num" property="num"  />
     <result column="created" property="created"  />
     <result column="reserve_id" property="reserveId"  />
+    <result column="item_id" property="itemId"  />
   </resultMap>
 
   <!-- 查询内容 -->
   <sql id="searchColoum" >
-    id, item_code,item_name,item_category,unit,num,created,reserve_id
+    id, item_code,item_name,item_category,unit,num,created,reserve_id,item_id
   </sql>
 
   <!-- 查询条件 -->
@@ -25,6 +26,9 @@
       </isNotNull>
       <isNotNull prepend="and" property="reserveId" >
         reserve_id = #reserveId#
+      </isNotNull>
+      <isNotNull prepend="and" property="itemId" >
+        item_id = #itemId#
       </isNotNull>
     </dynamic>
   </sql>
@@ -38,8 +42,8 @@
   
   <!-- 添加信息 -->
   <insert id="insert" parameterClass="com.ec.seller.domain.ReserveItem" >
-    insert into reserve_item (item_code,item_name,item_category,unit,num,created,reserve_id)
-    values (#itemCode#,#itemName#,#itemCategory#,#unit#,#num#,now(),#reserveId#)
+    insert into reserve_item (item_code,item_name,item_category,unit,num,created,reserve_id,item_id)
+    values (#itemCode#,#itemName#,#itemCategory#,#unit#,#num#,now(),#reserveId#,#itemId#)
       <!-- 返回自增主键 -->
         <selectKey resultClass="java.lang.Long" keyProperty="id">
 			<![CDATA[SELECT @@IDENTITY AS id ]]>
@@ -67,6 +71,9 @@
       </isNotNull>
       <isNotNull prepend="," property="reserveId" >
         reserve_id = #reserveId#
+      </isNotNull>
+      <isNotNull prepend="," property="itemId" >
+        item_id = #itemId#
       </isNotNull>
     </dynamic>
     where id = #id#

@@ -68,7 +68,7 @@
       <isNotNull prepend="," property="remark" >
         remark = #remark#
       </isNotNull>
-      <isNotNull prepend="and" property="yn" >
+      <isNotNull prepend="," property="yn" >
         yn = #yn#
       </isNotNull>
     </dynamic>

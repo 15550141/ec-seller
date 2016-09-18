@@ -17,6 +17,7 @@ public class PurchaseItemQuery extends BaseSearchForMysqlVo implements Serializa
     private Integer purchaseId;
     private Integer itemId;
     private String itemName;
+    private String itemCode;
     /** 当前建议进货价格 */
     private BigDecimal referenceStockPrice;
     /** 进货参考单位 */
@@ -34,6 +35,14 @@ public class PurchaseItemQuery extends BaseSearchForMysqlVo implements Serializa
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
     }
 
     public Integer getId() {

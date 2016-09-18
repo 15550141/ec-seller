@@ -4,9 +4,10 @@
 <div class="container">
 
     <form class="form-horizontal">
-        <input id="reserveId" type="hidden" value="$!reserve.id" >
+        <input id="deliverId" type="hidden" value="$!deliver.id" >
         <div class="row">&nbsp;</div>
-        #if($!reserve.status==0)
+        #if($!deliver.status==0)
+            <input id="itemId" type="hidden" value="" >
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -20,7 +21,7 @@
 
                     <div class="form-group">
                         <div class="input-group">
-                            <span class="input-group-addon">订购单位：</span>
+                            <span class="input-group-addon">配送单位：</span>
                             <select id="unit">
                                 <option value="斤">斤</option>
                                 <option value="箱">箱</option>
@@ -42,15 +43,15 @@
 
                     <div class="form-group">
                         <div class="input-group">
-                            <span class="input-group-addon">订购数量：</span>
-                            <input type="text" id="num" class="form-control" >
+                            <span class="input-group-addon">配送数量：</span>
+                            <input type="text" id="actualNum" class="form-control" >
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="" class="col-sm-2 control-label"><button type="button" id="addButton" class="btn btn-default">添加订购商品</button></label>
+                <label for="" class="col-sm-2 control-label"><button type="button" id="addButton" class="btn btn-default">添加配送商品</button></label>
             </div>
 
         #end
@@ -60,14 +61,14 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">店铺名称：</span>
-                        <input type="text" class="form-control" readonly="readonly" value="$!reserve.shopName">
+                        <input type="text" class="form-control" readonly="readonly" value="$!deliver.shopName">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon">订购日期：</span>
-                        <input type="text" class="form-control" readonly="readonly" value="$!dateFormatUtils.format($!{reserve.reserveDate}, "yyyy-MM-dd")">
+                        <span class="input-group-addon">配送日期：</span>
+                        <input type="text" class="form-control" readonly="readonly" value="$!dateFormatUtils.format($!{deliver.deliverDate}, "yyyy-MM-dd")">
                     </div>
                 </div>
 
@@ -75,23 +76,23 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon">订购人：</span>
-                        <input type="text" class="form-control" value="$!reserve.userName">
+                        <span class="input-group-addon">创建人：</span>
+                        <input type="text" class="form-control" readonly="readonly" value="$!deliver.userName">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">备注：</span>
-                        <input type="text" class="form-control" id="remark" value="$!reserve.remark">
+                        <input type="text" class="form-control" id="remark" value="$!deliver.remark">
                     </div>
                 </div>
             </div>
         </div>
 
-        #if($!reserve.status==0)
+        #if($!deliver.status==0)
             <div class="form-group">
-                <label for="" class="col-sm-2 control-label"><button type="button" id="updateButton" class="btn btn-default">提交订购</button></label>
+                <label for="" class="col-sm-2 control-label"><button type="button" id="updateButton" class="btn btn-default">提交配送单</button></label>
             </div>
         #end
     </form>
@@ -101,10 +102,10 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th width="25%">商品编码</th>
-                <th width="25%">商品名称</th>
+                <th width="20%">商品编码</th>
+                <th width="20%">商品名称</th>
                 <th width="15%">单位</th>
-                <th width="15%">数量</th>
+                <th width="25%">订货/实际配送</th>
                 <th width="20%">操作</th>
             </tr>
             </thead>
@@ -116,9 +117,12 @@
                     <td>
                         $!detail.unit
                     </td>
-                    <td>$!detail.num</td>
+                    <td>$!detail.reserveNum/<input type="text" #if($!deliver.status==1)readonly="readonly"#end id="actualNum_$!detail.id" value="$!detail.actualNum" /></td>
                     <td>
-                        #if($!reserve.status==0)
+                        #if($!deliver.status==0)
+                            <button class="btn btn-default btn-sm" onclick="updateDeliverNum($!detail.id)" type="button">
+                                修改
+                            </button>
                             <button class="btn btn-default btn-sm" onclick="del($!detail.id)" type="button">
                                 删除
                             </button>
@@ -135,14 +139,14 @@
     $("#updateButton").click(function(){
         if(confirm("确认提交？")){
             jQuery.ajax( {
-                url : "/reserve/updateStatus",
+                url : "/deliver/updateStatus",
                 type : "post",
                 dataType : "json",
-                data : "id="+$("#reserveId").val()+"&remark="+$("#remark").val(),
+                data : "id="+$("#deliverId").val()+"&remark="+$("#remark").val(),
                 success : function(data) {
                     if (data.success == true) {
                         alert("修改成功！");
-                        window.location.reload(true);
+                        window.location.reload();
                     }else{
                         alert(data.resultMessage);
                     }
@@ -170,7 +174,7 @@
                 if (data.success == true) {
                     var list = "";
                     data.result.forEach(function(e){
-                        list += '<li><a href="#" onclick="clickIt(\''+e.itemCode+'\',\''+ e.itemName+'\');">'+ e.itemCode + e.itemName+'</a></li>';
+                        list += '<li><a href="#" onclick="clickIt(\''+e.itemCode+'\',\''+ e.itemName+'\',\''+ e.itemId+'\');">'+ e.itemCode + e.itemName+'</a></li>';
                     })
 
                     $("#itemNameList").html(list);
@@ -186,31 +190,33 @@
 
 
 
-    function clickIt(itemCode, itemName){
+    function clickIt(itemCode, itemName, itemId){
         $("#itemCode").val(itemCode);
         $("#itemName").val(itemName);
+        $("#itemId").val(itemId);
     }
 
     $("#addButton").click(function(){
         var itemCode = $("#itemCode").val();
+        var itemId = $("#itemId").val();
         var itemName = $("#itemName").val();
-        var num = $("#num").val();
+        var actualNum = $("#actualNum").val();
         var unit = $("#unit").val();
-        var reserveId = $("#reserveId").val();
+        var deliverId = $("#deliverId").val();
 
         if(!itemCode){
             alert("请输入商品编码");
             return;
         }
-        if(!num){
-            alert("请输入订购数量");
+        if(!actualNum){
+            alert("请输入配送数量");
             return;
         }
         jQuery.ajax( {
-            url : "/reserve/addReserveItem",
+            url : "/deliver/addDeliverItem",
             type : "post",
             dataType : "json",
-            data : "itemCode="+itemCode+"&num="+num+"&unit="+unit+"&itemName="+itemName+"&reserveId="+reserveId,
+            data : "itemCode="+itemCode+"&actualNum="+actualNum+"&unit="+unit+"&itemName="+itemName+"&deliverId="+deliverId+"&itemId="+itemId,
             success : function(data) {
                 if (data.success == true) {
                     window.location.reload();
@@ -224,10 +230,31 @@
         });
     });
 
+    function updateDeliverNum(id){
+        var actualNum = $("#actualNum_"+id).val();
+
+        jQuery.ajax( {
+            url : "/deliver/updateDeliverNum?actualNum="+actualNum+"&id="+id,
+            type : "post",
+            dataType : "json",
+            data : "id="+id,
+            success : function(data) {
+                if (data.success == true) {
+                    alert("修改成功");
+                }else{
+                    alert(data.resultMessage);
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    }
+
     function del(id){
         if(confirm("确认要删除吗？")){
             jQuery.ajax( {
-                url : "/reserve/deleteReserveItem",
+                url : "/deliver/deleteDeliverItem",
                 type : "post",
                 dataType : "json",
                 data : "id="+id,
