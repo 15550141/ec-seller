@@ -862,13 +862,17 @@ public class ProductController {
 	}
 
 	@RequestMapping(value="/updateReference", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result updateReference(String itemId, Integer referenceUnit,BigDecimal stockNum ,HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result updateReference(String itemId, Integer referenceUnit,BigDecimal stockNum , String itemCode, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
-			Item item = new Item();
+			Item item = itemDao.selectByItemId(Integer.parseInt(itemId));
+			if(item == null){
+				throw new RuntimeException("商品不存在");
+			}
 			item.setItemId(Integer.parseInt(itemId));
 			item.setReferenceUnit(referenceUnit);
 			item.setStockNum(stockNum);
+			item.setItemCode(itemCode);
 			this.itemService.modify(item);
 			result.setSuccess(true);
 		}catch (Exception e){

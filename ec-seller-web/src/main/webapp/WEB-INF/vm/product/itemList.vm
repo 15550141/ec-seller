@@ -34,7 +34,7 @@
             <tbody>
                 #foreach($detail in $!resultMap.itemList)
                     <tr>
-                        <td>$!detail.itemCode</td>
+                        <td><input type="text" id="itemCode$!detail.itemId" value="$!detail.itemCode" /></td>
                         <td>$!detail.itemName</td>
                         <td>
                             <select name="referenceUnit$!detail.itemId" id="referenceUnit$!detail.itemId">
@@ -116,11 +116,12 @@
     function update(id){
         var referenceUnit = $("#referenceUnit"+id).val();
         var stockNum = $("#stockNum"+id).val();
+        var itemCode = $("#itemCode"+id).val();
         jQuery.ajax( {
             url : "/product/updateReference",
             type : "post",
             dataType : "json",
-            data : "itemId="+id+"&referenceUnit="+referenceUnit + "&stockNum="+stockNum,
+            data : "itemId="+id+"&referenceUnit="+referenceUnit + "&stockNum="+stockNum+"&itemCode="+itemCode,
             success : function(data) {
                 if (data.success == true) {
                     alert("修改成功");
