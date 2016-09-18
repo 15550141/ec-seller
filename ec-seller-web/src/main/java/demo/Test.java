@@ -62,11 +62,20 @@ public class Test {
 
 //        System.out.println(MD5Util.md5Hex("123123").toUpperCase());
 
-        //方法一：中文操作系统中打印GBK
-        System.out.println(System.getProperty("file.encoding"));
+//        //方法一：中文操作系统中打印GBK
+//        System.out.println(System.getProperty("file.encoding"));
+//
+//        //方法二：中文操作系统中打印GBK
+//        System.out.println(Charset.defaultCharset());
 
-        //方法二：中文操作系统中打印GBK
-        System.out.println(Charset.defaultCharset());
+
+        Map<String, BigDecimal> map = new HashMap<String, BigDecimal>();
+        map.put("1111", new BigDecimal(1));
+        map.remove("1111");
+        System.out.println(map.size());
+        if(map.size() == 0){
+            System.out.println("OK");
+        }
     }
 
     private static String getDate(String date) throws DateParseException {
