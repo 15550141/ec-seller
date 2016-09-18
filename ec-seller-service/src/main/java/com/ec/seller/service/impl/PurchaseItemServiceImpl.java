@@ -27,21 +27,14 @@ public class PurchaseItemServiceImpl implements PurchaseItemService {
 
     @Override
     public void insert(PurchaseItem purchaseItem) {
-        PurchaseItemQuery ItemQuery = new PurchaseItemQuery();
-        ItemQuery.setItemName(purchaseItem.getItemName());
-        ItemQuery.setPurchaseId(purchaseItem.getPurchaseId());
-        List<PurchaseItem> purchaseItemList = this.purchaseItemDao.selectByCondition(ItemQuery);
-        if(purchaseItemList != null && purchaseItemList.size() > 0){
-            throw new RuntimeException("已添加该商品");
-        }
-
-        List<Item> list = itemDao.selectByItemName(purchaseItem.getItemName());
-        if(list == null || list.size() == 0){
+        Item item = itemDao.selectByItemId(purchaseItem.getItemId());
+        if(item == null){
             throw new RuntimeException("该商品不存在");
         }
-        purchaseItem.setItemId(list.get(0).getItemId());
-        purchaseItem.setItemName(list.get(0).getItemName());
-        purchaseItem.setReferenceUnit(list.get(0).getReferenceUnit());//参考进价单位
+        purchaseItem.setItemId(item.getItemId());
+        purchaseItem.setItemName(item.getItemName());
+        purchaseItem.setReferenceUnit(item.getReferenceUnit());//参考进价单位
+        purchaseItem.setItemCode(item.getItemCode());
         purchaseItemDao.insert(purchaseItem);
     }
 

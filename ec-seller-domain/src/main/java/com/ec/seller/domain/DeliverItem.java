@@ -1,5 +1,6 @@
 package com.ec.seller.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -15,11 +16,11 @@ public class DeliverItem {
     /**
      * 订货数量
      */
-    private Integer reserveNum;
+    private BigDecimal reserveNum;
     /**
      * 实际配送数量
      */
-    private Integer actualNum;
+    private BigDecimal actualNum;
     private Date created;
 
     private Long deliverId;
@@ -80,19 +81,19 @@ public class DeliverItem {
         this.unit = unit;
     }
 
-    public Integer getReserveNum() {
+    public BigDecimal getReserveNum() {
         return reserveNum;
     }
 
-    public void setReserveNum(Integer reserveNum) {
+    public void setReserveNum(BigDecimal reserveNum) {
         this.reserveNum = reserveNum;
     }
 
-    public Integer getActualNum() {
+    public BigDecimal getActualNum() {
         return actualNum;
     }
 
-    public void setActualNum(Integer actualNum) {
+    public void setActualNum(BigDecimal actualNum) {
         this.actualNum = actualNum;
     }
 

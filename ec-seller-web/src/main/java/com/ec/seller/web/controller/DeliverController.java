@@ -182,7 +182,7 @@ public class DeliverController {
 	}
 
 	@RequestMapping(value="/updateDeliverNum", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result updateDeliverNum(Long id, Integer actualNum, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result updateDeliverNum(Long id, BigDecimal actualNum, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
 			DeliverItem deliverItem = this.deliverItemDao.selectById(id);
@@ -210,18 +210,23 @@ public class DeliverController {
 			query.setDeliverId(id);
 			List<DeliverItem> list = this.deliverItemDao.selectByCondition(query);
 			for(DeliverItem deliverItem : list){
-				if(deliverItem != null && deliverItem.getActualNum() != null && deliverItem.getActualNum() > 0){
+				if(deliverItem != null && deliverItem.getActualNum() != null && deliverItem.getActualNum().compareTo(BigDecimal.ZERO) > 0){
 					Item item = itemDao.selectByItemId(deliverItem.getItemId());
-					item.setStockNum(item.getStockNum().subtract(new BigDecimal(deliverItem.getActualNum())));
+					if(item.getStockNum() != null){
+						item.setStockNum(item.getStockNum().subtract(deliverItem.getActualNum()));
+					}
 					itemDao.modify(item);
 				}
 			}
 
 			this.deliverService.modify(deliver);
+			result.setSuccess(true);
 		}catch (Exception e){
+			result.setSuccess(false);
+			result.setResultMessage(e.getMessage());
 			log.error("", e);
 		}
-		result.setSuccess(true);
+
 		return result;
 	}
 

@@ -3,6 +3,7 @@ package com.ec.seller.domain.query;
 import com.ec.seller.domain.common.BaseSearchForMysqlVo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ public class ReserveItemQuery extends BaseSearchForMysqlVo implements Serializab
     private String itemName;
     private String itemCategory;
     private String unit;
-    private Integer num;
+    private BigDecimal num;
     private Date created;
     private Long reserveId;
 
@@ -75,11 +76,11 @@ public class ReserveItemQuery extends BaseSearchForMysqlVo implements Serializab
         this.unit = unit;
     }
 
-    public Integer getNum() {
+    public BigDecimal getNum() {
         return num;
     }
 
-    public void setNum(Integer num) {
+    public void setNum(BigDecimal num) {
         this.num = num;
     }
 

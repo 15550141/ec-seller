@@ -174,7 +174,11 @@
                 if (data.success == true) {
                     var list = "";
                     data.result.forEach(function(e){
-                        list += '<li><a href="#" onclick="clickIt(\''+e.itemCode+'\',\''+ e.itemName+'\',\''+ e.itemId+'\');">'+ e.itemCode + e.itemName+'</a></li>';
+                        if(e.itemCode == null){
+                            list += '<li><a href="#" onclick="clickIt(\''+e.itemCode+'\',\''+ e.itemName+'\',\''+ e.itemId+'\');">无编号 - ' + e.itemName+'</a></li>';
+                        }else{
+                            list += '<li><a href="#" onclick="clickIt(\''+e.itemCode+'\',\''+ e.itemName+'\',\''+ e.itemId+'\');">'+ e.itemCode +' - '+ e.itemName+'</a></li>';
+                        }
                     })
 
                     $("#itemNameList").html(list);

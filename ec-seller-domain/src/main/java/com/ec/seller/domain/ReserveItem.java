@@ -1,5 +1,6 @@
 package com.ec.seller.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ public class ReserveItem {
     private String itemName;
     private String itemCategory;
     private String unit;
-    private Integer num;
+    private BigDecimal num;
     private Date created;
     private Long reserveId;
 
@@ -72,11 +73,11 @@ public class ReserveItem {
         this.unit = unit;
     }
 
-    public Integer getNum() {
+    public BigDecimal getNum() {
         return num;
     }
 
-    public void setNum(Integer num) {
+    public void setNum(BigDecimal num) {
         this.num = num;
     }
 

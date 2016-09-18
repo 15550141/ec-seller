@@ -579,7 +579,7 @@
     </select>
 
     <select id="vagueQueryByItemCode" parameterClass="java.lang.String" resultMap="ItemResult" >
-        select <include refid="Item.searchColoum" /> from item where item_code like '%$value$%';
+        select <include refid="Item.searchColoum" /> from item where item_code like '%$value$%' or item_name like '%$value$%';
     </select>
 
     <select id="selectByItemName" parameterClass="java.lang.String" resultMap="ItemResult" >
