@@ -53,6 +53,12 @@
 			<input type="text" name="itemName" maxlength="50" id="itemName" value="$!{item.itemName}" style="width: 200px" />例如：山西种植基地特供优质新玉米（6-45个字）
 		</td>
 	</tr>
+    <tr>
+        <td align="right" style="width: 100px">*商品编码：</td>
+        <td align="left" style="width: 600px">
+            <input type="text" name="itemCode" maxlength="50" id="itemCode" value="$!{item.itemCode}" style="width: 200px" />
+        </td>
+    </tr>
 	<tr>
 		<td></td>
 		<td><span id="itemNameSp"></span></td>
@@ -113,7 +119,7 @@
 	
 	<tr>
 		<td style="width: 100px" align="right">10公斤:</td>
-		<td align="right" style="width: 100px">*价格：</td>
+		<td align="right" style="width: 100px">*销售价：</td>
 		<td style="width: 80px">
 			<input type="text" name="tbPrice" id="tbPrice" value="" style="width: 80px" />
 		</td>
@@ -148,7 +154,7 @@
 		</tr>
 	
 	<tr>
-		<td align="right" style="width: 100px">*价格：</td>
+		<td align="right" style="width: 100px">*销售价：</td>
 		<td style="width: 100px">
 			<input type="text" name="tbPriceNoPro" id="tbPriceNoPro" value="" style="width: 80px" />&nbsp;元
 		</td>
@@ -162,7 +168,7 @@
 		<td style="width: 80px">
 			<input type="text" name="minSaleNumNoPro" id="minSaleNumNoPro" value="" style="width: 80px" />
 		</td>
-		<td align="right" style="width: 100px">分销价：</td>
+		<td align="right" style="width: 100px">价格2：</td>
 		<td style="width: 80px">
 			<input type="text" name="fxPricePro" id="fxPricePro" value="" style="width: 80px" />
 		</td>

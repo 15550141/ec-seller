@@ -32,10 +32,10 @@
         <table border="0" cellpadding="0" cellspacing="2" style="width:900px;">
             <tr>
                 <td align="right" style="width:100px">
-                	商品ID：
+                	商品编码：
                 </td>
                 <td align="left" style="width:100px">
-					<input type="text" name="itemId" maxlength="30" id="itemId" value="$!{itemQuery.itemId}"/>
+					<input type="text" name="itemCode" maxlength="30" id="itemCode" value="$!{itemQuery.itemCode}"/>
 				</td>
 				<td align="right" style="width:100px">
                 	商品名称：
@@ -91,7 +91,7 @@
         <table>
             <tr>
             	<th><input name="chkTable" type="checkbox" id="chkTable" onclick="CheckAll(this.form)" /></th>
-                <th>商品ID</th>
+                <th>商品编码</th>
                 <th>商品分类</th>
                 <th>商品图片</th>
                 <th>商品名称</th>
@@ -105,7 +105,7 @@
             	<td>
 					<input type="checkbox" name="id" id="$!{item.itemId}" value="$!{item.itemId}" />
            		</td>
-                <td>$!{item.itemId}</td>
+                <td>$!{item.itemCode}</td>
                 <td>$!{item.categoryId1Name} - $!{item.categoryId2Name} - $!{item.categoryId3Name} - $!{item.categoryId4Name}</td>
                	<td> #if($!{item.itemImage}!="")
                		<img src="$!{item.itemImage}" width="30" height="30" alt="无图片" />

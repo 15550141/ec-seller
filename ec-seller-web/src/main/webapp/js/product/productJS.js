@@ -7,9 +7,9 @@ $("#query").click(function() {
 
 $("#itemName").blur(function() {
 	var itemName=$("#itemName").val();
-	if(itemName.length<3){
+	if(itemName.length<2){
 		$("#itemNameSp").css("color", "red");
-		$("#itemNameSp").html("商品名称应大于2个字！");
+		$("#itemNameSp").html("商品名称应大于等于2个字！");
 	}else if(itemName.length>45){
 		$("#itemNameSp").css("color", "red");
 		$("#itemNameSp").html("商品名称应小于46个字！");
@@ -31,8 +31,8 @@ $("#subButton").click(function() {
 		alert("商品名称不能为空！");
 		return;
 	}
-	if(itemName.length<3){
-		alert("商品名称应大于2个字！");
+	if(itemName.length<2){
+		alert("商品名称应大于等于2个字！");
 		return;
 	}else if(itemName.length>45){
 		alert("商品名称应小于46个字！");
@@ -143,8 +143,8 @@ $("#editButton").click(function() {
 		alert("商品名称不能为空！");
 		return;
 	}
-	if(itemName.length<3){
-		alert("商品名称应大于2个字！");
+	if(itemName.length<2){
+		alert("商品名称应大于等于2个字！");
 		return;
 	}
 	if(itemName.length>45){
@@ -581,7 +581,7 @@ $("#categoryId4").change(
 										"<td style='width: 80px'><input type='text' name='stock' id='stock_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
 										"<td align='right' style='width: 100px'>*最低起卖量：</td>"+
 										"<td style='width: 80px'><input type='text' name='leastBuy' id='leastBuy_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
-										"<td align='right' style='width: 100px'>分销价：</td>"+
+										"<td align='right' style='width: 100px'>价格2：</td>"+
 										"<td style='width: 80px'><input type='text' name='fxPrice' id='fxPrice_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
 										"<td><input type = 'hidden' id='ifChoose_"+property.propertyValueId+"' name= 'ifChoose' value =''/>"+
 										"<input type = 'hidden' name= 'propertyId' value ='" +property.propertyId+"'/>"+

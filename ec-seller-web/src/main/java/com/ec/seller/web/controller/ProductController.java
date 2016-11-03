@@ -94,7 +94,19 @@ public class ProductController {
 			SkuQuery skuQuery =new SkuQuery();
 			skuQuery.setItemId(item.getItemId());
 			skuQuery.setYn(1);
-			List<Sku>skuList = skuService.selectByCondition(skuQuery);
+			List<Sku> skuList = skuService.selectByCondition(skuQuery);
+
+			if(skuList == null || skuList.size() == 0){
+				Sku sku = new Sku();
+				sku.setItemId(item.getItemId());
+				sku.setLeastBuy(1);
+				sku.setSalePrice(10000);
+				sku.setOriginalPrice(10000);
+				sku.setStock(1);
+				sku.setYn(1);
+				skuService.insert(sku);
+				skuList.add(sku);
+			}
 			
 			//查询商品图片信息
 			List<ItemImage> itemImageList = itemImageService.selectByItemId(itemId);

@@ -31,10 +31,10 @@
         <table border="0" cellpadding="0" cellspacing="2" style="width:1000px;">
             <tr height="30">
                 <td align="right" style="width:100px">
-                	商品ID：
+                	商品编码：
                 </td>
                 <td align="left" style="width:100px">
-					<input type="text" name="itemId" maxlength="30" id="itemId" value="$!{item.itemId}"/>
+					<input type="text" name="itemId" maxlength="30" id="itemCode" value="$!{item.itemCode}"/>
 				</td>
 				<td align="right" style="width:100px">
                 	商品名称：
@@ -77,7 +77,7 @@
     <div class="panel_grid">
         <table>
             <tr>
-                <th>商品ID</th>
+                <th>商品编码</th>
                 <th>一级分类</th>
 				<th>二级分类</th>
 				<th>三级分类</th>
@@ -91,7 +91,7 @@
             </tr>
 			#foreach($item in $resultMap.itemList)
             <tr>
-                <td>$!{item.itemId}</td>
+                <td>$!{item.itemCode}</td>
                 <td>$!{item.categoryId1Name}</td>
 				<td>$!{item.categoryId2Name}</td>
                 <td>$!{item.categoryId3Name}</td>
