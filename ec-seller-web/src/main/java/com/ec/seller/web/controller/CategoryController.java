@@ -467,7 +467,7 @@ public class CategoryController {
 
 		return "item/category"+category.getCategoryLevel();
 	}
-	
+
 	@RequestMapping(value="/addCategory4", method={ RequestMethod.GET, RequestMethod.POST })
 	public String addCategory4(Category category, HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
 		category.setCategoryLevel(4);
@@ -475,7 +475,7 @@ public class CategoryController {
 		if(category.getSortNumber()!=null){
 			category.setSortNumber(category.getSortNumber());
 		}
-		
+
 		//传来的catalogID
 		try {
 			Integer categoryId = categoryService.insert(category);
@@ -486,7 +486,7 @@ public class CategoryController {
 				property.setPropertyName("规格");
 				property.setYn(1);
 				property.setPropertyType(3);
-				propertyService.insert(property);	
+				propertyService.insert(property);
 			}
 		} catch (Exception e) {
 			LOG.error("CategoryController.addCategory4:", e);
@@ -498,7 +498,7 @@ public class CategoryController {
 		} catch (IOException e) {
 
 		}
-		
+
 		return "item/category4";
 	}
 	
