@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
-<sqlMap namespace="PurchaseItem" >
-  <resultMap id="PurchaseItemResult" class="com.ec.seller.domain.PurchaseItem" >
+<sqlMap namespace="StorageItem" >
+  <resultMap id="StorageItemResult" class="com.ec.seller.domain.StorageItem" >
     <result column="id" property="id"  />
-    <result column="purchase_id" property="purchaseId" />
+    <result column="storage_id" property="storageId" />
     <result column="item_id" property="itemId"  />
     <result column="item_name" property="itemName"  />
-    <result column="item_name" property="itemCode"  />
-    <result column="reference_stock_price" property="referenceStockPrice"  />
-    <result column="reference_unit" property="referenceUnit"  />
+    <result column="item_code" property="itemCode"  />
+    <result column="unit" property="unit"  />
     <result column="price" property="price"  />
     <result column="num" property="num"  />
     <result column="total_price" property="totalPrice"  />
     <result column="remark" property="remark"  />
-    <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
-    <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
+    <result column="CREATED" property="created" />
+    <result column="MODIFIED" property="modified" />
   </resultMap>
 
   <!-- 查询内容 -->
   <sql id="searchColoum" >
-    id, purchase_id, item_id, item_name,item_code, reference_stock_price, reference_unit, price,num,total_price,
+    id, storage_id, item_id, item_name, item_code, unit, price, num, total_price,
     remark, created, modified
   </sql>
 
@@ -29,8 +28,8 @@
   	  <isNotNull prepend="and" property="id" >
         id = #id#
       </isNotNull>
-      <isNotNull prepend="and" property="purchaseId" >
-        purchase_id = #purchaseId#
+      <isNotNull prepend="and" property="storageId" >
+        storage_id = #storageId#
       </isNotNull>
       <isNotNull prepend="and" property="itemId" >
         item_id = #itemId#
@@ -45,17 +44,17 @@
   </sql>
   
   <!-- 依据主键进行查询 -->
-  <select id="selectById" resultMap="PurchaseItemResult" parameterClass="java.lang.Integer" >
-    select <include refid="PurchaseItem.searchColoum" />
-    from purchase_item
+  <select id="selectById" resultMap="StorageItemResult" parameterClass="java.lang.Integer" >
+    select <include refid="StorageItem.searchColoum" />
+    from storage_item
     where id = #id#
   </select>
   
   <!-- 添加信息 -->
-  <insert id="insert" parameterClass="com.ec.seller.domain.PurchaseItem" >
-    insert into purchase_item (purchase_id, item_id, item_name, item_code, reference_stock_price, reference_unit, price,num,total_price,
+  <insert id="insert" parameterClass="com.ec.seller.domain.StorageItem" >
+    insert into storage_item (storage_id, item_id, item_name, item_code, unit, price, num, total_price,
     remark, created, modified)
-    values (#purchaseId#, #itemId#, #itemName#, #itemCode#, #referenceStockPrice#, #referenceUnit#, #price#,#num#,#totalPrice#,
+    values (#storageId#, #itemId#, #itemName#, #itemCode#, #unit#, #price#, #num#, #totalPrice#,
     #remark#, now(), now())
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="id">
@@ -64,9 +63,12 @@
   </insert>
   
   <!-- 依据主键进行修改 -->
-  <update id="modify" parameterClass="com.ec.seller.domain.PurchaseItem" >
-    update purchase_item set MODIFIED = now()
+  <update id="modify" parameterClass="com.ec.seller.domain.StorageItem" >
+    update storage_item set MODIFIED = now()
     <dynamic>
+      <isNotNull prepend="," property="unit" >
+        unit = #unit#
+      </isNotNull>
       <isNotNull prepend="," property="price" >
         price = #price#
       </isNotNull>
@@ -75,9 +77,6 @@
       </isNotNull>
       <isNotNull prepend="," property="totalPrice" >
         total_price = #totalPrice#
-      </isNotNull>
-      <isNotNull prepend="," property="referenceUnit" >
-        reference_unit = #referenceUnit#
       </isNotNull>
       <isNotNull prepend="," property="remark" >
         remark = #remark#
@@ -88,20 +87,20 @@
 
   <!-- 删除 -->
   <delete id="delete">
-    delete from purchase_item where id=#id#
+    delete from storage_item where id=#id#
   </delete>
 
   <!-- 条件查询总数 -->
-  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.PurchaseItemQuery" resultClass="java.lang.Integer" >
-    select count(1) from purchase_item
-    <include refid="PurchaseItem.condition" />
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.StorageItemQuery" resultClass="java.lang.Integer" >
+    select count(1) from storage_item
+    <include refid="StorageItem.condition" />
   </select>
   
   <!-- 条件查询列表 -->
-  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.PurchaseItemQuery" resultMap="PurchaseItemResult" >
-    select <include refid="PurchaseItem.searchColoum" />
-    from purchase_item
-    <include refid="PurchaseItem.condition" />
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.StorageItemQuery" resultMap="StorageItemResult" >
+    select <include refid="StorageItem.searchColoum" />
+    from storage_item
+    <include refid="StorageItem.condition" />
     order by id desc
   </select>
   

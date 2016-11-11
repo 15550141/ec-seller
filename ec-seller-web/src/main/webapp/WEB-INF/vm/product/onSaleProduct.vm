@@ -110,7 +110,14 @@
                	</td>
                 <td>$!{item.itemName}</td>
 				<td>$!{item.tbPrice}</td>
-                <td>$!{item.stock}</td>
+                <td>
+					$!{item.stockNum}
+					#if($!item.unit==1)斤#end
+					#if($!item.unit==2)个#end
+					#if($!item.unit==3)箱#end
+					#if($!item.unit==4)袋#end
+					#if($!item.unit==5)盒#end
+				</td>
 				<td>$!dateFormatUtils.format($!{item.onShelfTime},"yyyy-MM-dd HH:mm:ss")</td>
                 <td>
                     <a href="/product/edit?itemId=$!{item.itemId}">修改</a>
@@ -140,7 +147,7 @@
  <!--  <script language="javascript" src="/My97DatePicker/WdatePicker.js"></script> -->
  <script language="javascript" src="$assetModule.getTarget("/My97DatePicker/WdatePicker.js")"></script>
  <script language="javascript" src="$assetModule.getTarget("/js/product/productJS.js")"></script>
- <script langusge="javascript" >
+ <script language="javascript" >
 //初始化分类
 $(document).ready(function(){
 

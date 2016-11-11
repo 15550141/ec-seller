@@ -104,7 +104,7 @@
                	</td>			
                 <td>$!{item.itemName}</td>
                 <td>$!{item.tbPrice}</td>
-                <td>$!{item.stock}</td>
+                <td>$!{item.stockNum}</td>
 				<td>$!dateFormatUtils.format($!{item.onShelfTime},"yyyy-MM-dd HH:mm:ss")</td>
 				<td>$!dateFormatUtils.format($!{item.offShelfTime},"yyyy-MM-dd HH:mm:ss")</td>
             </tr>

@@ -1,0 +1,282 @@
+#set($title="查看采购单")
+#set($menu=4)
+#parse("/WEB-INF/vm/common/head.vm")
+<div class="container">
+    #parse("/WEB-INF/vm/common/top.vm")
+
+    <form class="form-horizontal">
+        <div class="row">&nbsp;</div>
+        #if($!storage.status==0)
+            <input id="itemId" type="hidden" >
+            <input id="itemCode" type="hidden" >
+            <div class="input-group col-xs-7">
+                <input id="itemName" type="text" class="form-control dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                <ul id="itemNameList" class="dropdown-menu">
+                </ul>
+                <div class="input-group-btn">
+                    <button type="button" id="insert" class="btn btn-default">
+                        新增商品
+                    </button>
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+        #end
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">入库人姓名：</span>
+                        <input type="text" class="form-control" readonly="readonly" value="$!storage.storageName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">入库总金额：</span>
+                        <input type="text" class="form-control" readonly="readonly" value="$!storage.totalPrice">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">当前状态：</span>
+                        <input type="text" class="form-control" readonly="readonly" value="#if($!storage.status==0)采购中 #else 采购完成#end">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">入库日期：</span>
+                        <input id="storageTime" type="date" class="form-control" #if($!storage.status==1)readonly="readonly"#end value="$!dateFormatUtils.format($!{storage.storageTime}, "yyyy-MM-dd")">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">入库备注：</span>
+                        <input id="remark" type="text" class="form-control" #if($!storage.status==1)readonly="readonly"#end value="$!storage.remark">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        #if($!storage.status==0)
+            <div class="form-group">
+                <label for="inputPassword" class="col-sm-2 control-label"><button type="button" id="updateStorageButton" class="btn btn-default">入库完成</button></label>
+            </div>
+        #end
+    </form>
+
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th width="16%">商品编号</th>
+                <th width="18%">商品名称</th>
+                <th width="18%">入库数量</th>
+                <th width="18%">入库价格</th>
+                <th width="30%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            #foreach($detail in $!storageItemList)
+                <tr>
+                    <td>$!detail.itemCode</td>
+                    <td>$!detail.itemName</td>
+                    <td>
+                        <input id="num$!detail.id" type="text" #if($!storage.status!=0)readonly="readonly" #end style="width: 70px;" value="$!detail.num" />
+                        #if($!detail.unit==1)斤#end
+                        #if($!detail.unit==2)个#end
+                        #if($!detail.unit==3)箱#end
+                        #if($!detail.unit==4)袋#end
+                        #if($!detail.unit==5)盒#end
+                    </td>
+
+                    <td>
+                        <input id="price$!detail.id" #if($!storage.status!=0)readonly="readonly"#end type="text" style="width: 70px;" value="$!detail.price" />
+                    </td>
+                    <td>
+                        #if($!storage.status==0)
+                            <button class="btn btn-default btn-sm" onclick="update($!detail.id)" type="button">
+                                修改
+                            </button>
+                            <button class="btn btn-default btn-sm" onclick="del($!detail.id)" type="button">
+                                删除
+                            </button>
+                        #end
+                    </td>
+                </tr>
+            #end
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="application/javascript">
+
+    $("#updateStorageButton").click(function(){
+        var storageTime = $("#storageTime").val();
+        var remark = $("#remark").val();
+        var params = "id="+$!storage.id;
+        if(storageTime){
+            params += "&storageDate="+storageTime;
+        }
+        if(remark){
+            params += "&remark="+remark;
+        }
+
+        jQuery.ajax( {
+            url : "/storage/update",
+            type : "post",
+            dataType : "json",
+            data : params,
+            success : function(data) {
+                if (data.success == true) {
+                    alert("修改成功！");
+                    window.location.reload();
+                }else{
+                    alert(data.resultMessage);
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    });
+
+    $("#itemName").keyup(function(){
+        $("#itemCode").val('');
+        $("#itemId").val('');
+        var itemName = $("#itemName").val();
+        if(!itemName){
+            $("#itemNameList").html("");
+            return;
+        }
+        jQuery.ajax( {
+            url : "/product/vagueQuery",
+            type : "post",
+            dataType : "json",
+            data : "itemCode="+itemName,
+            success : function(data) {
+                if (data.success == true) {
+                    var list = "";
+                    data.result.forEach(function(e){
+                        if(e.itemCode == null){
+                            list += '<li><a href="#" onclick="clickIt(\''+e.itemCode+'\',\''+ e.itemName+'\',\''+ e.itemId+'\');">无编号 - ' + e.itemName+'</a></li>';
+                        }else{
+                            list += '<li><a href="#" onclick="clickIt(\''+e.itemCode+'\',\''+ e.itemName+'\',\''+ e.itemId+'\');">'+ e.itemCode +' - '+ e.itemName+'</a></li>';
+                        }
+                    })
+
+                    $("#itemNameList").html(list);
+                }else{
+                    alert("系统异常！请重试");
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    });
+
+
+    function clickIt(itemCode, itemName, itemId){
+        $("#itemCode").val(itemCode);
+        $("#itemName").val(itemName);
+        $("#itemId").val(itemId);
+    }
+
+    $("#insert").click(function(){
+        var itemName = $("#itemName").val();
+        var itemCode = $("#itemCode").val();
+        var itemId = $("#itemId").val();
+        if(!itemName || itemName == '' || itemName == null || itemName == 'null' ){
+            alert("请选择下拉列表中带商品编码的商品");
+            return;
+        }
+        if(!itemCode || itemCode == '' || itemCode == null || itemCode == 'null' ){
+            alert("请选择下拉列表中带商品编码的商品");
+            return;
+        }
+        if(!itemId || itemId == '' || itemId == null || itemId == 'null' ){
+            alert("请选择下拉列表中带商品编码的商品");
+            return;
+        }
+
+        jQuery.ajax( {
+            url : "/storageItem/insert",
+            type : "post",
+            dataType : "json",
+            data : "itemId="+itemId+"&itemCode="+itemCode+"&itemName="+itemName+"&storageId="+$!storage.id,
+            success : function(data) {
+                if (data.success == true) {
+                    $("#itemCode").val('');
+                    $("#itemId").val('');
+                    $("#itemName").val('');
+                    window.location.reload();
+                }else{
+                    alert(data.resultMessage);
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    });
+
+    function update(id){
+        var num = $("#num"+id).val();
+        var price = $("#price"+id).val();
+        if(!num || num == 0){
+            alert("进货数量不能为空");
+            return;
+        }
+        if(!price || price == 0){
+            alert("参考价不能为空");
+            return;
+        }
+        jQuery.ajax( {
+            url : "/storageItem/update",
+            type : "post",
+            dataType : "json",
+            data : "id="+id+"&num="+num+"&price="+price,
+            success : function(data) {
+                if (data.success == true) {
+                    alert("修改成功！");
+                    window.location.reload();
+                }else{
+                    alert(data.resultMessage);
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    }
+
+    function del(id){
+        if(confirm("确认要删除吗？")){
+            jQuery.ajax( {
+                url : "/storageItem/delete",
+                type : "post",
+                dataType : "json",
+                data : "id="+id,
+                success : function(data) {
+                    if (data.success == true) {
+                        alert("删除成功！");
+                        window.location.reload();
+                    }else{
+                        alert(data.resultMessage);
+                    }
+                },
+                error : function() {
+                    alert("系统超时！请重试");
+                }
+            });
+        }
+    }
+</script>
+#parse("/WEB-INF/vm/common/bottom.vm")

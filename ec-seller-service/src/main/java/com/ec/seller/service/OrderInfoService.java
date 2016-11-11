@@ -57,6 +57,14 @@ public interface OrderInfoService {
 	 * @return
 	 */
 	public Map<String, Object> updateOrderInfoFinish(Integer orderId, Integer venderUserId);
+
+	/**
+	 * 已月结
+	 * @param orderId
+	 * @param venderUserId
+     * @return
+     */
+	public Map<String, Object> doMonthPay(Integer orderId, Integer venderUserId);
 	
 	/**
 	 * 取消订单

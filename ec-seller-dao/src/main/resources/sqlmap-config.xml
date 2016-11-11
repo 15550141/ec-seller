@@ -46,5 +46,7 @@ Config 2.0/" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
     <sqlMap resource="sqlmap/reserve_item_SqlMap.xml"/>
     <sqlMap resource="sqlmap/deliver_SqlMap.xml"/>
     <sqlMap resource="sqlmap/deliver_item_SqlMap.xml"/>
+    <sqlMap resource="sqlmap/storage_SqlMap.xml"/>
+    <sqlMap resource="sqlmap/storage_item_SqlMap.xml"/>
 
 </sqlMapConfig>

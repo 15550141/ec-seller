@@ -54,7 +54,8 @@
 					<select name="orderType" id="orderType" style="width: 130px">
 						<option value="">全部</option>
 						<option #if($!query.orderType==1)selected="selected"#end value="1">在线支付</option>
-						<option #if($!query.orderType==2)selected="selected"#end value="2">货到付款</option>
+                        <option #if($!query.orderType==2)selected="selected"#end value="2">货到付款</option>
+                        <option #if($!query.orderType==3)selected="selected"#end value="2">月结支付</option>
 					</select>
 				</td>
 				<td align="right" style="width:100px">
@@ -191,9 +192,12 @@
                 	#if($!orderInfo.orderStatus==16)
                 		锁定
                 	#end
-                	#if($!orderInfo.orderStatus==17)
-                		等待退款
-                	#end
+					#if($!orderInfo.orderStatus==17)
+                        等待退款
+					#end
+					#if($!orderInfo.orderStatus==18)
+                        待月结付款
+					#end
                 	#if($!orderInfo.orderStatus==50)
                 		订单完成
                 	#end
@@ -223,6 +227,9 @@
 					#end
 					#if($!orderInfo.orderStatus == 10)
                         <a href="javascript:void(0);" onclick="doFinish($!orderInfo.orderId);">【确认已自提】</a><br /><br />
+					#end
+					#if($!orderInfo.orderStatus == 18)
+                        <a href="javascript:void(0);" onclick="doMonthPay($!orderInfo.orderId);">【确认已月结】</a><br /><br />
 					#end
 					#if($!orderInfo.orderStatus == 1 || ($!orderInfo.orderType == 2 && $!orderInfo.orderStatus == 8))
 						<a href="javascript:void(0);" onclick="doCancel($!orderInfo.orderId);">【取消订单】</a><br /><br />
@@ -286,26 +293,48 @@
 			});
 		}
 	}
-	
-	function doFinish(orderId){
-		if(confirm("请确认订单是否完成？")){
-			$.ajax({
-				type : "post",
-		    	url : "/orderInfo/doFinish",
-		    	data : "orderId="+orderId,
-		    	contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
-		    	dataType: "json", 
-		    	success : function(data) {
-		    		if(data.success){
-		    			alert("修改成功！");
-		    		}else{
-		    			alert(data.message);
-		    		}
-		    		window.location.reload();
-		    	}
-			});
-		}
-	}
+
+    function doFinish(orderId){
+        if(confirm("请确认订单是否完成？")){
+            $.ajax({
+                type : "post",
+                url : "/orderInfo/doFinish",
+                data : "orderId="+orderId,
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "json",
+                success : function(data) {
+                    if(data.success){
+                        alert("修改成功！");
+                    }else{
+                        alert(data.message);
+                    }
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
+    function doMonthPay(orderId){
+        if(confirm("请确认订单已支付完成？")){
+            $.ajax({
+                type : "post",
+                url : "/orderInfo/doMonthPay",
+                data : "orderId="+orderId,
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "json",
+                success : function(data) {
+                    if(data.success){
+                        alert("修改成功！");
+                    }else{
+                        alert(data.message);
+                    }
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
+
 	
 	function unLockOrder(orderId){
 		if(confirm("请确认是否需要解锁，解除锁定后订单继续流转。")){

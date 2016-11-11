@@ -445,7 +445,7 @@ public class ProductController {
 			String itemImage=reuqest.getParameter("imageMainUrl");//主图URL
 			item.setItemType(2);// 第三方商品为2
 			item.setItemStatus(0);//新创建
-			item.setYn(1);//待售商品为无效
+			item.setYn(1);
 			item.setItemImage(itemImage);
 			item.setVenderUserId(CookieUtil.getUserId(reuqest));//设置商家ID
 

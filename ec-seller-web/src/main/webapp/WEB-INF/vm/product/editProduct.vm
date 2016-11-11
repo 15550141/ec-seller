@@ -251,7 +251,7 @@
 		<input type="hidden" id="supplyCountyHid" name="supplyCountyHid" value="$!{item.supplyCounty}" />
 		</select></td>
 	</tr>
-	--><tr>
+	<tr>
 		<td align="right" style="width: 100px">*产地：</td>
 		<td align="left" style="width: 340px">
 		<select name="originProvince" id="originProvince" style="width: 110px">
@@ -290,7 +290,7 @@
 			<option value="42">香港</option>
 			<option value="43">澳门</option>
 			<option value="84">钓鱼岛</option>
-		</select> 
+		</select>
 		<input type="hidden" id="originProvinceHid" name="originProvinceHid" value="$!{item.originProvince}" />
 		<select name="originCity" id="originCity" style="width: 110px">
 		<input type="hidden" id="originCityHid" name="originCityHid" value="$!{item.originCity}" />
@@ -307,21 +307,8 @@
 	</tr>
 
 	<tr>
-        <!--
-		<td align="right" style="width: 100px">包装方式：</td>
-		<td style="width: 100px" id="packingTypeTB">
-			<select name="packingType" id="packingType" style="width: 110px">
-				<option value="1">箱装</option>
-				<option value="2">袋装</option>
-				<option value="3">框装</option>
-				<option value="4">其他</option>
-			</select>
-			<input type="hidden" id="packingTypeHid" name="packingTypeHid" value="$!{item.packingType}" />
-			<input type="text" name="packingTypeCustom" id="packingTypeCustom" value="$!{item.packingTypeCustom}" style="width: 100px" />
-		</td>
-		-->
 		<td align="right" >参考销售单位：</td>
-		<td align="left" style="width: 100px">					
+		<td align="left" style="width: 100px">
 			<select name="unit" id="unit" style="width: 60px">
                 <option value="1" #if($!item.unit==1)selected="selected"#end>斤</option>
                 <option value="2" #if($!item.unit==2)selected="selected"#end>个</option>
@@ -353,7 +340,23 @@
         </td>
 
     </tr>
-	
+
+	-->
+
+    <tr>
+        <td align="left" >销售单位：</td>
+        <td align="left">
+            <select name="unit" id="unit" style="width: 60px">
+                <option value="1" #if($!item.unit==1)selected="selected"#end>斤</option>
+                <option value="2" #if($!item.unit==2)selected="selected"#end>个</option>
+                <option value="3" #if($!item.unit==3)selected="selected"#end>箱</option>
+                <option value="4" #if($!item.unit==4)selected="selected"#end>袋</option>
+                <option value="5" #if($!item.unit==5)selected="selected"#end>盒</option>
+            </select>
+            <input type="hidden" id="unitHid" name="unitHid" value="$!{item.unit}" />
+        </td>
+    </tr>
+
 	<!--
 	<tr>
 		<td align="right" style="width: 100px">净重：</td>
@@ -381,7 +384,6 @@
 		</td>
 		<td></td>
 	</tr>
-	-->
 	<tr>
 		<td align="right" style="width: 100px">上市时间：</td>
 		<td>
@@ -399,8 +401,7 @@
 			<input type="text" name="autoOffShelfTimeString" id="autoOffShelfTime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" value="$!dateFormatUtils.format($!{item.autoOffShelfTime},"yyyy-MM-dd HH:mm:ss")" style="width: 100px" />
 		</td>
 		<td></td>
-	</tr><!--
-	
+	</tr>
 	<tr>
 		<td align="right" style="width: 100px">是否要定金支付：</td>
 		<td style="width: 100px">

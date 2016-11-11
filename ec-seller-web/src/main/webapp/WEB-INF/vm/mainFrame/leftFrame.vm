@@ -34,22 +34,38 @@
 				</div>
 				<div class="menu-content">
 					<div class="menu-item-module">
+                        #if($!name == "于建明" || $name == "张瀚洋" || $!name == "杨慧斌" || $!name == "韩建初" || $!name == "苏立强" || $!name == "庞勇" || $!name == "王闯"
+                        || $!name == "魏宇星" || $!name == "张宏宇")
 
-                        <div class="menu-item">
-                            <a title="采购管理" href="javascript:void(0)">采购管理</a>
-                        </div>
-                        <ul class="sub-menu" style="display: none;">
+                            <div class="menu-item">
+                                <a title="采购管理" href="javascript:void(0)">采购管理</a>
+                            </div>
+                            <ul class="sub-menu" style="display: none;">
 
-                            <li class="sub-menu-item"><a title="采购管理"
-                                                         target="rightFrame" href="javascript:void(0);"
-                                                         onclick="javascript:randomUrl('/purchase/index',this);">采购管理</a>
-                            </li>
-                            <script type="text/javascript">
-                                menuTransMap.put('', '');
-                            </script>
-                        </ul>
+                                <li class="sub-menu-item"><a title="采购管理"
+                                                             target="rightFrame" href="javascript:void(0);"
+                                                             onclick="javascript:randomUrl('/purchase/index',this);">采购管理</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
+                            </ul>
 
-						#if($!name == "于建明" || $name == "张瀚洋" || $!name == "杨慧斌" || $!name == "韩建初" || $!name == "苏立强" || $!name == "庞勇" || $!name == "王闯")
+                            <div class="menu-item">
+                                <a title="入库管理" href="javascript:void(0)">入库管理</a>
+                            </div>
+                            <ul class="sub-menu" style="display: none;">
+
+                                <li class="sub-menu-item"><a title="入库管理"
+                                                             target="rightFrame" href="javascript:void(0);"
+                                                             onclick="javascript:randomUrl('/storage/index',this);">入库管理</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
+                            </ul>
+
+
                             <div class="menu-item">
                                 <a title="商品管理" href="javascript:void(0)">商品管理</a>
                             </div>

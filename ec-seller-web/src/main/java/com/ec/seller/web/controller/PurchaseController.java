@@ -104,15 +104,6 @@ public class PurchaseController {
 			purchase.setPurchaseTotalPrice(BigDecimal.ZERO);
 			for(int i=0;i<list.size();i++){
 				PurchaseItem purchaseItem = list.get(i);
-				if(purchaseItem.getNum() != null && purchaseItem.getNum() != 0d){
-					Item item = itemDao.selectByItemId(purchaseItem.getItemId());
-					if(item.getStockNum() == null){
-						item.setStockNum(new BigDecimal(purchaseItem.getNum()));
-					}else {
-						item.setStockNum(item.getStockNum().add(new BigDecimal(purchaseItem.getNum())));
-					}
-					itemDao.modify(item);
-				}
 
 				if(purchaseItem.getTotalPrice() == null){
 					continue;

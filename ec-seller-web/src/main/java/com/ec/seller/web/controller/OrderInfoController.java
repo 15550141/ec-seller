@@ -184,8 +184,21 @@ public class OrderInfoController {
 			map.put("message", "订单号不能为空");
 			return map;
 		}
-		
+
 		return orderInfoService.updateOrderInfoFinish(orderId, CookieUtil.getUserId(reuqest));
+	}
+
+	/** 确认已月结 */
+	@RequestMapping(value="/doMonthPay", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Map<String, Object> doMonthPay(Integer orderId,HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(orderId == null){
+			map.put("success", false);
+			map.put("message", "订单号不能为空");
+			return map;
+		}
+
+		return orderInfoService.doMonthPay(orderId, CookieUtil.getUserId(reuqest));
 	}
 	
 	/**

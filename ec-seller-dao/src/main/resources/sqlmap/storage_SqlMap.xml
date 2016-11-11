@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Storage" >
+  <resultMap id="StorageResult" class="com.ec.seller.domain.Storage" >
+    <result column="id" property="id"  />
+    <result column="purchase_id" property="purchaseId" />
+    <result column="storage_time" property="storageTime" />
+    <result column="total_price" property="totalPrice"  />
+    <result column="storage_uid" property="storageUid"  />
+    <result column="storage_name" property="storageName"  />
+    <result column="place" property="place"  />
+    <result column="status" property="status"  />
+    <result column="yn" property="yn"  />
+    <result column="remark" property="remark"  />
+    <result column="CREATED" property="created" />
+    <result column="MODIFIED" property="modified" />
+  </resultMap>
+
+  <!-- 查询内容 -->
+  <sql id="searchColoum" >
+    id, purchase_id, storage_time, total_price, storage_uid, storage_name, place,
+    status, yn, remark, created, modified
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="condition" >
+  	<dynamic prepend="where" >
+      <isNotNull prepend="and" property="id" >
+        id = #id#
+      </isNotNull>
+      <isNotNull prepend="and" property="storageUid" >
+        storage_uid = #storageUid#
+      </isNotNull>
+      <isNotNull prepend="and" property="storageName" >
+        storage_name = #storageName#
+      </isNotNull>
+      <isNotNull prepend="and" property="status" >
+        status = #status#
+      </isNotNull>
+      <isNotNull prepend="and" property="yn" >
+        yn = #yn#
+      </isNotNull>
+    </dynamic>
+  </sql>
+  
+  <!-- 依据主键进行查询 -->
+  <select id="selectById" resultMap="StorageResult" parameterClass="java.lang.Integer" >
+    select <include refid="Storage.searchColoum" />
+    from storage
+    where id = #id#
+  </select>
+  
+  <!-- 添加信息 -->
+  <insert id="insert" parameterClass="com.ec.seller.domain.Storage" >
+    insert into storage (purchase_id, storage_time, total_price, storage_uid, storage_name, place,
+    status, yn, remark, created, modified)
+    values (#purchaseId#, #storageTime#, #totalPrice#, #storageUid#, #storageName#, #place#,
+    #status#, #yn#, #remark#, now(), now())
+      <!-- 返回自增主键 -->
+      <selectKey resultClass="java.lang.Integer" keyProperty="id">
+			<![CDATA[SELECT @@IDENTITY AS id ]]>
+	  </selectKey>
+  </insert>
+  
+  <!-- 依据主键进行修改 -->
+  <update id="modify" parameterClass="com.ec.seller.domain.Storage" >
+    update storage set MODIFIED = now()
+    <dynamic>
+      <isNotNull prepend="," property="totalPrice" >
+        total_price = #totalPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="place" >
+        place = #place#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        status = #status#
+      </isNotNull>
+      <isNotNull prepend="," property="yn" >
+        yn = #yn#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        remark = #remark#
+      </isNotNull>
+      <isNotNull prepend="," property="storageTime" >
+        storage_time = #storageTime#
+      </isNotNull>
+    </dynamic>
+    where id = #id#
+  </update>
+
+  <!-- 删除 -->
+  <delete id="delete" >
+    delete from storage where id=#id#
+  </delete>
+
+  <!-- 条件查询总数 -->
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.StorageQuery" resultClass="java.lang.Integer" >
+    select count(1) from storage
+    <include refid="Storage.condition" />
+  </select>
+  
+  <!-- 条件查询列表 -->
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.StorageQuery" resultMap="StorageResult" >
+    select <include refid="Storage.searchColoum" />
+    from storage
+    <include refid="Storage.condition" />
+    order by id desc
+    limit #start#,#pageSize#
+  </select>
+  
+</sqlMap>

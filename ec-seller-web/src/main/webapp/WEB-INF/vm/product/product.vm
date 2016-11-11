@@ -182,7 +182,7 @@
 <div class="panel_search1">
 <table>
 	<tr>
-		<td style="font-weight: bold; width: 100px" align="right">扩展信息</td>
+		<td style="font-weight: bold; width: 100px" align="left">扩展信息</td>
 	</tr>
 	<!--  <tr>
 		<td align="right" style="width: 100px">供货地址：</td>
@@ -227,7 +227,6 @@
 		</select> <select name="supplyCounty" id="supplyCounty" style="width: 110px">
 		</select></td>
 	</tr>
-	-->
 	<tr>
 		<td align="right" style="width: 100px">*产地：</td>
 		<td align="left" style="width: 340px">
@@ -279,33 +278,21 @@
 		</td>
 	</tr>
 	<tr>
-		<!--
-		<td align="right" style="width: 100px">包装方式：</td>
-		<td style="width: 100px" id="packingTypeTB">
-			<select name="packingType" id="packingType" style="width: 110px">
-				<option value="1">箱装</option>
-				<option value="2">袋装</option>
-				<option value="3">框装</option>
-				<option value="4">其他</option>
-			</select>
-			<input type="text" name="packingTypeCustom" id="packingTypeCustom" value="" style="width: 100px" />
-		</td>
-		-->
-		<td align="right" >参考销售单位：</td>
-		<td align="left" style="width: 100px">					
-			<select name="unit" id="unit" style="width: 60px">
+        <td align="right" >参考销售单位：</td>
+        <td align="left" style="width: 100px">
+            <select name="unit" id="unit" style="width: 60px">
                 <option value="1">斤</option>
                 <option value="2">个</option>
                 <option value="3">箱</option>
-			</select>
-		</td>
+            </select>
+        </td>
         <td align="right" style="width: 100px">参考销售价格：</td>
         <td style="width: 200px">
             <input type="text" name="referenceSellBigDecimalPrice" value="0" id="referenceSellBigDecimalPrice" value="" style="width: 100px" />&nbsp;
         </td>
         <td></td>
 
-	</tr>
+    </tr>
     <tr>
         <td align="right">参考进货单位：</td>
         <td align="left" style="width: 100px">
@@ -322,6 +309,21 @@
         </td>
 
     </tr>
+	-->
+    <tr>
+        <td align="left">销售单位：</td>
+        <td align="left">
+            <select name="unit" id="unit" style="width: 60px">
+                <option value="1">斤</option>
+                <option value="2">个</option>
+                <option value="3">箱</option>
+                <option value="4">袋</option>
+                <option value="5">盒</option>
+            </select>
+        </td>
+    </tr>
+
+
 	
 	<!--
 	<tr>
@@ -348,7 +350,7 @@
 		</td>
 		<td></td>
 	</tr>
-	-->
+
 	<tr>
 		<td align="right" style="width: 100px">上市时间：</td>
 		<td>
@@ -366,8 +368,8 @@
 			<input type="text" name="autoOffShelfTimeString" id="autoOffShelfTime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" value="$!dateFormatUtils.format($!{item.autoOffShelfTime},"yyyy-MM-dd HH:mm:ss")" style="width: 150px" />
 		</td>
 		<td></td>
-	</tr><!--
-	
+	</tr>
+
 	<tr>
 		<td align="right" style="width: 100px">是否要定金支付：</td>
 		<td style="width: 100px">

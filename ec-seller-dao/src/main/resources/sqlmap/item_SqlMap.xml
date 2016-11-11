@@ -109,126 +109,126 @@
   <!-- 查询条件 -->
   <sql id="condition" >
   	<dynamic prepend="where" >
-  	  <isNotNull prepend="and" property="itemId" >
+  	  <isNotEmpty prepend="and" property="itemId" >
         ITEM_ID = #itemId:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="itemName" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="itemName" >
         ITEM_NAME like '%$itemName$%'
-      </isNotNull>
-      <isNotNull prepend="and" property="itemType" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="itemType" >
         ITEM_TYPE = #itemType:TINYINT#
-      </isNotNull>
-      <isNotNull prepend="and" property="categoryId1" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="categoryId1" >
         CATEGORY_ID1 = #categoryId1:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="categoryId2" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="categoryId2" >
         CATEGORY_ID2 = #categoryId2:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="categoryId3" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="categoryId3" >
         CATEGORY_ID3 = #categoryId3:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="categoryId4" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="categoryId4" >
         CATEGORY_ID4 = #categoryId4:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="itemStatus" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="itemStatus" >
         ITEM_STATUS = #itemStatus:TINYINT#
-      </isNotNull>
-      <isNotNull prepend="and" property="onShelfTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="onShelfTime" >
       <![CDATA[ DATE_FORMAT(on_shelf_time,'%Y-%m-%d %H:%i:%s') >= DATE_FORMAT(#onShelfTime#, '%Y-%m-%d %H:%i:%s') ]]>
-      </isNotNull>
-      <isNotNull prepend="and" property="offShelfTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="offShelfTime" >
        <![CDATA[ DATE_FORMAT(off_shelf_time,'%Y-%m-%d %H:%i:%s') <= DATE_FORMAT(#offShelfTime#, '%Y-%m-%d %H:%i:%s') ]]>
-      </isNotNull>
-      <isNotNull prepend="and" property="autoOnShelfTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="autoOnShelfTime" >
         auto_on_shelf_time = #autoOnShelfTime:TIMESTAMP#
-      </isNotNull>
-      <isNotNull prepend="and" property="autoOffShelfTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="autoOffShelfTime" >
         auto_off_shelf_time = #autoOffShelfTime:TIMESTAMP#
-      </isNotNull>
-      <isNotNull prepend="and" property="itemImage" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="itemImage" >
         ITEM_IMAGE = #itemImage:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="ifDeposit" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="ifDeposit" >
         IF_DEPOSIT = #ifDeposit:TINYINT#
-      </isNotNull>
-      <isNotNull prepend="and" property="depositRate" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="depositRate" >
         DEPOSIT_RATE = #depositRate:INTEGER#
-      </isNotNull>      
-      <isNotNull prepend="and" property="originProvince" >
+      </isNotEmpty>      
+      <isNotEmpty prepend="and" property="originProvince" >
         origin_province = #originProvince:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="originCity" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="originCity" >
         origin_city = #originCity:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="originCounty" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="originCounty" >
         origin_county = #originCounty:INTEGER#
-      </isNotNull>  
-      <isNotNull prepend="and" property="originAddress" >
+      </isNotEmpty>  
+      <isNotEmpty prepend="and" property="originAddress" >
         origin_address = #originAddress:VARCHAR#
-      </isNotNull>  
-      <isNotNull prepend="and" property="supplyProvince" >
+      </isNotEmpty>  
+      <isNotEmpty prepend="and" property="supplyProvince" >
         supply_province = #supplyProvince:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="supplyCity" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="supplyCity" >
         supply_city = #supplyCity:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="supplyCounty" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="supplyCounty" >
         supply_county = #supplyCounty:INTEGER#
-      </isNotNull>  
-      <isNotNull prepend="and" property="weight" >
+      </isNotEmpty>  
+      <isNotEmpty prepend="and" property="weight" >
         Weight = #weight:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="differWeight" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="differWeight" >
         differ_Weight = #differWeight:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="packingType" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="packingType" >
         Packing_type = #packingType:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="packingTypeCustom" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="packingTypeCustom" >
         Packing_type_custom = #PackingTypeCustom:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="length" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="length" >
         length = #length:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="wide" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="wide" >
         Wide = #wide:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="high" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="high" >
         High = #high:VARCHAR#
-      </isNotNull>     
-      <isNotNull prepend="and" property="salesPropertySet" >
+      </isNotEmpty>     
+      <isNotEmpty prepend="and" property="salesPropertySet" >
         sales_property_set = #salesPropertySet:VARCHAR#
-      </isNotNull>   
-      <isNotNull prepend="and" property="unit" >
+      </isNotEmpty>   
+      <isNotEmpty prepend="and" property="unit" >
         unit = #unit:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="ifHaveZjbg" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="ifHaveZjbg" >
         if_have_zjbg = #ifHaveZjbg:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="ifHaveCprz" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="ifHaveCprz" >
         if_have_cprz = #ifHaveCprz:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="marketStartTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="marketStartTime" >
         market_start_time = #marketStartTime:TIMESTAMP#
-      </isNotNull>
-      <isNotNull prepend="and" property="marketEndTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="marketEndTime" >
         market_end_time = #marketEndTime:TIMESTAMP#
-      </isNotNull>
-      <isNotNull prepend="and" property="yn" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="yn" >
         YN = #yn:TINYINT#
-      </isNotNull>
-        <isNotNull prepend="and" property="referenceStockPrice" >
+      </isNotEmpty>
+        <isNotEmpty prepend="and" property="referenceStockPrice" >
             reference_stock_price = #referenceStockPrice#
-        </isNotNull>
-        <isNotNull prepend="and" property="referenceSellPrice" >
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="referenceSellPrice" >
             reference_sell_price = #referenceSellPrice#
-        </isNotNull>
-        <isNotNull prepend="and" property="itemCode" >
-            item_code = #itemCode#
-        </isNotNull>
-        <isNotNull prepend="and" property="stockNum" >
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="itemCode" >
+            item_code like '%$itemCode$%'
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="stockNum" >
             stock_num = #stockNum#
-        </isNotNull>
+        </isNotEmpty>
     </dynamic>
   </sql>
 
@@ -264,132 +264,132 @@
   <update id="updateByPrimaryKey" parameterClass="com.ec.seller.domain.Item" >
     update item set MODIFIED = now()
     <dynamic >
-      <isNotNull prepend="," property="itemName" >
+      <isNotEmpty prepend="," property="itemName" >
         ITEM_NAME = #itemName:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="," property="itemType" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="itemType" >
         ITEM_TYPE = #itemType:TINYINT#
-      </isNotNull>
-      <isNotNull prepend="," property="categoryId1" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="categoryId1" >
         CATEGORY_ID1 = #categoryId1:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="categoryId2" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="categoryId2" >
         CATEGORY_ID2 = #categoryId2:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="categoryId3" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="categoryId3" >
         CATEGORY_ID3 = #categoryId3:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="categoryId4" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="categoryId4" >
         CATEGORY_ID4 = #categoryId4:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="venderUserId" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="venderUserId" >
         VENDER_USER_ID = #venderUserId:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="itemStatus" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="itemStatus" >
         ITEM_STATUS = #itemStatus:TINYINT#
-      </isNotNull>
-      <isNotNull prepend="," property="autoOnShelfTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="autoOnShelfTime" >
         auto_on_shelf_time = #autoOnShelfTime:TIMESTAMP#
-      </isNotNull>
-      <isNotNull prepend="," property="autoOffShelfTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="autoOffShelfTime" >
         auto_off_shelf_time = #autoOffShelfTime:TIMESTAMP#
-      </isNotNull>
-      <isNotNull prepend="," property="onShelfTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="onShelfTime" >
         ON_SHELF_TIME = #onShelfTime:TIMESTAMP#
-      </isNotNull>
-      <isNotNull prepend="," property="offShelfTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="offShelfTime" >
         OFF_SHELF_TIME = #offShelfTime:TIMESTAMP#
-      </isNotNull>
+      </isNotEmpty>
 
-      <isNotNull prepend="," property="itemImage" >
+      <isNotEmpty prepend="," property="itemImage" >
         ITEM_IMAGE = #itemImage:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="," property="ifDeposit" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="ifDeposit" >
         IF_DEPOSIT = #ifDeposit:TINYINT#
-      </isNotNull>
-      <isNotNull prepend="," property="depositRate" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="depositRate" >
         DEPOSIT_RATE = #depositRate:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="originProvince" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="originProvince" >
         origin_province = #originProvince:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="originCity" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="originCity" >
         origin_city = #originCity:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="originCounty" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="originCounty" >
         origin_county = #originCounty:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="originAddress" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="originAddress" >
         origin_address = #originAddress:VARCHAR#
-      </isNotNull>
+      </isNotEmpty>
       
-      <isNotNull prepend="," property="supplyProvince" >
+      <isNotEmpty prepend="," property="supplyProvince" >
         supply_province = #supplyProvince:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="supplyCity" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="supplyCity" >
         supply_city = #supplyCity:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="supplyCounty" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="supplyCounty" >
         supply_county = #supplyCounty:INTEGER#
-      </isNotNull>
+      </isNotEmpty>
       
-      <isNotNull prepend="," property="weight" >
+      <isNotEmpty prepend="," property="weight" >
         Weight = #weight:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="," property="differWeight" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="differWeight" >
         differ_Weight = #differWeight:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="," property="packingType" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="packingType" >
         Packing_type = #packingType:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="packingTypeCustom" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="packingTypeCustom" >
         Packing_type_custom = #packingTypeCustom:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="," property="length" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="length" >
         length = #length:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="," property="wide" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="wide" >
         Wide = #wide:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="," property="high" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="high" >
         High = #high:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="," property="salesPropertySet" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="salesPropertySet" >
         sales_property_set = #salesPropertySet:VARCHAR#
-      </isNotNull>  
-      <isNotNull prepend="," property="unit" >
+      </isNotEmpty>  
+      <isNotEmpty prepend="," property="unit" >
         unit = #unit:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="ifHaveZjbg" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="ifHaveZjbg" >
         if_have_zjbg = #ifHaveZjbg:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="ifHaveCprz" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="ifHaveCprz" >
         if_have_cprz = #ifHaveCprz:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="marketStartTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="marketStartTime" >
         market_start_time = #marketStartTime:TIMESTAMP#
-      </isNotNull>
-      <isNotNull prepend="," property="marketEndTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="marketEndTime" >
         market_end_time = #marketEndTime:TIMESTAMP#
-      </isNotNull>
-      <isNotNull prepend="," property="yn" >
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="yn" >
         YN = #yn:TINYINT#
-      </isNotNull>
-        <isNotNull prepend="," property="referenceStockPrice" >
+      </isNotEmpty>
+        <isNotEmpty prepend="," property="referenceStockPrice" >
             reference_stock_price = #referenceStockPrice#
-        </isNotNull>
-        <isNotNull prepend="," property="referenceSellPrice" >
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="referenceSellPrice" >
             reference_sell_price = #referenceSellPrice#
-        </isNotNull>
-        <isNotNull prepend="," property="referenceUnit" >
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="referenceUnit" >
             reference_unit = #referenceUnit#
-        </isNotNull>
-        <isNotNull prepend="," property="itemCode" >
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="itemCode" >
             item_code = #itemCode#
-        </isNotNull>
-        <isNotNull prepend="," property="stockNum" >
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="stockNum" >
             stock_num = #stockNum#
-        </isNotNull>
+        </isNotEmpty>
     </dynamic>
     where ITEM_ID = #itemId#
   </update>
@@ -408,120 +408,120 @@
   <select id="countByCondition" parameterClass="com.ec.seller.domain.query.ItemQuery" resultClass="java.lang.Integer" >
     select count(1) from item
     <dynamic prepend="where" >
-  	  <isNotNull prepend="and" property="itemId" >
+  	  <isNotEmpty prepend="and" property="itemId" >
         ITEM_ID = #itemId:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="itemName" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="itemName" >
         ITEM_NAME like '%$itemName$%'
-      </isNotNull>
-      <isNotNull prepend="and" property="itemType" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="itemType" >
         ITEM_TYPE = #itemType:TINYINT#
-      </isNotNull>
-      <isNotNull prepend="and" property="categoryId1" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="categoryId1" >
         CATEGORY_ID1 = #categoryId1:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="categoryId2" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="categoryId2" >
         CATEGORY_ID2 = #categoryId2:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="categoryId3" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="categoryId3" >
         CATEGORY_ID3 = #categoryId3:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="categoryId4" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="categoryId4" >
         CATEGORY_ID4 = #categoryId4:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="itemStatus" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="itemStatus" >
         ITEM_STATUS = #itemStatus:TINYINT#
-      </isNotNull>
-      <isNotNull prepend="and" property="onShelfTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="onShelfTime" >
       <![CDATA[ DATE_FORMAT(on_shelf_time,'%Y-%m-%d %H:%i:%s') >= DATE_FORMAT(#onShelfTime#, '%Y-%m-%d %H:%i:%s') ]]>
-      </isNotNull>
-      <isNotNull prepend="and" property="offShelfTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="offShelfTime" >
        <![CDATA[ DATE_FORMAT(off_shelf_time,'%Y-%m-%d %H:%i:%s') <= DATE_FORMAT(#offShelfTime#, '%Y-%m-%d %H:%i:%s') ]]>
-      </isNotNull>
-      <isNotNull prepend="and" property="autoOnShelfTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="autoOnShelfTime" >
         auto_on_shelf_time = #autoOnShelfTime:TIMESTAMP#
-      </isNotNull>
-      <isNotNull prepend="and" property="autoOffShelfTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="autoOffShelfTime" >
         auto_off_shelf_time = #autoOffShelfTime:TIMESTAMP#
-      </isNotNull>
-      <isNotNull prepend="and" property="itemImage" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="itemImage" >
         ITEM_IMAGE = #itemImage:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="ifDeposit" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="ifDeposit" >
         IF_DEPOSIT = #ifDeposit:TINYINT#
-      </isNotNull>
-      <isNotNull prepend="and" property="depositRate" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="depositRate" >
         DEPOSIT_RATE = #depositRate:INTEGER#
-      </isNotNull>      
-      <isNotNull prepend="and" property="originProvince" >
+      </isNotEmpty>      
+      <isNotEmpty prepend="and" property="originProvince" >
         origin_province = #originProvince:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="originCity" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="originCity" >
         origin_city = #originCity:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="originCounty" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="originCounty" >
         origin_county = #originCounty:INTEGER#
-      </isNotNull> 
-      <isNotNull prepend="and" property="originAddress" >
+      </isNotEmpty> 
+      <isNotEmpty prepend="and" property="originAddress" >
         origin_address = #originAddress:INTEGER#
-      </isNotNull>   
-      <isNotNull prepend="and" property="supplyProvince" >
+      </isNotEmpty>   
+      <isNotEmpty prepend="and" property="supplyProvince" >
         supply_province = #supplyProvince:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="supplyCity" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="supplyCity" >
         supply_city = #supplyCity:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="supplyCounty" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="supplyCounty" >
         supply_county = #supplyCounty:INTEGER#
-      </isNotNull>  
-      <isNotNull prepend="and" property="weight" >
+      </isNotEmpty>  
+      <isNotEmpty prepend="and" property="weight" >
         Weight = #weight:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="differWeight" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="differWeight" >
         differ_Weight = #differWeight:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="packingType" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="packingType" >
         Packing_type = #packingType:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="packingTypeCustom" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="packingTypeCustom" >
         Packing_type_custom = #PackingTypeCustom:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="length" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="length" >
         length = #length:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="wide" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="wide" >
         Wide = #wide:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="high" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="high" >
         High = #high:VARCHAR#
-      </isNotNull>     
-      <isNotNull prepend="and" property="salesPropertySet" >
+      </isNotEmpty>     
+      <isNotEmpty prepend="and" property="salesPropertySet" >
         sales_property_set = #salesPropertySet:VARCHAR#
-      </isNotNull>   
-      <isNotNull prepend="and" property="unit" >
+      </isNotEmpty>   
+      <isNotEmpty prepend="and" property="unit" >
         unit = #unit:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="ifHaveZjbg" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="ifHaveZjbg" >
         if_have_zjbg = #ifHaveZjbg:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="ifHaveCprz" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="ifHaveCprz" >
         if_have_cprz = #ifHaveCprz:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="and" property="marketStartTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="marketStartTime" >
         market_start_time = #marketStartTime:TIMESTAMP#
-      </isNotNull>
-      <isNotNull prepend="and" property="marketEndTime" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="marketEndTime" >
         market_end_time = #marketEndTime:TIMESTAMP#
-      </isNotNull>
-        <isNotNull prepend="and" property="yn" >
+      </isNotEmpty>
+        <isNotEmpty prepend="and" property="yn" >
             YN = #yn:TINYINT#
-        </isNotNull>
-        <isNotNull prepend="and" property="itemCode" >
-            item_code = #itemCode#
-        </isNotNull>
-        <isNotNull prepend="and" property="stockNum" >
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="itemCode" >
+            item_code like '%$itemCode$%';
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="stockNum" >
             stock_num = #stockNum#
-        </isNotNull>
+        </isNotEmpty>
     </dynamic>
     
   </select>

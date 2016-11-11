@@ -167,9 +167,12 @@
                 			#if($!orderInfo.orderType==1)
 		                		在线支付
 		                	#end
-		                	#if($!orderInfo.orderType==2)
-		                		货到付款
-		                	#end
+							#if($!orderInfo.orderType==2)
+                                货到付款
+							#end
+							#if($!orderInfo.orderType==3)
+                                月结支付
+							#end
                 		</td>
                 	</tr>
                 	
