@@ -132,6 +132,7 @@ public class ProductController {
 				context.put("stockList", "null");
 				context.put("leastBuyList", "null");
 				context.put("fxPriceList", "null");
+				context.put("fxPrice2List", "null");
 				
 			}else if(category4.getIfHaveSaleProperty() == 1){//有销售属性
 				List<Integer> proValIdList = new ArrayList();
@@ -139,6 +140,7 @@ public class ProductController {
 				List<Integer> stockList = new ArrayList();
 				List<Integer> leastBuyList = new ArrayList();
 				List<BigDecimal> fxPriceList = new ArrayList();
+				List<BigDecimal> fxPrice2List = new ArrayList();
 				for(int i=0; i<skuList.size(); i++){
 					Sku sku = skuList.get(i);
 					String propert = sku.getSalesProperty();
@@ -149,12 +151,14 @@ public class ProductController {
 					stockList.add(sku.getStock());
 					leastBuyList.add(sku.getLeastBuy());
 					fxPriceList.add(sku.getFxPrice() != null ? new BigDecimal(sku.getFxPrice()).divide(new BigDecimal(100)):BigDecimal.ZERO);
+					fxPrice2List.add(sku.getFxPrice2() != null ? new BigDecimal(sku.getFxPrice2()).divide(new BigDecimal(100)):BigDecimal.ZERO);
 				}
 				context.put("proValIdList", proValIdList);
 				context.put("tbPriceList", tbPriceList);
 				context.put("stockList", stockList);
 				context.put("leastBuyList", leastBuyList);
 				context.put("fxPriceList", fxPriceList);
+				context.put("fxPrice2List", fxPrice2List);
 				
 			}
 			context.put("item", item);
@@ -546,6 +550,7 @@ public class ProductController {
 		String[] stockArray=reuqest.getParameterValues("stock");
 		String[] leastBuyArray=reuqest.getParameterValues("leastBuy");
 		String[] fxPriceArray=reuqest.getParameterValues("fxPrice");
+		String[] fxPrice2Array=reuqest.getParameterValues("fxPrice2");
 		
 		String[] propertyIdArray=reuqest.getParameterValues("propertyId");
 		String[] propertyValueIdArray=reuqest.getParameterValues("propertyValueId");
@@ -570,6 +575,13 @@ public class ProductController {
 				}else{
 					sku.setProperties(FlagBitUtil.removeSign(sku.getProperties(), PropertyConstants.USER_FENXIAOSHANG));
 					sku.setFxPrice(0);
+				}
+				if(StringUtils.isNotBlank(fxPrice2Array[i]) && !fxPrice2Array[i].equals("0")){
+					sku.setProperties(FlagBitUtil.sign(sku.getProperties(), PropertyConstants.USER_FENXIAOSHANG_2));
+					sku.setFxPrice2(new BigDecimal(fxPrice2Array[i]).multiply(new BigDecimal(100)).intValue());
+				}else{
+					sku.setProperties(FlagBitUtil.removeSign(sku.getProperties(), PropertyConstants.USER_FENXIAOSHANG_2));
+					sku.setFxPrice2(0);
 				}
 
 				sku.setYn(1);//插入即是有效
@@ -813,6 +825,7 @@ public class ProductController {
 		String[] stockArray=reuqest.getParameterValues("stock");
 		String[] leastBuyArray=reuqest.getParameterValues("leastBuy");
 		String[] fxPriceArray=reuqest.getParameterValues("fxPrice");
+		String[] fxPrice2Array=reuqest.getParameterValues("fxPrice2");
 		
 		String[] propertyIdArray=reuqest.getParameterValues("propertyId");
 		String[] propertyValueIdArray=reuqest.getParameterValues("propertyValueId");
@@ -833,6 +846,10 @@ public class ProductController {
 				if(StringUtils.isNotBlank(fxPriceArray[i]) && !fxPriceArray[i].equals("0")){
 					sku.setFxPrice(new BigDecimal(fxPriceArray[i]).multiply(new BigDecimal(100)).intValue());
 					sku.setProperties(FlagBitUtil.sign(sku.getProperties(), PropertyConstants.USER_FENXIAOSHANG));
+				}
+				if(StringUtils.isNotBlank(fxPrice2Array[i]) && !fxPrice2Array[i].equals("0")){
+					sku.setFxPrice2(new BigDecimal(fxPrice2Array[i]).multiply(new BigDecimal(100)).intValue());
+					sku.setProperties(FlagBitUtil.sign(sku.getProperties(), PropertyConstants.USER_FENXIAOSHANG_2));
 				}
 
 				sku.setYn(1);//插入即是有效

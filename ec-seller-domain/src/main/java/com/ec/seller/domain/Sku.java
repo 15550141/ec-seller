@@ -67,8 +67,10 @@ public class Sku implements Serializable{
     private Integer yn;
 
     private Integer properties;
-
+    /** 1级优惠价格 */
     private Integer fxPrice;
+    /** 更优惠的分销价格 */
+    private Integer fxPrice2;
 
     public Integer getFxPrice() {
         return fxPrice;
@@ -213,5 +215,13 @@ public class Sku implements Serializable{
 
     public void setProperties(Integer properties) {
         this.properties = properties;
+    }
+
+    public Integer getFxPrice2() {
+        return fxPrice2;
+    }
+
+    public void setFxPrice2(Integer fxPrice2) {
+        this.fxPrice2 = fxPrice2;
     }
 }

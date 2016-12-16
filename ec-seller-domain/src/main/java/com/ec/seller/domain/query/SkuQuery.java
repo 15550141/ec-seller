@@ -49,6 +49,26 @@ public class SkuQuery extends BaseSearchForMysqlVo implements Serializable{
     
     private Integer yn;
 
+    private Integer fxPrice;
+
+    private Integer fxPrice2;
+
+    public Integer getFxPrice() {
+        return fxPrice;
+    }
+
+    public void setFxPrice(Integer fxPrice) {
+        this.fxPrice = fxPrice;
+    }
+
+    public Integer getFxPrice2() {
+        return fxPrice2;
+    }
+
+    public void setFxPrice2(Integer fxPrice2) {
+        this.fxPrice2 = fxPrice2;
+    }
+
     public Integer getSkuId() {
         return skuId;
     }

@@ -581,8 +581,10 @@ $("#categoryId4").change(
 										"<td style='width: 80px'><input type='text' name='stock' id='stock_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
 										"<td align='right' style='width: 100px'>*最低起卖量：</td>"+
 										"<td style='width: 80px'><input type='text' name='leastBuy' id='leastBuy_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
-										"<td align='right' style='width: 100px'>价格2：</td>"+
+										"<td align='right' style='width: 100px'>分销价1：</td>"+
 										"<td style='width: 80px'><input type='text' name='fxPrice' id='fxPrice_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
+										"<td align='right' style='width: 100px'>分销价2：</td>"+
+										"<td style='width: 80px'><input type='text' name='fxPrice2' id='fxPrice2_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
 										"<td><input type = 'hidden' id='ifChoose_"+property.propertyValueId+"' name= 'ifChoose' value =''/>"+
 										"<input type = 'hidden' name= 'propertyId' value ='" +property.propertyId+"'/>"+
 										"<input type = 'hidden' name= 'propertyValueId' value ='" +property.propertyValueId+"'/></td></tr>");
@@ -618,6 +620,7 @@ function propertyCheck(id){
 		document.getElementById("tbPrice_"+id).value="";
 		document.getElementById("leastBuy_"+id).value="";
 		document.getElementById("fxPrice_"+id).value="";
+		document.getElementById("fxPrice2_"+id).value="";
 		document.getElementById("ifChoose_"+id).value="0";
 		document.getElementById("priceTR_"+id).style.display='none';
 	}

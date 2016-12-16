@@ -724,9 +724,11 @@ $(document).ready(function(){
 																				"<td style='width: 80px'><input type='text' name='stock' id='stock_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
 																				"<td align='right' style='width: 100px'>*最低起卖量：</td>"+
 																				"<td style='width: 80px'><input type='text' name='leastBuy' id='leastBuy_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
-																				"<td align='right' style='width: 100px'>价格2：</td>"+
+																				"<td align='right' style='width: 100px'>分销价1：</td>"+
 																				"<td style='width: 80px'><input type='text' name='fxPrice' id='fxPrice_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
-																				"<td><input type = 'hidden' id='ifChoose_"+property.propertyValueId+"' name= 'ifChoose' value =''/>"+
+                                                                                "<td align='right' style='width: 100px'>分销价2：</td>"+
+                                                                                "<td style='width: 80px'><input type='text' name='fxPrice2' id='fxPrice2_"+property.propertyValueId+"' value='' style='width: 80px' /></td>"+
+                                                                                "<td><input type = 'hidden' id='ifChoose_"+property.propertyValueId+"' name= 'ifChoose' value =''/>"+
 																				"<input type = 'hidden' name= 'propertyId' value ='" +property.propertyId+"'/>"+
 																				"<input type = 'hidden' name= 'propertyValueId' value ='" +property.propertyValueId+"'/></td></tr>");
 																	}
@@ -740,7 +742,8 @@ $(document).ready(function(){
 																	var tbPriceList = $!{tbPriceList};
 																	var stockList = $!{stockList};
 																	var leastBuyList = $!{leastBuyList};
-																	var fxPriceList = $!{fxPriceList};
+                                                                    var fxPriceList = $!{fxPriceList};
+                                                                    var fxPrice2List = $!{fxPrice2List};
 																	//alert("属性值数：" + proValIdList.length);
 																	for(var i = 0; i < proValIdList.length; i++){
 																		
@@ -749,6 +752,7 @@ $(document).ready(function(){
 																		var stock = stockList[i];
 																		var leastBuy = leastBuyList[i];
                                                                         var fxPrice = fxPriceList[i];
+                                                                        var fxPrice2 = fxPrice2List[i];
 																		
 																		//选择多选按钮
 																		$("#" + id).attr("checked","true");
@@ -760,7 +764,8 @@ $(document).ready(function(){
 																		document.getElementById("tbPrice_"+id).value=tbPrice;
 																		document.getElementById("stock_"+id).value=stock;
 																		document.getElementById("leastBuy_"+id).value=leastBuy;
-																		document.getElementById("fxPrice_"+id).value=fxPrice;
+                                                                        document.getElementById("fxPrice_"+id).value=fxPrice;
+                                                                        document.getElementById("fxPrice2_"+id).value=fxPrice2;
 
 																	}
 																	

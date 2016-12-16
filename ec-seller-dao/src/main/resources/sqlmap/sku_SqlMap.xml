@@ -17,6 +17,7 @@
     <result column="yn" property="yn"  />
     <result column="properties" property="properties"  />
     <result column="fx_price" property="fxPrice"  />
+    <result column="fx_price_2" property="fxPrice2"  />
   </resultMap>
 
   <!-- 查询条件 -->
@@ -56,16 +57,16 @@
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="SkuResult" parameterClass="java.lang.Integer" >
-    select SKU_ID, ITEM_ID, sales_property,sales_property_name , least_buy, bar_code, Cost_price, sale_price, original_price, stock, created, modified,yn,properties, fx_price
+    select SKU_ID, ITEM_ID, sales_property,sales_property_name , least_buy, bar_code, Cost_price, sale_price, original_price, stock, created, modified,yn,properties, fx_price, fx_price_2
     from sku
     where SKU_ID = #skuId:INTEGER# and yn=1
   </select>
 
   <insert id="insert" parameterClass="com.ec.seller.domain.Sku" >
     insert into sku ( ITEM_ID, sales_property, sales_property_name, least_buy , bar_code ,Cost_price, sale_price, original_price, stock, created,
-    modified,yn, properties, fx_price)
+    modified,yn, properties, fx_price, fx_price_2)
     values ( #itemId:INTEGER#, #salesProperty:VARCHAR#, #salesPropertyName:VARCHAR#,#leastBuy:INTEGER#,#barCode:VARCHAR#,
-    #costPrice:INTEGER#, #salePrice:INTEGER#, #originalPrice:INTEGER#,#stock:INTEGER#, now(),now(), 1, #properties#, #fxPrice#)
+    #costPrice:INTEGER#, #salePrice:INTEGER#, #originalPrice:INTEGER#,#stock:INTEGER#, now(),now(), 1, #properties#, #fxPrice#, #fxPrice2#)
     <!-- 返回自增主键 -->
     <selectKey resultClass="java.lang.Integer" keyProperty="skuId">
       <![CDATA[SELECT @@IDENTITY AS SKU_ID ]]>
@@ -104,6 +105,9 @@
       </isNotNull>
       <isNotNull prepend="," property="fxPrice" >
         fx_price = #fxPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="fxPrice2" >
+        fx_price_2 = #fxPrice2#
       </isNotNull>
       <isNotNull prepend="," property="properties" >
         properties = #properties#
@@ -148,6 +152,9 @@
       <isNotNull prepend="," property="fxPrice" >
         fx_price = #fxPrice#
       </isNotNull>
+      <isNotNull prepend="," property="fxPrice2" >
+        fx_price_2 = #fxPrice2#
+      </isNotNull>
     </dynamic>
     where ITEM_ID = #itemId:INTEGER#
   </update>
@@ -158,14 +165,14 @@
   </select>
   
   <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.SkuQuery" resultMap="SkuResult" >
-    select SKU_ID, ITEM_ID, sales_property,sales_property_name, least_buy, bar_code, Cost_price, sale_price, original_price, stock, created, modified, yn,properties,fx_price
+    select SKU_ID, ITEM_ID, sales_property,sales_property_name, least_buy, bar_code, Cost_price, sale_price, original_price, stock, created, modified, yn,properties,fx_price,fx_price_2
     from sku
     <include refid="Sku.condition" />
     order by SKU_ID
   </select>
   
   <select id="selectByConditionForPage" parameterClass="com.ec.seller.domain.query.SkuQuery" resultMap="SkuResult" >
-    select SKU_ID, ITEM_ID, sales_property,sales_property_name, least_buy, bar_code, Cost_price, sale_price, original_price, stock, created, modified, yn,properties,fx_price
+    select SKU_ID, ITEM_ID, sales_property,sales_property_name, least_buy, bar_code, Cost_price, sale_price, original_price, stock, created, modified, yn,properties,fx_price,fx_price_2
     from sku
     <include refid="Sku.condition" />
     order by SKU_ID
@@ -174,9 +181,9 @@
   
   <insert id="insertOrUpdate" parameterClass="com.ec.seller.domain.Sku" >
     insert into sku (  ITEM_ID, sales_property, sales_property_name, least_buy , bar_code ,Cost_price, sale_price, original_price, stock, created,
-    modified,yn,properties,fx_price)
+    modified,yn,properties,fx_price, fx_price_2)
     values ( #itemId:INTEGER#, #salesProperty:VARCHAR#, #salesPropertyName:VARCHAR#,#leastBuy:INTEGER#,#barCode:VARCHAR#,
-    #costPrice:INTEGER#, #salePrice:INTEGER#, #originalPrice:INTEGER#,#stock:INTEGER#, now(),now(), 1,#properties#,#fxPrice#)
+    #costPrice:INTEGER#, #salePrice:INTEGER#, #originalPrice:INTEGER#,#stock:INTEGER#, now(),now(), 1,#properties#,#fxPrice#,#fxPrice2#)
         ON DUPLICATE KEY 
       update modified=now()
     <dynamic >
@@ -203,6 +210,9 @@
       </isNotNull>
       <isNotNull prepend="," property="fxPrice" >
         fx_price = #fxPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="fxPrice2" >
+        fx_price_2 = #fxPrice2#
       </isNotNull>
       <isNotNull prepend="," property="properties" >
         properties = #properties#
