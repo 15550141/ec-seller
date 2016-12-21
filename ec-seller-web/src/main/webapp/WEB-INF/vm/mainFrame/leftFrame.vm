@@ -270,6 +270,17 @@
                             </script>
                         </ul>
 
+                        <div class="menu-item">
+                            <a title="订货管理" href="javascript:void(0)">活动管理</a>
+                        </div>
+                        <ul class="sub-menu" style="display: none;">
+                            <li class="sub-menu-item">
+                                <a title="开发区店" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/activityExchange/index',this);">活动管理</a>
+                            </li>
+                            <script type="text/javascript">
+                                menuTransMap.put('', '');
+                            </script>
+                        </ul>
 						
 						<!--
 						<div class="menu-item">

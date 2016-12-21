@@ -42,10 +42,6 @@ public class ReserveController {
 	@RequestMapping(value="/index", method={ RequestMethod.GET, RequestMethod.POST })
 	public String index(ReserveQuery query, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		query.setYn(1);
-		String userName = CookieUtil.getLoginName(request);
-		if(userName.equals("张宏宇")){
-			query.setUserName(userName);
-		}
 		PaginatedList<Reserve> list = reserveService.findPage(query);
 		content.put("list", list);
 		content.put("query", query);

@@ -1,0 +1,118 @@
+#set($title="查看活动")
+#set($menu=1)
+#parse("/WEB-INF/vm/common/head.vm")
+<div class="container">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <button class="btn btn-default" onclick="window.location.href='/activityExchange/add'" type="button">
+            新增领奖人
+        </button>
+    </div>
+    <div class="row">
+        <div class="input-group col-xs-7">
+           <input id="userMobile" type="text" class="form-control" value="$!query.userMobile">
+            <div class="input-group-btn">
+                <button type="button" id="insert" class="btn btn-default" onclick="doSearch();">
+                    查询手机号
+                </button>
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+    </div>
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>活动名称</th>
+                <th>用户姓名</th>
+                <th>用户手机号</th>
+                <th>礼品</th>
+                <th>申请时间</th>
+                <th>发放时间</th>
+                <th>当前状态</th>
+                <th>发放人</th>
+            </tr>
+            </thead>
+            <tbody>
+                #foreach($detail in $list)
+                    <tr>
+                        <td>$!detail.activityName</td>
+                        <td>$!detail.userName</td>
+                        <td>$!detail.userMobile</td>
+                        <td>$!detail.activityGiftName</td>
+
+                        <td>$!dateFormatUtils.format($!{detail.applyTime}, "yyyy-MM-dd")</td>
+                        <td>$!dateFormatUtils.format($!{detail.sendTime}, "yyyy-MM-dd")</td>
+                        <td>
+                            #if($!detail.status == 0)
+                                申请中
+                            #elseif($!detail.status == 1)
+                                已发放
+                            #elseif($!detail.status == 2)
+                                已拒绝
+                            #end
+                        </td>
+                        <td>
+                            #if($!detail.status == 0)
+                                <button class="btn btn-default btn-sm" onclick="update($!detail.activityExchangeId,1);" type="button">
+                                    发放礼品
+                                </button>
+                            #end
+                            #if($!detail.status == 0)
+                                <button class="btn btn-default btn-sm" onclick="update($!detail.activityExchangeId,2);" type="button">
+                                    请求拒绝
+                                </button>
+                            #end
+                        </td>
+                    </tr>
+                #end
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                #if($!list.previousPageAvailable) ##如果能向上翻页
+                    <li><a href="javascript:search($!list.previousPage);">上一页</a></li>
+                #end
+
+                <li class="active"><a href="#">$!list.index</a></li>
+                #if($!list.nextPageAvailable) ##显示后面的页
+                    <li><a href="javascript:search($!list.nextPage);" >下一页</a></li>
+                #end
+            </ul>
+        </nav>
+    </div>
+</div>
+<script type="application/javascript">
+    function search(index){
+        window.location.href="/activityExchange/index?pageNo="+index;
+    }
+
+
+    function update(id,status){
+        if(confirm("确定改操作？")){
+            jQuery.ajax( {
+                url : "/activityExchange/updateStatus",
+                type : "post",
+                dataType : "json",
+                data : "activityExchangeId="+id+"&status="+status,
+                success : function(data) {
+                    if (data.success == true) {
+                        alert("操作成功");
+                        window.location.reload();
+                    }else{
+                        alert("系统异常！请重试");
+                    }
+                },
+                error : function() {
+                    alert("系统超时！请重试");
+                }
+            });
+        }
+
+    }
+
+    function doSearch(){
+        window.location.href="/activityExchange/index?userMobile="+$("#userMobile").val();
+    }
+</script>
+#parse("/WEB-INF/vm/common/bottom.vm")

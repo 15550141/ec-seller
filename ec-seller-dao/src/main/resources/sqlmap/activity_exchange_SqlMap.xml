@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ActivityExchange" >
+  <resultMap id="ActivityExchangeResult" class="com.ec.seller.domain.ActivityExchange" >
+    <result column="activity_exchange_id" property="activityExchangeId"  />
+    <result column="activity_id" property="activityId" />
+    <result column="activity_name" property="activityName" />
+    <result column="uid" property="uid"  />
+    <result column="user_name" property="userName"  />
+    <result column="user_mobile" property="userMobile"  />
+    <result column="activity_gift_id" property="activityGiftId"  />
+    <result column="activity_gift_name" property="activityGiftName"  />
+    <result column="activity_gift_num" property="activityGiftNum"  />
+    <result column="apply_time" property="applyTime"  />
+    <result column="send_time" property="sendTime"  />
+    <result column="created" property="created"  />
+    <result column="modified" property="modified"  />
+    <result column="remark" property="remark"  />
+    <result column="status" property="status"  />
+    <result column="send_user_id" property="sendUserId"  />
+    <result column="send_user_name" property="sendUserName"  />
+
+
+  </resultMap>
+
+  <!-- 查询内容 -->
+  <sql id="searchColoum" >
+    activity_exchange_id,activity_id,activity_name,activity_name,uid,user_name,user_mobile,activity_gift_id,activity_gift_name,activity_gift_num,apply_time,send_time,created,modified,remark,status,send_user_id,send_user_name
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="condition" >
+  	<dynamic prepend="where" >
+  	  <isNotEmpty prepend="and" property="activityExchangeId" >
+        activity_exchange_id = #activityExchangeId#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="activityId" >
+        activity_id = #activityId#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="uid" >
+        uid = #uid#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="userMobile" >
+        user_mobile = #userMobile#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="userName" >
+        user_name = #userName#
+      </isNotEmpty>
+    </dynamic>
+  </sql>
+  
+  <!-- 依据主键进行查询 -->
+  <select id="selectById" resultMap="ActivityExchangeResult" parameterClass="java.lang.Long" >
+    select <include refid="ActivityExchange.searchColoum" />
+    from activity_exchange
+    where activity_exchange_id = #activityExchangeId#
+  </select>
+  
+  <!-- 添加信息 -->
+  <insert id="insert" parameterClass="com.ec.seller.domain.ActivityExchange" >
+    insert into activity_exchange (activity_id,activity_name,uid,user_name,user_mobile,activity_gift_id,activity_gift_name,activity_gift_num,apply_time,send_time,created,modified,remark,status,send_user_id,send_user_name)
+    values (#activityId#,#activityName#,#uid#,#userName#,#userMobile#,#activityGiftId#,#activityGiftName#,#activityGiftNum#,#applyTime#,#sendTime#,now(),now(),#remark#,#status#,#sendUserId#,#sendUserName#)
+      <!-- 返回自增主键 -->
+      <selectKey resultClass="java.lang.Long" keyProperty="activityExchangeId">
+			<![CDATA[SELECT @@IDENTITY AS activity_exchange_id ]]>
+	  </selectKey>
+  </insert>
+  
+  <update id="delete" parameterClass="Long" >
+    update activity_exchange set yn=0 where activity_exchange_id = #activityExchangeId#
+  </update>
+
+
+  <!-- 依据主键进行修改 -->
+  <update id="modify" parameterClass="com.ec.seller.domain.ActivityExchange" >
+    update activity_exchange set MODIFIED = now()
+    <dynamic>
+      <isNotNull prepend="," property="status" >
+        status = #status#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        remark = #remark#
+      </isNotNull>
+      <isNotNull prepend="," property="sendTime" >
+        send_time = #sendTime#
+      </isNotNull>
+      <isNotNull prepend="," property="sendUserId" >
+        send_user_id = #sendUserId#
+      </isNotNull>
+      <isNotNull prepend="," property="sendUserName" >
+        send_user_name = #sendUserName#
+      </isNotNull>
+    </dynamic>
+    where activity_exchange_id = #activityExchangeId#
+  </update>
+
+  <!-- 条件查询总数 -->
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.ActivityExchangeQuery" resultClass="java.lang.Integer" >
+    select count(1) from activity_exchange
+    <include refid="ActivityExchange.condition" />
+  </select>
+  
+  <!-- 条件查询列表 -->
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.ActivityExchangeQuery" resultMap="ActivityExchangeResult" >
+    select <include refid="ActivityExchange.searchColoum" />
+    from activity_exchange
+    <include refid="ActivityExchange.condition" />
+    order by activity_exchange_id desc
+    limit #start#,#pageSize#
+  </select>
+  
+</sqlMap>

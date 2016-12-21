@@ -1,0 +1,76 @@
+#set($title="新增订购单")
+#set($menu=1)
+#parse("/WEB-INF/vm/common/head.vm")
+<div class="container">
+    <div class="row">
+        <form class="form-horizontal">
+
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">用户名称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="userName">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">用户手机号</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="userMobile">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">礼物</label>
+                <div class="col-sm-10">
+                    <select id="activityGiftName">
+                        <option value="平安果">平安果</option>
+                        <option value="赣南脐橙10斤">赣南脐橙10斤</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" onclick="doSubmit();" class="btn btn-default">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="application/javascript">
+    function doSubmit(){
+        var userName = $("#userName").val();
+        var userMobile = $("#userMobile").val();
+        var activityGiftName = $("#activityGiftName").val();
+        if(!userName){
+            alert("用户姓名不能为空");
+            return;
+        }
+        if(!userMobile){
+            alert("用户手机号不能为空");
+            return;
+        }
+        if(!activityGiftName){
+            alert("订购日期不能为空");
+            return;
+        }
+        jQuery.ajax( {
+            url : "/activityExchange/insert",
+            type : "post",
+            dataType : "json",
+            data : "userName="+userName+"&userMobile="+userMobile+"&activityGiftName="+activityGiftName+"&activityGiftNum=1&status=0",
+            success : function(data) {
+                if (data.success == true) {
+                    alert("添加成功");
+                }else{
+                    alert(data.resultMessage);
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    }
+</script>
+#parse("/WEB-INF/vm/common/bottom.vm")
