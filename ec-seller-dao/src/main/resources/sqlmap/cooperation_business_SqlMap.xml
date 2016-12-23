@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CooperationBusiness" >
+  <resultMap id="CooperationBusinessResult" class="com.ec.seller.domain.CooperationBusiness" >
+    <result column="id" property="id"  />
+    <result column="uid" property="uid"  />
+    <result column="user_name" property="userName"  />
+    <result column="user_mobile" property="userMobile"  />
+    <result column="company" property="company"  />
+    <result column="type" property="type"  />
+    <result column="status" property="status"  />
+    <result column="agree_user_id" property="agree_user_id"  />
+    <result column="agree_user_name" property="agree_user_name"  />
+    <result column="agree_time" property="agree_time"  />
+    <result column="remark" property="remark"  />
+    <result column="created" property="created"  />
+    <result column="modified" property="modified"  />
+  </resultMap>
+
+  <!-- 查询内容 -->
+  <sql id="searchColoum" >
+    id,uid,user_name,user_mobile,company,type,status,agree_user_id,agree_user_name,agree_time,remark,created,modified
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="condition" >
+  	<dynamic prepend="where" >
+  	  <isNotEmpty prepend="and" property="id" >
+        id = #id#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="uid" >
+        uid = #uid#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="userMobile" >
+        user_mobile = #userMobile#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="userName" >
+        user_name = #userName#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="company" >
+        company = #company#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="agreeUserName" >
+        agree_user_name = #agreeUserName#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="type" >
+        type = #type#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="status" >
+        status = #status#
+      </isNotEmpty>
+    </dynamic>
+  </sql>
+  
+  <!-- 依据主键进行查询 -->
+  <select id="selectById" resultMap="CooperationBusinessResult" parameterClass="java.lang.Long" >
+    select <include refid="CooperationBusiness.searchColoum" />
+    from cooperation_business
+    where id = #id#
+  </select>
+  
+  <!-- 添加信息 -->
+  <insert id="insert" parameterClass="com.ec.seller.domain.CooperationBusiness" >
+    insert into cooperation_business (uid,user_name,user_mobile,company,type,status,agree_user_id,agree_user_name,agree_time,remark,created,modified)
+    values (#uid#,#userName#,#userMobile#,#company#,#type#,#status#,#agreeUserId#,#agreeUserName#,#agreeTime#,#remark#,#created#,#modified#)
+      <!-- 返回自增主键 -->
+      <selectKey resultClass="java.lang.Long" keyProperty="id">
+			<![CDATA[SELECT @@IDENTITY AS id ]]>
+	  </selectKey>
+  </insert>
+  
+  <!-- 依据主键进行修改 -->
+  <update id="modify" parameterClass="com.ec.seller.domain.CooperationBusiness" >
+    update cooperation_business set MODIFIED = now()
+    <dynamic>
+      <isNotNull prepend="," property="status" >
+        status = #status#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        remark = #remark#
+      </isNotNull>
+      <isNotNull prepend="," property="agreeUserId" >
+        agree_user_id = #agreeUserId#
+      </isNotNull>
+      <isNotNull prepend="," property="agreeUserName" >
+        agree_user_name = #agreeUserName#
+      </isNotNull>
+      <isNotNull prepend="," property="agreeTime" >
+        agree_time = #agreeTime#
+      </isNotNull>
+    </dynamic>
+    where id = #id#
+  </update>
+
+  <!-- 条件查询总数 -->
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.CooperationBusinessQuery" resultClass="java.lang.Integer" >
+    select count(1) from cooperation_business
+    <include refid="CooperationBusiness.condition" />
+  </select>
+  
+  <!-- 条件查询列表 -->
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.CooperationBusinessQuery" resultMap="CooperationBusinessResult" >
+    select <include refid="CooperationBusiness.searchColoum" />
+    from cooperation_business
+    <include refid="CooperationBusiness.condition" />
+    order by cooperation_business desc
+    limit #start#,#pageSize#
+  </select>
+  
+</sqlMap>

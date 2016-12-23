@@ -59,6 +59,7 @@ public class ActivityExchangeController {
 			activityExchange.setCreated(date);
 			activityExchange.setModified(date);
 			activityExchange.setStatus(1);
+			activityExchange.setSendTime(new Date());
 			activityExchange.setSendUserId(CookieUtil.getUserId(request));
 			activityExchange.setSendUserName(CookieUtil.getLoginName(request));
 
