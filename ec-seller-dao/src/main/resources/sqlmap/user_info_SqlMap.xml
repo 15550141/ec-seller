@@ -2,37 +2,50 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="user_info" >
   <resultMap id="UserInfoResult" class="com.ec.seller.domain.UserInfo" >
-    <result column="user_id" property="userId" />
-    <result column="mobile" property="mobile"/>
-    <result column="password" property="password" />
-    <result column="user_type" property="userType"  />
-    <result column="register_time" property="registerTime"  />
-    <result column="register_ip" property="registerIp" />
-    <result column="last_login_time" property="lastLoginTime"  />
-    <result column="last_login_ip" property="lastLoginIp" />
-    <result column="yn" property="yn" />
-    <result column="created" property="created"/>
-    <result column="modified" property="modified" />
-    <result column="nickname" property="nickname" />
+    <result column="USER_ID" property="userId"  />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="USER_TYPE" property="userType"  />
+    <result column="YN" property="yn"  />
+    <result column="REGISTER_TIME" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="REGISTER_IP" property="registerIp" jdbcType="VARCHAR" />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_LOGIN_IP" property="lastLoginIp" jdbcType="VARCHAR" />
+    <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
+    <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
+
+    <result column="nickname" property="nickname"  />
+    <result column="sex" property="sex"  />
+    <result column="user_level" property="user_level"  />
+    <result column="province" property="province"  />
+    <result column="city" property="city"  />
+    <result column="country" property="country"  />
+    <result column="email" property="email"  />
+    <result column="headimgurl" property="headimgurl"  />
+    <result column="truename" property="truename"  />
+    <result column="postcode" property="postcode"  />
+    <result column="address" property="address"  />
+    <result column="regist_source" property="regist_source"  />
+    <result column="properties" property="properties"  />
   </resultMap>
 
   <select id="abatorgenerated_selectByPrimaryKey" resultMap="UserInfoResult" parameterClass="com.ec.seller.domain.UserInfo" >
-    select user_id, mobile, password, user_type, register_time, register_ip,last_login_time,
-      last_login_ip, yn, created, modified, nickname
+    select USER_ID, MOBILE, PASSWORD, USER_TYPE, YN, REGISTER_TIME, REGISTER_IP, LAST_LOGIN_TIME,
+      LAST_LOGIN_IP, CREATED, MODIFIED, nickname, sex, user_level, province, city, country, email, headimgurl, truename, postcode, address, regist_source, properties
     from user_info
     where user_id = #userId:INTEGER#
   </select>
 
   <select id="query" resultMap="UserInfoResult" parameterClass="java.util.Map" >
-    select user_id, mobile, password, user_type, register_time, register_ip, last_login_time,
-      last_login_ip, yn, created, modified, nickname
+    select USER_ID, MOBILE, PASSWORD, USER_TYPE, YN, REGISTER_TIME, REGISTER_IP, LAST_LOGIN_TIME,
+      LAST_LOGIN_IP, CREATED, MODIFIED, nickname, sex, user_level, province, city, country, email, headimgurl, truename, postcode, address, regist_source, properties
     from user_info
     where mobile = #mobile# and password = #password# and user_type=1
   </select>
   
   <select id="queryByMobile" resultMap="UserInfoResult" parameterClass="java.lang.String" >
-    select user_id, mobile, password, user_type, register_time, register_ip, last_login_time,
-      last_login_ip, yn, created, modified, nickname
+    select USER_ID, MOBILE, PASSWORD, USER_TYPE, YN, REGISTER_TIME, REGISTER_IP, LAST_LOGIN_TIME,
+      LAST_LOGIN_IP, CREATED, MODIFIED, nickname, sex, user_level, province, city, country, email, headimgurl, truename, postcode, address, regist_source, properties
     from user_info
     where mobile = #mobile#
   </select>
@@ -79,8 +92,18 @@
       <isNotNull prepend="," property="modified" >
         modified = now()
       </isNotNull>
+      <isNotNull prepend="," property="properties" >
+        properties = #properties#
+      </isNotNull>
     </dynamic>
     where mobile = #mobile#
   </update>
- 
+
+  <select id="selectByPrimaryKey" resultMap="UserInfoResult" parameterClass="java.lang.Integer" >
+    select USER_ID, MOBILE, PASSWORD, USER_TYPE, YN, REGISTER_TIME, REGISTER_IP, LAST_LOGIN_TIME,
+      LAST_LOGIN_IP, CREATED, MODIFIED, nickname, sex, user_level, province, city, country, email, headimgurl, truename, postcode, address, regist_source, properties
+    from user_info
+    where USER_ID = #userId:INTEGER#
+  </select>
+
 </sqlMap>

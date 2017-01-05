@@ -12,6 +12,11 @@ public class UserInfoDAOImpl extends SqlMapClientTemplate implements UserInfoDAO
 
 
 	@Override
+	public UserInfo selectByPrimaryKey(Integer userId) {
+		return (UserInfo)super.queryForObject("user_info.selectByPrimaryKey", userId);
+	}
+
+	@Override
 	public UserInfo query(Map<String, String> params) {
 		// TODO Auto-generated method stub
 		UserInfo userInfo=null;

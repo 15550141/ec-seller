@@ -6,4 +6,5 @@ package com.ec.seller.common.utils;
 public class PropertyConstants {
     public static int USER_FENXIAOSHANG = 1;
     public static int USER_FENXIAOSHANG_2 = 2;
+    public static int USER_B2B = 3;
 }

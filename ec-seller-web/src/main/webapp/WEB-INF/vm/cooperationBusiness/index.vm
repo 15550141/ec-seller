@@ -1,8 +1,9 @@
-#set($title="查看活动")
+#set($title="合作商家")
 #set($menu=1)
 #parse("/WEB-INF/vm/common/head.vm")
 <div class="container">
     <div class="row">&nbsp;</div>
+    <!--
     <div class="row">
         <div class="input-group col-xs-7">
            <input id="userNmae" type="text" class="form-control" value="$!query.userNmae">
@@ -14,6 +15,7 @@
         </div>
         <div class="row">&nbsp;</div>
     </div>
+    -->
     <div class="row">
         <table class="table table-striped">
             <thead>

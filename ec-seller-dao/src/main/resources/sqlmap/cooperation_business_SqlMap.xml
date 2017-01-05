@@ -9,9 +9,9 @@
     <result column="company" property="company"  />
     <result column="type" property="type"  />
     <result column="status" property="status"  />
-    <result column="agree_user_id" property="agree_user_id"  />
-    <result column="agree_user_name" property="agree_user_name"  />
-    <result column="agree_time" property="agree_time"  />
+    <result column="agree_user_id" property="agreeUserId"  />
+    <result column="agree_user_name" property="agreeUserName"  />
+    <result column="agree_time" property="agreeTime"  />
     <result column="remark" property="remark"  />
     <result column="created" property="created"  />
     <result column="modified" property="modified"  />
@@ -103,7 +103,7 @@
     select <include refid="CooperationBusiness.searchColoum" />
     from cooperation_business
     <include refid="CooperationBusiness.condition" />
-    order by cooperation_business desc
+    order by id desc
     limit #start#,#pageSize#
   </select>
   

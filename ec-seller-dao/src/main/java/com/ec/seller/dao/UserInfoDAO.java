@@ -13,7 +13,7 @@ public interface UserInfoDAO {
 //
 //    List selectByExample(UserInfoExample example) throws SQLException;
 //
-//    UserInfo selectByPrimaryKey(Integer userId) throws SQLException;
+    UserInfo selectByPrimaryKey(Integer userId);
 //
 //    int deleteByExample(UserInfoExample example) throws SQLException;
 //

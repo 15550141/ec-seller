@@ -1,13 +1,21 @@
 package com.ec.seller.web.controller;
 
 import com.ec.seller.common.utils.CookieUtil;
+import com.ec.seller.common.utils.FlagBitUtil;
 import com.ec.seller.common.utils.PaginatedList;
+import com.ec.seller.common.utils.PropertyConstants;
+import com.ec.seller.dao.UserDao;
+import com.ec.seller.dao.UserInfoDAO;
 import com.ec.seller.domain.CooperationBusiness;
+import com.ec.seller.domain.UserInfo;
 import com.ec.seller.domain.query.CooperationBusinessQuery;
+import com.ec.seller.manager.UserManager;
 import com.ec.seller.service.CooperationBusinessService;
+import com.ec.seller.service.UserService;
 import com.ec.seller.service.result.Result;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.velocity.texen.util.PropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,6 +33,9 @@ public class CooperationBusinessController {
 
 	@Autowired
 	private CooperationBusinessService cooperationBusinessService;
+
+	@Autowired
+	private UserInfoDAO userInfoDAO;
 
 	private final static Log log = LogFactory.getLog(CooperationBusinessController.class);
 
@@ -46,11 +57,23 @@ public class CooperationBusinessController {
 			cooperationBusiness.setAgreeUserId(CookieUtil.getUserId(request));
 			cooperationBusiness.setAgreeUserName(CookieUtil.getLoginName(request));
 
+			UserInfo userInfo = this.userInfoDAO.selectByPrimaryKey(cooperationBusiness.getUid());
+			if(type == 1){
+				userInfo.setProperties(FlagBitUtil.sign(userInfo.getProvince(), PropertyConstants.USER_FENXIAOSHANG));
+
+			}
+			if(type == 3){
+				userInfo.setProperties(FlagBitUtil.sign(userInfo.getProvince(), PropertyConstants.USER_B2B));
+
+			}
+
 			if(type == 2){
 				//高级分销商
 				cooperationBusiness.setType(2);
+				userInfo.setProperties(FlagBitUtil.sign(userInfo.getProperties(), PropertyConstants.USER_FENXIAOSHANG_2));
 			}
 
+			this.userInfoDAO.updateUser(userInfo);
 			this.cooperationBusinessService.modify(cooperationBusiness);
 			result.setSuccess(true);
 		}catch (Exception e){
