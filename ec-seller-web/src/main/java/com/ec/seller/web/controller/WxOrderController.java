@@ -56,9 +56,14 @@ public class WxOrderController {
 		}else if(index == 4){
 			query.setDeviceInfo("开发区店");
 			content.put("deviceInfo", "开发区店");
+		}
+		else if(index == 5){
+			query.setDeviceInfo("碧海云天店");
+			content.put("deviceInfo", "碧海云天店");
 		}else{
-			query.setDeviceInfo("长城店");
-			content.put("deviceInfo", "长城店");
+			query.setDeviceInfo("碧海云天店");
+			content.put("deviceInfo", "碧海云天店");
+
 		}
 		PaginatedList<WxOrder> list = wxOrderDao.findPage(query);
 		content.put("list", list);

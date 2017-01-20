@@ -249,6 +249,10 @@
                                                          target="rightFrame" href="javascript:void(0);"
                                                          onclick="javascript:randomUrl('/wxOrder/index?index=4',this);">开发区店</a>
                             </li>
+                            <li class="sub-menu-item"><a title="碧海云天店"
+                                                         target="rightFrame" href="javascript:void(0);"
+                                                         onclick="javascript:randomUrl('/wxOrder/index?index=5',this);">碧海云天店</a>
+                            </li>
                             <script type="text/javascript">
                                 menuTransMap.put('', '');
                             </script>
