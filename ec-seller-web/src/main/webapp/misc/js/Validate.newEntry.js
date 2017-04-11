@@ -184,13 +184,12 @@ $("#resetpswSubmit").click(function () {
                 $(this).removeAttr("disabled");
             },
             success:function (result) {
-            	alert("重置密码成功！！");
             	//alert("result=="+result);
             	//alert("result.success=="+result.success);
                 if (result) {
                     if (result.success == true) {
                     	//alert("成功！！");
-                    	window.location.href = result.url;
+                        alert("重置密码成功！！");
                         return;
                     }
                     $("#resetpswSubmit").removeAttr("disabled");

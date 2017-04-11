@@ -210,60 +210,74 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="onResetPwd", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Map<String, Object> onResetPwd(String mobile, String verificationCode, String newpassword,String newpassword2,HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
-		if(!newpassword.equals(newpassword2)){
-			//返回给页面值
-			Map<String, Object> resultMap = new HashMap<String, Object>();
-			resultMap.put("success",false);
-			resultMap.put("message", "输入的密码不一致！");
-			//resultMap.put("url","sign");//登录成功后，跳转到的页面		
-			return resultMap;
-		}
-		
-		//判断手机号是否为空
-		if(mobile.isEmpty()) {
-			//返回给页面值
-			Map<String, Object> resultMap = new HashMap<String, Object>();
-			resultMap.put("success",false);
-			resultMap.put("message", "手机号不能为空！");
-			//resultMap.put("url","sign");//登录成功后，跳转到的页面		
-			return resultMap;
-		}
-		
-		//判断验证码是否正确
-		SmsQuery smsQuery = new SmsQuery();
-		smsQuery.setMobile(mobile);
-		Sms sms = smsService.queryLastSms(smsQuery);
-		if( !sms.getContent().contains(verificationCode)) {
-			//返回给页面值
-			Map<String, Object> resultMap = new HashMap<String, Object>();
-			resultMap.put("success",false);
-			resultMap.put("message", "输入的验证码错误！");
-			return resultMap;
-		}
-
-		//判断用户是否存在
-		UserInfo user = userService.queryByMobile(mobile);
-		if(user == null){
-			//返回给页面值
-			Map<String, Object> resultMap = new HashMap<String, Object>();
-			resultMap.put("success",false);
-			resultMap.put("message", "您输入的注册手机号不存在！");
-			resultMap.put("url","/");//登录失败后，留在登录页面
-			return resultMap;
-		}
-				
-		//重置用户密码
-		user.setMobile(mobile);
-		user.setPassword(MD5Util.md5Hex(newpassword));		
-		userService.updateUser(user);
-		
+	public @ResponseBody Map<String, Object> onResetPwd(String mobile,String oldpassword, String newpassword,String newpassword2,HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
 		//返回给页面值
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("success",true);
-		resultMap.put("message", "重置密码成功！");
-		resultMap.put("url","/");//重置密码，跳转到登录页面	
-		return resultMap;
+		try{
+			if(StringUtils.isBlank(newpassword) || StringUtils.isBlank(newpassword2) || StringUtils.isBlank(oldpassword) || StringUtils.isBlank(mobile) ){
+				//返回给页面值
+				resultMap.put("success",false);
+				resultMap.put("message", "输入不能为空");
+				//resultMap.put("url","sign");//登录成功后，跳转到的页面
+				return resultMap;
+			}
+			if(!newpassword.equals(newpassword2)){
+				//返回给页面值
+				resultMap.put("success",false);
+				resultMap.put("message", "输入的密码不一致！");
+				//resultMap.put("url","sign");//登录成功后，跳转到的页面
+				return resultMap;
+			}
+
+			//判断手机号是否为空
+			if(mobile.isEmpty()) {
+				//返回给页面值
+				resultMap.put("success",false);
+				resultMap.put("message", "手机号不能为空！");
+				//resultMap.put("url","sign");//登录成功后，跳转到的页面
+				return resultMap;
+			}
+
+			if(StringUtils.isBlank(oldpassword)){
+				//返回给页面值
+				resultMap.put("success",false);
+				resultMap.put("message", "原密码不能为空");
+				return resultMap;
+			}
+
+			//判断用户是否存在
+			UserInfo user = userService.queryByMobile(mobile);
+			if(user == null){
+				//返回给页面值
+				resultMap.put("success",false);
+				resultMap.put("message", "您输入的注册手机号不存在！");
+				resultMap.put("url","/");//登录失败后，留在登录页面
+				return resultMap;
+			}
+
+			if(!MD5Util.getMD5Str(oldpassword).equalsIgnoreCase(user.getPassword())){
+				//返回给页面值
+				resultMap.put("success",false);
+				resultMap.put("message", "您输入的旧密码不正确！");
+				return resultMap;
+			}
+
+			//重置用户密码
+			user.setMobile(mobile);
+			user.setPassword(MD5Util.md5Hex(newpassword));
+			userService.updateUser(user);
+
+			resultMap.put("success",true);
+			resultMap.put("message", "重置密码成功！");
+			resultMap.put("url","/");//重置密码，跳转到登录页面
+			return resultMap;
+		}catch (Exception e){
+			LOG.error("", e);
+			resultMap.put("success",false);
+			resultMap.put("message", e.getMessage());
+			resultMap.put("url","/");//重置密码，跳转到登录页面
+			return resultMap;
+		}
 	}
 	
 	//重置密码短信验证码
