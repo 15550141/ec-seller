@@ -136,6 +136,13 @@
                                     menuTransMap.put('', '');
                                 </script>
 
+                                <li class="sub-menu-item">
+                                    <a title="商品成本价管理" target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/itemPrice/index',this);">商品成本价管理</a>
+                                </li>
+                                <script type="text/javascript">
+                                    menuTransMap.put('', '');
+                                </script>
+
                             </ul>
 						#end
 

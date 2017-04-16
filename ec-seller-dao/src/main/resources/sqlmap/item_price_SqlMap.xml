@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ItemPrice" >
+  <resultMap id="ItemPriceResult" class="com.ec.seller.domain.ItemPrice" >
+    <result column="id" property="id"  />
+    <result column="item_id" property="itemId" />
+    <result column="item_code" property="itemCode" />
+    <result column="item_name" property="itemName"  />
+    <result column="stock_price" property="stockPrice"  />
+    <result column="unit" property="unit"  />
+    <result column="qupi" property="qupi"  />
+    <result column="sell_num" property="sellNum"  />
+    <result column="cost_price" property="costPrice"  />
+    <result column="remark" property="remark"  />
+    <result column="created" property="created"  />
+    <result column="modified" property="modified"  />
+    <result column="user_id" property="userId"  />
+    <result column="user_name" property="userName"  />
+  </resultMap>
+
+  <!-- 查询内容 -->
+  <sql id="searchColoum" >
+    id,item_id, item_code, item_name, stock_price, unit, qupi, sell_num, cost_price, remark, created, modified, user_id, user_name
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="condition" >
+  	<dynamic prepend="where" >
+      <isNotNull prepend="and" property="id" >
+        id = #id#
+      </isNotNull>
+      <isNotNull prepend="and" property="itemCode" >
+        item_code like '%$itemCode$%'
+      </isNotNull>
+      <isNotNull prepend="and" property="itemName" >
+        item_name like '%$itemName$%'
+      </isNotNull>
+    </dynamic>
+  </sql>
+  
+  <!-- 依据主键进行查询 -->
+  <select id="selectById" resultMap="ItemPriceResult" parameterClass="java.lang.Long" >
+    select <include refid="ItemPrice.searchColoum" />
+    from item_price
+    where id = #id#
+  </select>
+  
+  <!-- 添加信息 -->
+  <insert id="insert" parameterClass="com.ec.seller.domain.ItemPrice" >
+    insert into item_price (item_id, item_code, item_name, stock_price, unit, qupi, sell_num, cost_price, remark, created, modified, user_id, user_name)
+    values (#itemId#, #itemCode#, #itemName#, #stockPrice#, #unit#, #qupi#, #sellNum#, #costPrice#, #remark#, #created#, #modified#, #userId#, #userName#)
+      <!-- 返回自增主键 -->
+        <selectKey resultClass="java.lang.Long" keyProperty="id">
+			<![CDATA[SELECT @@IDENTITY AS id ]]>
+	  </selectKey>
+  </insert>
+  
+  <!-- 依据主键进行修改 -->
+  <update id="modify" parameterClass="com.ec.seller.domain.ItemPrice" >
+    update item_price set MODIFIED = now()
+    <dynamic>
+      <isNotNull prepend="," property="stockPrice" >
+        stock_price = #stockPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="unit" >
+        unit = #unit#
+      </isNotNull>
+      <isNotNull prepend="," property="qupi" >
+        qupi = #qupi#
+      </isNotNull>
+      <isNotNull prepend="," property="sellNum" >
+        sell_num = #sellNum#
+      </isNotNull>
+      <isNotNull prepend="," property="costPrice" >
+        cost_price = #costPrice#
+      </isNotNull>
+    </dynamic>
+    where id = #id#
+  </update>
+
+
+  <delete id="delete" parameterClass="Long" >
+    delete from item_price where id = #id#
+  </delete>
+
+  <!-- 条件查询总数 -->
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.ItemPriceQuery" resultClass="java.lang.Integer" >
+    select count(1) from item_price
+    <include refid="ItemPrice.condition" />
+  </select>
+  
+  <!-- 条件查询列表 -->
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.ItemPriceQuery" resultMap="ItemPriceResult" >
+    select <include refid="ItemPrice.searchColoum" />
+    from item_price
+    <include refid="ItemPrice.condition" />
+    order by id desc
+  </select>
+
+</sqlMap>

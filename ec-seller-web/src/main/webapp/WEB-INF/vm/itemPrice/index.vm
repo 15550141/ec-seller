@@ -1,0 +1,281 @@
+#set($title="查看订货单")
+#set($menu=1)
+#parse("/WEB-INF/vm/common/head.vm")
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-6">
+
+            <input id="itemId" type="hidden" value="$!query.itemId" >
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">商品编码：</span>
+                    <form class="form-horizontal" id="f1" name="f1" method="post">
+                        <input id="itemCode" name="itemCode" type="text" value="$!query.itemCode" class="form-control dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <ul id="itemNameList" class="dropdown-menu">
+                        </ul>
+                    </form>
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">采购金额：</span>
+                    <input type="text" id="stockPrice" class="form-control" >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">销售单位：</span>
+                    <select id="unit" onchange="unitChange();">
+                        <option value="1">斤</option>
+                        <option value="2">个</option>
+                        <option value="3">箱</option>
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">商品名称：</span>
+                    <input type="text" id="itemName" class="form-control" readonly="readonly" value="$!query.itemName">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">所含个数：</span>
+                    <input type="text" id="sellNum" class="form-control" value="1" >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">去皮系数：</span>
+                    <select id="qupi">
+                        <option value="1">1</option>
+                        <option selected="selected" value="0.95">0.95</option>
+                        <option value="0.9">0.9</option>
+                        <option value="0.85">0.85</option>
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label"><button type="button" id="search" class="btn btn-default">查询</button></label>
+
+        <label for="" class="col-sm-2 control-label"><button type="button" id="addButton" class="btn btn-default">添加成本价</button></label>
+    </div>
+
+
+
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th width="">商品编码</th>
+                <th width="">商品名称</th>
+                <th width="">采购金额</th>
+                <th width="">销售单位</th>
+                <th width="">所含个数</th>
+                <th width="">去皮系数</th>
+                <th width="">成本价</th>
+                <th width="">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            #foreach($detail in $!list)
+                <tr>
+                    <td>$!detail.itemCode</td>
+                    <td>$!detail.itemName</td>
+                    <td>
+                        <input id="stockPrice$!detail.id" style="width: 60px;" value="$!detail.stockPrice">
+                    </td>
+                    <td>
+                        <select id="unit$!detail.id" style="width: 40px;">
+                            <option #if($!detail.unit == 1)selected="selected"#end value="1">斤</option>
+                            <option #if($!detail.unit == 2)selected="selected"#end value="2">个</option>
+                            <option #if($!detail.unit == 3)selected="selected"#end value="3">箱</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input id="sellNum$!detail.id" style="width: 60px;" value="$!detail.sellNum">
+                    </td>
+                    <td>
+                        <input id="qupi$!detail.id" style="width: 60px;" value="$!detail.qupi">
+                    </td>
+                    <td>
+                        <input id="costPrice$!detail.id" style="width: 60px;" value="$!detail.costPrice">
+                    </td>
+                    <td>
+                        <button class="btn btn-default btn-sm" onclick="modify($!detail.id)" type="button">
+                            修改
+                        </button>
+                        <button class="btn btn-default btn-sm" onclick="del($!detail.id)" type="button">
+                            删除
+                        </button>
+                    </td>
+                </tr>
+            #end
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="application/javascript">
+
+    $("#itemCode").keyup(function(){
+        var itemCode = $("#itemCode").val();
+        if(!itemCode){
+            $("#itemNameList").html("");
+            return;
+        }
+        jQuery.ajax( {
+            url : "/product/vagueQuery",
+            type : "post",
+            dataType : "json",
+            data : "itemCode="+itemCode,
+            success : function(data) {
+                if (data.success == true) {
+                    var list = "";
+                    data.result.forEach(function(e){
+                        if(e.itemCode == null){
+                            list += '<li><a href="#" onclick="clickIt(\''+e.itemCode+'\',\''+ e.itemName+'\',\''+ e.itemId+'\');">无编号 - ' + e.itemName+'</a></li>';
+                        }else{
+                            list += '<li><a href="#" onclick="clickIt(\''+e.itemCode+'\',\''+ e.itemName+'\',\''+ e.itemId+'\');">'+ e.itemCode +' - '+ e.itemName+'</a></li>';
+                        }
+                    })
+
+                    $("#itemNameList").html(list);
+                }else{
+                    alert("系统异常！请重试");
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    });
+
+    function modify(id){
+        var stockPrice = $("#stockPrice"+id).val();
+        var unit = $("#unit"+id).val();
+        var sellNum = $("#sellNum"+id).val();
+        var qupi = $("#qupi"+id).val();
+
+        jQuery.ajax( {
+            url : "/itemPrice/modify",
+            type : "post",
+            dataType : "json",
+            data : "id="+id+"&stockPrice="+stockPrice+"&unit="+unit+"&sellNum="+sellNum+"&qupi="+qupi,
+            success : function(data) {
+                if (data.success == true) {
+                    alert("修改成功！");
+                    $("#costPrice"+id).val(data.result);
+                }else{
+                    alert(data.resultMessage);
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    }
+
+    function unitChange(){
+        var unit = $("#unit").val();
+        if(unit == 1){
+            $("#sellNum").val("1");
+        }
+        if(unit == 2){
+            $("#qupi").val("1");
+        }
+        if(unit == 3){
+            $("#sellNum").val("1");
+            $("#qupi").val("1");
+        }
+    }
+
+    function clickIt(itemCode, itemName, itemId){
+        $("#itemCode").val(itemCode);
+        $("#itemName").val(itemName);
+        $("#itemId").val(itemId);
+    }
+
+    $("#search").click(function(){
+        $("#f1").attr("action", "/itemPrice/index");
+        $("#f1").attr("method", "post");
+        $("#f1").submit();
+    });
+
+    $("#addButton").click(function(){
+        var itemId = $("#itemId").val();
+
+        var stockPrice = $("#stockPrice").val();
+        var unit = $("#unit").val();
+        var sellNum = $("#sellNum").val();
+        var qupi = $("#qupi").val();
+
+        if(!itemId){
+            alert("请选择商品");
+            return;
+        }
+        if(!stockPrice){
+            alert("请输入采购价格");
+            return;
+        }
+        if(!sellNum){
+            alert("请输入所含个数");
+            return;
+        }
+        jQuery.ajax( {
+            url : "/itemPrice/insert",
+            type : "post",
+            dataType : "json",
+            data : "itemId="+itemId+"&stockPrice="+stockPrice+"&unit="+unit+"&sellNum="+sellNum+"&qupi="+qupi,
+            success : function(data) {
+                if (data.success == true) {
+                    window.location.href="/itemPrice/index";
+                }else{
+                    alert(data.resultMessage);
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    });
+
+    function del(id){
+        if(confirm("确认要删除吗？")){
+            jQuery.ajax( {
+                url : "/itemPrice/delete",
+                type : "post",
+                dataType : "json",
+                data : "id="+id,
+                success : function(data) {
+                    if (data.success == true) {
+                        alert("删除成功！");
+                        window.location.href="/itemPrice/index";
+                    }else{
+                        alert(data.resultMessage);
+                    }
+                },
+                error : function() {
+                    alert("系统超时！请重试");
+                }
+            });
+        }
+    }
+</script>
+#parse("/WEB-INF/vm/common/bottom.vm")

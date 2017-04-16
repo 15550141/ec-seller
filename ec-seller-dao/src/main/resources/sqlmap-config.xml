@@ -50,5 +50,6 @@ Config 2.0/" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
     <sqlMap resource="sqlmap/storage_item_SqlMap.xml"/>
     <sqlMap resource="sqlmap/activity_exchange_SqlMap.xml"/>
     <sqlMap resource="sqlmap/cooperation_business_SqlMap.xml"/>
+    <sqlMap resource="sqlmap/item_price_SqlMap.xml"/>
 
 </sqlMapConfig>

@@ -205,6 +205,10 @@
 		<property name="sqlMapClient" ref="sqlMapClient"></property>
 		<property name="dataSource" ref="ecDataSource"></property>
 	</bean>
+	<bean id="itemPriceDao" class="com.ec.seller.dao.impl.ItemPriceDaoImpl" >
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+		<property name="dataSource" ref="ecDataSource"></property>
+	</bean>
 
 	
 </beans>
