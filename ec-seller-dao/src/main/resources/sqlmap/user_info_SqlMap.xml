@@ -47,7 +47,7 @@
     select USER_ID, MOBILE, PASSWORD, USER_TYPE, YN, REGISTER_TIME, REGISTER_IP, LAST_LOGIN_TIME,
       LAST_LOGIN_IP, CREATED, MODIFIED, nickname, sex, user_level, province, city, country, email, headimgurl, truename, postcode, address, regist_source, properties
     from user_info
-    where mobile = #mobile#
+    where mobile = #mobile# and USER_TYPE = 1
   </select>
 
 	<!-- 新建用户  -->
@@ -96,7 +96,7 @@
         properties = #properties#
       </isNotNull>
     </dynamic>
-    where mobile = #mobile#
+    where mobile = #mobile# and user_type = 1
   </update>
 
   <select id="selectByPrimaryKey" resultMap="UserInfoResult" parameterClass="java.lang.Integer" >

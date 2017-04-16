@@ -66,6 +66,12 @@
             </div>
             <div class="form-group">
                 <div class="input-group">
+                    <span class="input-group-addon">微信消费金额：</span>
+                    <input readonly="readonly" class="form-control" value="$!detail.wxSalesPrice">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
                     <span class="input-group-addon">现金办理会员卡金额：</span>
                     <input readonly="readonly" class="form-control" value="$!detail.cashBuyCardPrice">
                 </div>
@@ -84,10 +90,11 @@
             </div>
             <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon">微信支付金额：</span>
-                    <input readonly="readonly" class="form-control" value="$!detail.wxSalesPrice">
+                    <span class="input-group-addon">微信办卡金额：</span>
+                    <input readonly="readonly" class="form-control" value="$!detail.wxBuyCardPrice">
                 </div>
             </div>
+
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon">备注：</span>

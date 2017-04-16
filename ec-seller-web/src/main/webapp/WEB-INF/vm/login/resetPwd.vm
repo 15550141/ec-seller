@@ -25,15 +25,15 @@
                         <label id="moblie_error"></label>
                     </div>
                 </div>
-                
-                <div class="item"><span class="label">手机验证码：</span>
+
+                <div class="item"><span class="label">请输入旧密码：</span>
+
                     <div class="fl">
-                        <input type="text" id="verificationCode" name="verificationCode" tabindex="1"  class="text_blank" autocomplete="off">
-                        <label id="verification_succeed" class="blank invisible"></label>
+                        <input type="password" id="oldpassword" name="oldpassword" tabindex="1"  class="text_blank" autocomplete="off">
+                        <label id="oldpassword_succeed" class="blank invisible"></label>
                         <span class="clr"></span>
-                        <label id="verification_error"></label>
+                        <label id="oldpassword_error"></label>
                     </div>
-					<input type="button" class="btn-img btn-entry" id="getSignSMSCode" value="获取短信验证码" tabindex="5" />
                 </div>
                 <div class="item"><span class="label">请输入新密码：</span>
 

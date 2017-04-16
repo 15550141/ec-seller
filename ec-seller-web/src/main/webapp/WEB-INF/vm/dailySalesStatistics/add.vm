@@ -73,6 +73,12 @@
                     <input id="zfbSalesPrice" name="zfbSalesPrice" class="form-control" value="">
                 </div>
             </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">微信消费金额：</span>
+                    <input id="wxSalesPrice" name="wxSalesPrice" class="form-control" value="">
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="input-group">
@@ -92,6 +98,12 @@
                 <div class="input-group">
                     <span class="input-group-addon">支付宝办卡金额：</span>
                     <input id="zfbBuyCardPrice" name="zfbBuyCardPrice" class="form-control" value="">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">微信办卡金额：</span>
+                    <input id="wxBuyCardPrice" name="wxBuyCardPrice" class="form-control" value="">
                 </div>
             </div>
 
@@ -130,6 +142,7 @@
         var zfbSalesPrice=$("#zfbSalesPrice").val();
         var wxSalesPrice=$("#wxSalesPrice").val();
         var zfbBuyCardPrice=$("#zfbBuyCardPrice").val();
+        var wxBuyCardPrice=$("#wxBuyCardPrice").val();
 
 
         if(!date){
@@ -173,6 +186,9 @@
         }
         if(zfbBuyCardPrice){
             params += "&zfbBuyCardPrice=" + zfbBuyCardPrice;
+        }
+        if(wxBuyCardPrice){
+            params += "&wxBuyCardPrice=" + wxBuyCardPrice;
         }
 
         jQuery.ajax( {

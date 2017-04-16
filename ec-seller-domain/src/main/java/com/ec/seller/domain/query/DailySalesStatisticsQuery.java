@@ -53,6 +53,17 @@ public class DailySalesStatisticsQuery extends BaseSearchForMysqlVo implements S
     /** 支付宝办卡金额 */
     private BigDecimal zfbBuyCardPrice;
 
+    /** 支付宝办卡金额 */
+    private BigDecimal wxBuyCardPrice;
+
+    public BigDecimal getWxBuyCardPrice() {
+        return wxBuyCardPrice;
+    }
+
+    public void setWxBuyCardPrice(BigDecimal wxBuyCardPrice) {
+        this.wxBuyCardPrice = wxBuyCardPrice;
+    }
+
     public BigDecimal getZfbBuyCardPrice() {
         return zfbBuyCardPrice;
     }
