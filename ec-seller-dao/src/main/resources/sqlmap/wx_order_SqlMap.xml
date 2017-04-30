@@ -27,24 +27,30 @@
   <sql id="condition" >
   	<dynamic prepend="where" >
       status >= 1 and
-  	  <isNotNull prepend="and" property="orderId" >
+  	  <isNotEmpty prepend="and" property="orderId" >
         order_id = #orderId#
-      </isNotNull>
-      <isNotNull prepend="and" property="yn" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="yn" >
         yn = #yn#
-      </isNotNull>
-      <isNotNull prepend="and" property="deviceInfo" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="deviceInfo" >
         device_info = #deviceInfo#
-      </isNotNull>
-      <isNotNull prepend="and" property="userName" >
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="userName" >
         user_name = #userName#
-      </isNotNull>
+      </isNotEmpty>
       <isNotNull prepend="and" property="totalFee" >
         total_fee = #totalFee#
       </isNotNull>
-      <isNotNull prepend="and" property="transactionId" >
+      <isNotEmpty prepend="and" property="transactionId" >
         transaction_id = #transactionId#
-      </isNotNull>
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="startDate" >
+        <![CDATA[ created >= #startDate# ]]>
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="endDate" >
+        <![CDATA[ created < #endDate# ]]>
+      </isNotEmpty>
     </dynamic>
   </sql>
   
@@ -93,6 +99,14 @@
 
   <!-- 条件查询列表 -->
   <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.WxOrderQuery" resultMap="WxOrderResult" >
+    select <include refid="WxOrder.searchColoum" />
+    from wx_order
+    <include refid="WxOrder.condition" />
+    order by order_id desc
+    limit #start#,#pageSize#
+  </select>
+
+  <select id="selectAll" parameterClass="com.ec.seller.domain.query.WxOrderQuery" resultMap="WxOrderResult" >
     select <include refid="WxOrder.searchColoum" />
     from wx_order
     <include refid="WxOrder.condition" />

@@ -16,7 +16,7 @@
 </head>
 <body>
 <!--盒子开始-->
-<form id="f1" name="f1" method="post">
+
 <div class="box"> 
     <!--标题区开始-->
     <div class="title">
@@ -28,38 +28,45 @@
     </div>
     <!--标题区结束-->
     <!--查询区开始-->
-    
-    <div class="panel_search">
-    	<table border="0" cellpadding="0" cellspacing="2">
-            <tr>
-                <td align="right" style="width:100px">
-                    操作人：
-                </td>
-                <td align="left" style="width:100px">
-                    <input type="text" name="userName" maxlength="30" id="userName" value="$!{query.userName}"/>
-                </td>
-				<td align="right" style="width:100px">
-                	下单时间：
-                </td>
-                 <td align="left" style="width:250px">
-                	<input type="text" id="startTime" name="startTime" value="$!{dateFormatUtils.format($!query.startTime)}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />至
-                	<input type="text" id="endTime" name="endTime" value="$!{dateFormatUtils.format($!query.endTime)}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
-				</td>
-            </tr>
-            <tr>
-                <td align="right" style="width:100px">
-					新建订单，输入订单金额：
-                </td>
-                <td align="left" style="width:100px">
-                    <input type="text" id="price" name="price" value=""  />
-                    <input type="button" onclick="addWxOrder();" value="添加" />
-				</td>
-				<td></td>
-				<td><input type="submit" value="查询" /></td>
-            </tr>
-			
-        </table>
-    </div>
+    <form id="f1" name="f1" method="post" action="/wxOrder/index">
+        <div class="panel_search">
+            <table border="0" cellpadding="0" cellspacing="2">
+                <tr>
+                    <td align="right" style="width:100px">
+                        操作人：
+                    </td>
+                    <td align="left" style="width:100px">
+                        <input type="text" name="userName" maxlength="30" id="userName" value="$!{query.userName}"/>
+                    </td>
+                    <td align="right" style="width:100px">
+                        下单时间：
+                    </td>
+                     <td align="left" style="width:250px">
+                        <input type="text" id="startTime" name="startTime" value="$!startTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" />至
+                        <input type="text" id="endTime" name="endTime" value="$!endTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" style="width:100px">
+                        新建订单，输入订单金额：
+                    </td>
+                    <td align="left" style="width:100px">
+                        <input type="text" id="price" name="price" value=""  />
+                        <input type="button" onclick="addWxOrder();" value="添加" />
+                    </td>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="查询" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="button" onclick="excel();" value="导出excel" />
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <input type="hidden" value="$!deviceInfo" id="deviceInfo" name="deviceInfo" />
+        <input type="hidden" value="$!index" id="index" name="index" />
+    </form>
     <!--查询区结束--> 
     <!--列表区开始--><!--
     <div>
@@ -98,31 +105,34 @@
         </table>
         <!--分页控件开始-->
         <div class="pager">
-			#set($pageModule = $mainModule.getTarget("/wxOrder/index").addQueryData("orderId",$!{query.orderId}).addQueryData("orderType",$!{query.orderType}).addQueryData("priceEnd",$!{query.priceEnd}).addQueryData("priceStart",$!{query.priceStart}).addQueryData("startTime",$!{dateFormatUtils.format($!query.startTime)}).addQueryData("endTime",$!{dateFormatUtils.format($!query.endTime)}).addQueryData("pageSize",$!{dateFormatUtils.format($!query.pageSize)}))
+			#set($pageModule = $mainModule.getTarget("/wxOrder/index").addQueryData("startTime",$!startTime).addQueryData("endTime",$!endTime).addQueryData("userName",$!query.userName).addQueryData("index",$!index).addQueryData("pageSize",$!query.pageSize))
 			#showPage($pageModule $list)
         </div>
         <!--分页控件结束--> 
     </div>
     <!--列表区结束--> 
 </div>
-	<input type="hidden" value="$!deviceInfo" id="deviceInfo" />
-<!--盒子结束--> 
-</form>
+<!--盒子结束-->
+
 <div id="addDialog" style="width: 95%; display:none;">
 <div id="addDialog2" style="width: 95%; display:none;">
 			
 </div>	
 
 <script type="text/javascript">
-	function authCode(orderId){
-	  jQuery.get("/wxOrder/authCode?orderId="+orderId, function(result){
-        $("#addDialog2").html(result);
-      });
-  
-		$('#addDialog2').modal({
-		});
-		return;
-	};
+    function authCode(orderId){
+        jQuery.get("/wxOrder/authCode?orderId="+orderId, function(result){
+            $("#addDialog2").html(result);
+        });
+
+        $('#addDialog2').modal({
+        });
+        return;
+    };
+
+    function excel(){
+        window.location.href="/wxOrder/excel?index="+$("#index").val()+"&startTime="+$("#startTime").val()+"&endTime="+$("#endTime").val();
+    };
 
     function addWxOrder(){
         var price = $("#price").val();

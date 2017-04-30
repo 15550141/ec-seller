@@ -64,4 +64,10 @@ public class WxOrderDaoImpl  extends SqlMapClientTemplate implements WxOrderDao 
     public List<WxOrder> selectByCondition(WxOrderQuery object) {
         return (List<WxOrder>)queryForList("WxOrder.selectByCondition",object);
     }
+
+    @Override
+    public List<WxOrder> selectAll(WxOrderQuery object) {
+        return (List<WxOrder>)queryForList("WxOrder.selectAll",object);
+    }
+
 }
