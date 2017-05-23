@@ -17,7 +17,8 @@
                         <option value="长城店">长城店</option>
                         <option value="在水一方店">在水一方店</option>
                         <option value="道南店">道南店</option>
-                        <option value="开发区店">开发区店</option>
+                        <option value="碧海云天店">碧海云天店</option>
+                        <option value="缤纷便利店">缤纷便利店</option>
                     </select>
                 </div>
             </div>
