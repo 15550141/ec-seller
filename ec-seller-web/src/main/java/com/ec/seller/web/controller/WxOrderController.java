@@ -88,6 +88,9 @@ public class WxOrderController {
 		else if(index == 6){
 			query.setDeviceInfo("缤纷便利店");
 			content.put("deviceInfo", "缤纷便利店");
+		}else if(index == 7){
+			query.setDeviceInfo("北戴河北岭店");
+			content.put("deviceInfo", "北戴河北岭店");
 		}else{
 			query.setDeviceInfo("碧海云天店");
 			content.put("deviceInfo", "碧海云天店");
@@ -185,6 +188,8 @@ public class WxOrderController {
 			query.setDeviceInfo("碧海云天店");
 		}else if(index == 6){
 			query.setDeviceInfo("缤纷便利店");
+		}else if(index == 7){
+			query.setDeviceInfo("北戴河北岭店");
 		}else{
 			query.setDeviceInfo("碧海云天店");
 		}

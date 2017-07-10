@@ -264,6 +264,10 @@
                                                          target="rightFrame" href="javascript:void(0);"
                                                          onclick="javascript:randomUrl('/wxOrder/index?index=6',this);">缤纷便利店</a>
                             </li>
+                            <li class="sub-menu-item"><a title="北戴河北岭店"
+                                                         target="rightFrame" href="javascript:void(0);"
+                                                         onclick="javascript:randomUrl('/wxOrder/index?index=7',this);">北戴河北岭店</a>
+                            </li>
                             <script type="text/javascript">
                                 menuTransMap.put('', '');
                             </script>
