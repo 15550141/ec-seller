@@ -62,7 +62,7 @@
     function del(id){
         if(confirm("确定删除？")){
             jQuery.ajax( {
-                url : "/reserve/delete",
+                url : "/deliver/delete",
                 type : "post",
                 dataType : "json",
                 data : "id="+id,

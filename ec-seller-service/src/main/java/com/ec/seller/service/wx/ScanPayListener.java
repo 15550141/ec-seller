@@ -1,5 +1,6 @@
 package com.ec.seller.service.wx;
 
+import com.ec.seller.common.utils.JsonUtils;
 import com.ec.seller.dao.WxOrderDao;
 import com.ec.seller.domain.WxOrder;
 import com.tencent.business.ScanPayBusiness;
@@ -86,7 +87,11 @@ public class ScanPayListener implements ScanPayBusiness.ResultListener {
             wxOrder.setStatus(2);//支付成功
             wxOrderDao.modify(wxOrder);
         }catch (Exception e){
-            log.error("微信支付成功，但是数据库修改没成功！", e);
+            try{
+                log.error("微信支付成功，但是数据库修改没成功！" + JsonUtils.writeValue(scanPayResData), e);
+            }catch (Exception e1){
+                log.error("", e);
+            }
             throw new RuntimeException("微信返回支付成功，请与用户核实真实支付状态");
         }
     }

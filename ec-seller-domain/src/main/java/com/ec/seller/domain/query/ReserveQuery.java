@@ -16,8 +16,18 @@ public class ReserveQuery extends BaseSearchForMysqlVo implements Serializable {
     private Integer userId;
     private Date reserveDate;
     private Date created;
+    private Date modified;
     private Integer yn;
     private Integer status;
+
+
+    public Date getModified() {
+        return modified;
+    }
+
+    public void setModified(Date modified) {
+        this.modified = modified;
+    }
 
     public Integer getYn() {
         return yn;

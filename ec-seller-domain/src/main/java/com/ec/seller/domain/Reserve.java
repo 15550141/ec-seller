@@ -15,9 +15,18 @@ public class Reserve {
     //订货日期
     private Date reserveDate;
     private Date created;
+    private Date modified;
     private Integer yn;
     //订货状态，0是新建，1是已提交
     private Integer status;
+
+    public Date getModified() {
+        return modified;
+    }
+
+    public void setModified(Date modified) {
+        this.modified = modified;
+    }
 
     public Integer getStatus() {
         return status;

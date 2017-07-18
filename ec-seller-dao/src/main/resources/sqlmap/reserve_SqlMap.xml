@@ -9,13 +9,14 @@
     <result column="user_id" property="userId"  />
     <result column="reserve_date" property="reserveDate"  />
     <result column="created" property="created"  />
+    <result column="modified" property="modified"  />
     <result column="yn" property="yn"  />
     <result column="status" property="status"  />
   </resultMap>
 
   <!-- 查询内容 -->
   <sql id="searchColoum" >
-    id, shop_name,remark,user_name,user_id,reserve_date,created,yn,status
+    id, shop_name,remark,user_name,user_id,reserve_date,created,yn,status,modified
   </sql>
 
   <!-- 查询条件 -->

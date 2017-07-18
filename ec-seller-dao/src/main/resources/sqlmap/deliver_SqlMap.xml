@@ -64,7 +64,7 @@
   </insert>
   
   <update id="delete" parameterClass="java.lang.Long" >
-    delete from deliver set where id = #id#
+    update deliver set yn=0 where id = #id#
   </update>
 
   <!-- 条件查询总数 -->
