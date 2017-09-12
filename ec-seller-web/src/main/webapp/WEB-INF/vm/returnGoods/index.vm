@@ -1,0 +1,96 @@
+#set($title="查看退货单")
+#set($menu=1)
+#parse("/WEB-INF/vm/common/head.vm")
+<div class="container">
+    #parse("/WEB-INF/vm/common/top.vm")
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <button class="btn btn-default" onclick="window.location.href='/returnGoods/add'" type="button">
+            新增采购单
+        </button>
+    </div>
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>退货人</th>
+                <th>退货总额</th>
+                <th>退货日期</th>
+                <th>当前状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                #foreach($detail in $list)
+                    <tr>
+                        <td>$!detail.name</td>
+                        <td>$!detail.totalPrice</td>
+                        <td>$!dateFormatUtils.format($!{detail.created}, "yyyy-MM-dd")</td>
+                        <td>
+                            #if($detail.status == 0)
+                                待审核
+                            #elseif($detail.status == 1)
+                                待审核
+                            #elseif($detail.status == 2)
+                                审核通过
+                            #elseif($detail.status == 3)
+                                审核不通过
+                            #end
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-sm" onclick="window.location.href='/returnGoods/detail?id=$!detail.id'" type="button">
+                                查看
+                            </button>
+                            <!--
+                            <button class="btn btn-default btn-sm" onclick="del($!detail.id);" type="button">
+                                删除
+                            </button>
+                            -->
+                        </td>
+                    </tr>
+                #end
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                #if($!list.previousPageAvailable) ##如果能向上翻页
+                    <li><a href="javascript:search($!list.previousPage);">上一页</a></li>
+                #end
+
+                <li class="active"><a href="#">$!list.index</a></li>
+                #if($!list.nextPageAvailable) ##显示后面的页
+                    <li><a href="javascript:search($!list.nextPage);" >下一页</a></li>
+                #end
+            </ul>
+        </nav>
+    </div>
+</div>
+<script type="application/javascript">
+    function search(index){
+        window.location.href="/returnGoods/index?pageNo="+index;
+    }
+
+    function del(id){
+        if(confirm("确定删除？")){
+            jQuery.ajax( {
+                url : "/returnGoods/delete",
+                type : "post",
+                dataType : "json",
+                data : "id="+id,
+                success : function(data) {
+                    if (data.success == true) {
+                        window.location.reload();
+                    }else{
+                        alert("系统异常！请重试");
+                    }
+                },
+                error : function() {
+                    alert("系统超时！请重试");
+                }
+            });
+        }
+
+    }
+
+</script>
+#parse("/WEB-INF/vm/common/bottom.vm")

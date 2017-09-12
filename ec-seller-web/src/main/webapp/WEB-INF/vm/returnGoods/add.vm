@@ -1,0 +1,60 @@
+#set($title="新增采购单")
+#set($menu=1)
+#parse("/WEB-INF/vm/common/head.vm")
+<div class="container">
+    #parse("/WEB-INF/vm/common/top.vm")
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">退货日期</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="returnTime">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">退货地点</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="returnPlace">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" onclick="doSubmit();" class="btn btn-default">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="application/javascript">
+    function doSubmit(){
+        var returnTime = $("#returnTime").val();
+        var returnPlace = $("#returnPlace").val();
+        if(!returnTime){
+            alert("采购日期不能为空");
+            return;
+        }
+        if(!returnPlace){
+            alert("采购地点不能为空");
+            return;
+        }
+        jQuery.ajax( {
+            url : "/returnGoods/insert",
+            type : "post",
+            dataType : "json",
+            data : "date="+returnTime+"&returnPlace="+returnPlace,
+            success : function(data) {
+                if (data.success == true) {
+                    window.location.href="/returnGoods/index";
+                }else{
+                    alert("系统异常！请重试");
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    }
+</script>
+#parse("/WEB-INF/vm/common/bottom.vm")

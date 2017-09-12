@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ReturnGoodsItem" >
+  <resultMap id="ReturnGoodsItemResult" class="com.ec.seller.domain.ReturnGoodsItem" >
+    <result column="id" property="id"  />
+    <result column="return_goods_id" property="returnGoodsId" />
+    <result column="item_id" property="itemId"  />
+    <result column="item_name" property="itemName"  />
+    <result column="item_name" property="itemCode"  />
+    <result column="price" property="price"  />
+    <result column="unit" property="unit"  />
+    <result column="num" property="num"  />
+    <result column="total_price" property="totalPrice"  />
+    <result column="remark" property="remark"  />
+    <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
+    <result column="MODIFIED" property="modified" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <!-- 查询内容 -->
+  <sql id="searchColoum" >
+    id, return_goods_id, item_id, item_name,item_code, price,unit,num,total_price,
+    remark, created, modified
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="condition" >
+  	<dynamic prepend="where" >
+  	  <isNotNull prepend="and" property="id" >
+        id = #id#
+      </isNotNull>
+      <isNotNull prepend="and" property="returnGoodsId" >
+        return_goods_id = #returnGoodsId#
+      </isNotNull>
+      <isNotNull prepend="and" property="itemId" >
+        item_id = #itemId#
+      </isNotNull>
+      <isNotNull prepend="and" property="itemName" >
+        item_name = #itemName#
+      </isNotNull>
+      <isNotNull prepend="and" property="itemCode" >
+        item_code = #itemCode#
+      </isNotNull>
+    </dynamic>
+  </sql>
+  
+  <!-- 依据主键进行查询 -->
+  <select id="selectById" resultMap="ReturnGoodsItemResult" parameterClass="java.lang.Integer" >
+    select <include refid="ReturnGoodsItem.searchColoum" />
+    from return_goods_item
+    where id = #id#
+  </select>
+  
+  <!-- 添加信息 -->
+  <insert id="insert" parameterClass="com.ec.seller.domain.ReturnGoodsItem" >
+    insert into return_goods_item (return_goods_id, item_id, item_name, item_code, price, unit, num, total_price,
+    remark, created, modified)
+    values (#returnGoodsId#, #itemId#, #itemName#, #itemCode#, #price#,#unit#,#num#,#totalPrice#,
+    #remark#, now(), now())
+      <!-- 返回自增主键 -->
+      <selectKey resultClass="java.lang.Integer" keyProperty="id">
+			<![CDATA[SELECT @@IDENTITY AS id ]]>
+	  </selectKey>
+  </insert>
+  
+  <!-- 依据主键进行修改 -->
+  <update id="modify" parameterClass="com.ec.seller.domain.ReturnGoodsItem" >
+    update return_goods_item set MODIFIED = now()
+    <dynamic>
+      <isNotNull prepend="," property="price" >
+        price = #price#
+      </isNotNull>
+      <isNotNull prepend="," property="num" >
+        num = #num#
+      </isNotNull>
+      <isNotNull prepend="," property="unit" >
+        unit = #unit#
+      </isNotNull>
+      <isNotNull prepend="," property="totalPrice" >
+        total_price = #totalPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        remark = #remark#
+      </isNotNull>
+    </dynamic>
+    where id = #id#
+  </update>
+
+  <!-- 删除 -->
+  <delete id="delete" parameterClass="java.lang.Integer">
+    delete from return_goods_item where id=#id#
+  </delete>
+
+  <!-- 条件查询总数 -->
+  <select id="countByCondition" parameterClass="com.ec.seller.domain.query.ReturnGoodsItemQuery" resultClass="java.lang.Integer" >
+    select count(1) from return_goods_item
+    <include refid="ReturnGoodsItem.condition" />
+  </select>
+  
+  <!-- 条件查询列表 -->
+  <select id="selectByCondition" parameterClass="com.ec.seller.domain.query.ReturnGoodsItemQuery" resultMap="ReturnGoodsItemResult" >
+    select <include refid="ReturnGoodsItem.searchColoum" />
+    from return_goods_item
+    <include refid="ReturnGoodsItem.condition" />
+    order by id desc
+  </select>
+  
+</sqlMap>
