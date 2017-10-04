@@ -30,9 +30,6 @@
       <isNotNull prepend="and" property="sortNumber" >
         sort_number = #sortNumber:INTEGER#
       </isNotNull>
-      <isNotNull prepend="and" property="venderUserId" >
-        vender_user_id = #venderUserId:INTEGER#
-      </isNotNull>
     </dynamic>
   </sql>
 
@@ -69,9 +66,6 @@
       </isNotNull>
       <isNotNull prepend="," property="sortNumber" >
         sort_number = #sortNumber:INTEGER#
-      </isNotNull>
-      <isNotNull prepend="," property="venderUserId" >
-        vender_user_id = #venderUserId:INTEGER#
       </isNotNull>
     </dynamic>
     where property_value_id = #propertyValueId:INTEGER#

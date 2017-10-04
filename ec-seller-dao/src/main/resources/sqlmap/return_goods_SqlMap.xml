@@ -4,7 +4,7 @@
   <resultMap id="ReturnGoodsResult" class="com.ec.seller.domain.ReturnGoods" >
     <result column="id" property="id"  />
     <result column="return_time" property="returnTime" />
-    <result column="returnPlace" property="returnPlace" />
+    <result column="return_place" property="returnPlace" />
     <result column="total_price" property="totalPrice"  />
     <result column="uid" property="uid"  />
     <result column="name" property="name"  />
@@ -13,6 +13,8 @@
     <result column="remark" property="remark"  />
     <result column="CREATED" property="created" />
     <result column="MODIFIED" property="modified" />
+    <result column="other_price" property="otherPrice" />
+    <result column="fujian" property="fujian" />
     <result column="return_price" property="returnPrice" />
     <result column="purchase_id" property="purchaseId" />
     <result column="shenhe_uid" property="shenheUid" />
@@ -21,7 +23,7 @@
 
   <!-- 查询内容 -->
   <sql id="searchColoum" >
-    id, return_time, return_place, total_price, uid, name, status, yn, remark, created, modified,return_price,purchase_id,shenhe_uid,shenhe_name
+    id, return_time, return_place, total_price, uid, name, status, yn, remark, created, modified, other_price , fujian ,return_price,purchase_id,shenhe_uid,shenhe_name
   </sql>
 
   <!-- 查询条件 -->
@@ -51,8 +53,8 @@
   
   <!-- 添加信息 -->
   <insert id="insert" parameterClass="com.ec.seller.domain.ReturnGoods" >
-    insert into return_goods (return_time, return_place,total_price, uid, name, status, yn, remark, created, modified,return_price,purchase_id,shenhe_uid,shenhe_name)
-    values (#returnTime#, #returnPlace#,#totalPrice#, #uid#, #name#, #status#, #yn#, #remark#, #created#, #modified#,#returnPrice#,#purchaseId#,#shenheUid#,#shenheName#)
+    insert into return_goods (return_time, return_place,total_price, uid, name, status, yn, remark, created, modified, other_price , fujian,return_price,purchase_id,shenhe_uid,shenhe_name)
+    values (#returnTime#, #returnPlace#,#totalPrice#, #uid#, #name#, #status#, 1, #remark#, now(), now(), #otherPrice#, #fujian#, #returnPrice#,#purchaseId#,#shenheUid#,#shenheName#)
       <!-- 返回自增主键 -->
       <selectKey resultClass="java.lang.Integer" keyProperty="id">
 			<![CDATA[SELECT @@IDENTITY AS id ]]>
@@ -69,14 +71,17 @@
       <isNotNull prepend="," property="status" >
         status = #status#
       </isNotNull>
-      <isNotNull prepend="," property="status" >
-        status = #status#
-      </isNotNull>
       <isNotNull prepend="," property="yn" >
         yn = #yn#
       </isNotNull>
       <isNotNull prepend="," property="remark" >
         remark = #remark#
+      </isNotNull>
+      <isNotNull prepend="," property="otherPrice" >
+        other_price = #otherPrice#
+      </isNotNull>
+      <isNotNull prepend="," property="fujian" >
+        fujian = #fujian#
       </isNotNull>
       <isNotNull prepend="," property="returnPrice" >
         return_price = #returnPrice#

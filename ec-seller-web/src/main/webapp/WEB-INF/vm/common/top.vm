@@ -8,9 +8,9 @@
                     <li><a href="/purchaseTemplate/index">查看采购单模板</a></li>
                 </ul>
             </li>
-            <li class="dropdown #if($!menu==4)active#end" ><a class="dropdown-toggle" data-toggle="dropdown" href="#">入库管理<b class="caret"></b></a>
+            <li class="dropdown #if($!menu==4)active#end" ><a class="dropdown-toggle" data-toggle="dropdown" href="#">退货管理<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/storage/index" >查看入库单</a></li>
+                    <li><a href="/returnGoods/index" >查看退货单</a></li>
                 </ul>
             </li>
             <li class="dropdown #if($!menu==2)active#end"><a class="dropdown-toggle" data-toggle="dropdown" href="#">商品管理<b class="caret"></b></a>

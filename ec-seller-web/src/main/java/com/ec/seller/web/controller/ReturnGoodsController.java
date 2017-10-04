@@ -45,12 +45,13 @@ public class ReturnGoodsController {
 		PaginatedList<ReturnGoods> list = returnGoodsService.findPage(query);
 		content.put("list", list);
 		content.put("query", query);
+		content.put("username", CookieUtil.getLoginName(request));
 		return "returnGoods/index";
 	}
 
 	@RequestMapping(value="/insert", method={ RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Result insert(ReturnGoods returnGoods, String date, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
-		returnGoods.setPurchaseTime(DateFormatUtils.parseDate(date, "yyyy-MM-dd"));
+		returnGoods.setReturnTime(DateFormatUtils.parseDate(date, "yyyy-MM-dd"));
 		Result result = new Result();
 		returnGoods.setName(CookieUtil.getLoginName(request));
 		returnGoods.setUid(CookieUtil.getUserId(request));
@@ -67,11 +68,11 @@ public class ReturnGoodsController {
 	}
 
 	@RequestMapping(value="/update", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result update(ReturnGoods returnGoods, String purchaseDate, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result update(ReturnGoods returnGoods, String date, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
-			if(StringUtils.isNotBlank(purchaseDate)){
-				returnGoods.setPurchaseTime(DateFormatUtils.parseDate(purchaseDate, "yyyy-MM-dd"));
+			if(StringUtils.isNotBlank(date)){
+				returnGoods.setReturnTime(DateFormatUtils.parseDate(date, "yyyy-MM-dd"));
 			}
 
 			returnGoods.setStatus(1);//采购完成
@@ -86,6 +87,7 @@ public class ReturnGoodsController {
 				return result;
 			}
 			returnGoods.setTotalPrice(BigDecimal.ZERO);
+			returnGoods.setReturnPrice(BigDecimal.ZERO);
 
 			for(int i=0;i<list.size();i++){
 				ReturnGoodsItem returnGoodsItem = list.get(i);
@@ -117,6 +119,18 @@ public class ReturnGoodsController {
 	public @ResponseBody Result delete(Integer id, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		this.returnGoodsService.delete(id);
+		result.setSuccess(true);
+		return result;
+	}
+
+	@RequestMapping(value="/shenhe", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Result shenhe(Integer id, Integer status, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+		Result result = new Result();
+		ReturnGoods returnGoods = this.returnGoodsService.selectById(id);
+		returnGoods.setStatus(status);
+		returnGoods.setShenheName(CookieUtil.getLoginName(request));
+		returnGoods.setShenheUid(CookieUtil.getUserId(request));
+		this.returnGoodsService.modify(returnGoods);
 		result.setSuccess(true);
 		return result;
 	}

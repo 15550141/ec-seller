@@ -46,6 +46,10 @@
                                                              target="rightFrame" href="javascript:void(0);"
                                                              onclick="javascript:randomUrl('/purchase/index',this);">采购管理</a>
                                 </li>
+                                <li class="sub-menu-item"><a title="退货管理"
+                                                             target="rightFrame" href="javascript:void(0);"
+                                                             onclick="javascript:randomUrl('/returnGoods/index',this);">退货管理</a>
+                                </li>
                                 <script type="text/javascript">
                                     menuTransMap.put('', '');
                                 </script>

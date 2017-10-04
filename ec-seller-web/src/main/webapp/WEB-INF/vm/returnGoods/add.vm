@@ -1,5 +1,5 @@
-#set($title="新增采购单")
-#set($menu=1)
+#set($title="新增退货单")
+#set($menu=4)
 #parse("/WEB-INF/vm/common/head.vm")
 <div class="container">
     #parse("/WEB-INF/vm/common/top.vm")

@@ -1,12 +1,12 @@
 #set($title="查看退货单")
-#set($menu=1)
+#set($menu=4)
 #parse("/WEB-INF/vm/common/head.vm")
 <div class="container">
     #parse("/WEB-INF/vm/common/top.vm")
     <div class="row">&nbsp;</div>
     <div class="row">
         <button class="btn btn-default" onclick="window.location.href='/returnGoods/add'" type="button">
-            新增采购单
+            新增退货单
         </button>
     </div>
     <div class="row">
@@ -16,6 +16,7 @@
                 <th>退货人</th>
                 <th>退货总额</th>
                 <th>退货日期</th>
+                <th>退货地点</th>
                 <th>当前状态</th>
                 <th>操作</th>
             </tr>
@@ -26,9 +27,10 @@
                         <td>$!detail.name</td>
                         <td>$!detail.totalPrice</td>
                         <td>$!dateFormatUtils.format($!{detail.created}, "yyyy-MM-dd")</td>
+                        <td>$!detail.returnPlace</td>
                         <td>
                             #if($detail.status == 0)
-                                待审核
+                                未提交
                             #elseif($detail.status == 1)
                                 待审核
                             #elseif($detail.status == 2)
@@ -41,6 +43,15 @@
                             <button class="btn btn-default btn-sm" onclick="window.location.href='/returnGoods/detail?id=$!detail.id'" type="button">
                                 查看
                             </button>
+                            #if($!detail.status == 1 && ($!username == "于建明" || $!username == "杨慧斌"))
+                                <button class="btn btn-default btn-sm" onclick="shenhe($!detail.id, 2)" type="button">
+                                    审核通过
+                                </button>
+                                <button class="btn btn-default btn-sm" onclick="shenhe($!detail.id, 3)" type="button">
+                                    审核不通过
+                                </button>
+                            #end
+
                             <!--
                             <button class="btn btn-default btn-sm" onclick="del($!detail.id);" type="button">
                                 删除
@@ -90,6 +101,33 @@
             });
         }
 
+    }
+
+    function shenhe(id, value){
+        var context = "通过";
+        if(value == 3){
+            context = "不通过";
+        }
+        if(confirm("确认审核结果"+context + "?")){
+            jQuery.ajax( {
+                url : "/returnGoods/shenhe",
+                type : "post",
+                dataType : "json",
+                data : "id="+id+"&status="+value,
+                success : function(data) {
+                    if (data.success == true) {
+                        alert("修改成功");
+                        window.location.reload();
+                    }else{
+                        alert(data.resultMessage);
+                    }
+                },
+                error : function() {
+                    alert("系统超时！请重试");
+                }
+            });
+
+        }
     }
 
 </script>

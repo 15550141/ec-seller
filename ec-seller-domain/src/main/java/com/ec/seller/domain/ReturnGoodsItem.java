@@ -19,7 +19,7 @@ public class ReturnGoodsItem implements Serializable {
     /** 进货单价 */
     private BigDecimal price;
     /** 单位 */
-    private String unit;
+    private Integer unit;
     /** 进货数量 */
     private BigDecimal num;
     /** 总价 */
@@ -77,11 +77,11 @@ public class ReturnGoodsItem implements Serializable {
         this.price = price;
     }
 
-    public String getUnit() {
+    public Integer getUnit() {
         return unit;
     }
 
-    public void setUnit(String unit) {
+    public void setUnit(Integer unit) {
         this.unit = unit;
     }
 
