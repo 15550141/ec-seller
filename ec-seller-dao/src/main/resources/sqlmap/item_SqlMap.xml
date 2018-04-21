@@ -261,6 +261,10 @@
 	  </selectKey>
   </insert>
 
+    <delete id="delete" parameterClass="Integer" >
+        delete from item where id = #itemId#
+    </delete>
+
   <update id="updateByPrimaryKey" parameterClass="com.ec.seller.domain.Item" >
     update item set MODIFIED = now()
     <dynamic >

@@ -21,6 +21,11 @@ public class ItemDaoImpl extends SqlMapClientTemplate implements ItemDao {
 	}
 
 	@Override
+	public void delete(Integer itemId) {
+		update("Item.delete",itemId);
+	}
+
+	@Override
 	public Item selectByItemId(int itemId) {
 		return (Item)queryForObject("Item.selectByPrimaryKey",itemId);
 	}

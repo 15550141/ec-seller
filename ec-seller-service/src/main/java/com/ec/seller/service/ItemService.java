@@ -12,8 +12,10 @@ public interface ItemService {
 	public Map<String, Object> queryItemList(ItemQuery itemQuery);
 	
 	public Integer insert(Item item);
-	
+
 	public void modify(Item item);
+
+	public void delete(Item item);
 	
 	public Item selectByItemId(int itemId);
 

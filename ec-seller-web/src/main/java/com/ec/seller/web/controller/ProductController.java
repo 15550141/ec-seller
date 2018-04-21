@@ -208,6 +208,33 @@ public class ProductController {
 		return resultMap;
 	}
 	/**
+	 * 删除商品
+	 * @param itemId
+	 * @param reuqest
+	 * @param response
+	 * @param context
+	 * @return
+	 */
+	@RequestMapping(value="/deleteProduct", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Map<String, Object> deleteProduct(Integer itemId,HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Item item =new Item();
+		item.setItemId(itemId);
+		item.setVenderUserId(CookieUtil.getUserId(reuqest));
+		item.setItemStatus(1);
+		item.setOnShelfTime(new Date());
+		try {
+			itemService.delete(item);
+		} catch (Exception e) {
+			LOG.error("Product.startSale:", e);
+			resultMap.put("msg","error");
+			return resultMap;
+		}
+		//context.put("resultMap", resultMap);
+		resultMap.put("msg","success");
+		return resultMap;
+	}
+	/**
 	 * 下架
 	 * @param itemId
 	 * @param reuqest

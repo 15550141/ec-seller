@@ -14,8 +14,10 @@ public interface ItemManager {
 	public List<ItemQuery> selectByConditionWithPage(ItemQuery itemQuery);
 	
 	public Integer insert(Item item);
-	
+
 	public void modify(Item item);
+
+	public void delete(Integer itemId);
 	
 	public Item selectByItemId(int itemId);
 

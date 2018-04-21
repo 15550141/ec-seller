@@ -69,16 +69,38 @@ public class Test {
 //        System.out.println(Charset.defaultCharset());
 
 
-        Map<String, BigDecimal> map = new HashMap<String, BigDecimal>();
-        map.put("1111", new BigDecimal(1));
-        map.remove("1111");
-        System.out.println(map.size());
-        if(map.size() == 0){
-            System.out.println("OK");
-        }
+//        Map<String, BigDecimal> map = new HashMap<String, BigDecimal>();
+//        map.put("1111", new BigDecimal(1));
+//        map.remove("1111");
+//        System.out.println(map.size());
+//        if(map.size() == 0){
+//            System.out.println("OK");
+//        }
+
+        printBaoxian();
     }
 
-    private static String getDate(String date) throws DateParseException {
-        return date.split(" ")[0];
+    private static void printBaoxian(){
+        BigDecimal benjin = BigDecimal.ZERO;
+        BigDecimal basic = new BigDecimal("59583.6");
+        BigDecimal lilv = new BigDecimal("1.05");
+        BigDecimal lixi = BigDecimal.ZERO;
+
+        BigDecimal total = BigDecimal.ZERO;
+
+        for(int i = 1;i <= 15 ; i++){
+            if(i <= 5){
+                benjin = benjin.add(basic);
+                total = total.add(benjin);
+            }
+            lixi = total.multiply(lilv);
+            total = benjin.add(lixi);
+        }
+        System.out.println("利息："+lixi + "，本金："+benjin + "，总共："+total);
+
     }
+
+//    private static String getDate(String date) throws DateParseException {
+//        return date.split(" ")[0];
+//    }
 }

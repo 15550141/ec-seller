@@ -52,6 +52,10 @@ public class ItemManagerImpl implements ItemManager{
 		
 	}
 	@Override
+	public void delete(Integer itemId){
+		itemDao.delete(itemId);
+	}
+	@Override
 	public Item selectByItemId(int itemId) {
 		
 		return itemDao.selectByItemId(itemId);

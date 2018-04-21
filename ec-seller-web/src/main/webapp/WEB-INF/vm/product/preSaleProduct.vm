@@ -128,6 +128,7 @@
                     <a href="/product/edit?itemId=$!{item.itemId}">修改</a>
 					<!--  <a href="/product/startSale?itemId=$!{item.itemId}" id="startSale">上架</a> -->
 					<a id="$!{item.itemId}" href="javascript:void(0)" onclick="startSale(this);">上架</a>
+                    <a id="$!{item.itemId}" href="javascript:void(0)" onclick="deleteProduct(this);">删除</a>
                 </td>
             </tr>
 			#end

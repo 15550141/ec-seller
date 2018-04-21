@@ -114,7 +114,13 @@ public class ItemServiceImpl implements ItemService{
 	@Override
 	public void modify(Item item) {
 		itemManager.modify(item);
-		
+
+	}
+
+	@Override
+	public void delete(Item item) {
+		itemManager.delete(item.getItemId());
+
 	}
 
 	@Override

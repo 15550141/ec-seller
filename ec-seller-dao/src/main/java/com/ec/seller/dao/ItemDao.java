@@ -21,6 +21,11 @@ public interface ItemDao{
 	public void modify(Item item);
 
 	/**
+	 * 删除商品
+	 */
+	public void delete(Integer itemId);
+
+	/**
 	 * 依据商品ID查询商品信息
 	 * @param itemId
 	 * @return

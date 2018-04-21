@@ -105,6 +105,32 @@ function startSale(obj){
 	}
 }
 
+//删除
+function deleteProduct(obj){
+    var itemId = obj.id;
+    // 根据商品ID 上架商品
+    if(confirm("确定要删除该商品吗？")){
+        $.ajax( {
+            url : "/product/deleteProduct",
+            type : "post",
+            dataType : "json",
+            data : "itemId="+itemId,
+            success : function(data) {
+                if (data.msg == "success") {
+                    //删除成功
+                    alert("商品上架成功！");
+                    $(obj).parent().parent().remove();
+                } else {
+                    alert("系统异常，删除失败！");
+                }
+            },
+            errot : function() {
+                alert("系统超时，删除失败！");
+            }
+        });
+    }
+}
+
 //下架
 function offSale(obj){
 	var itemId = obj.id;

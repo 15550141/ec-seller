@@ -123,6 +123,7 @@
                     <a href="/product/edit?itemId=$!{item.itemId}">修改</a>
 					<!--  <a  href="/product/offSale?itemId=$!{item.itemId}">下架</a> -->
 					<a id="$!{item.itemId}" href="javascript:void(0)" onclick="offSale(this);">下架</a>
+                    <a id="$!{item.itemId}" href="javascript:void(0)" onclick="deleteProduct(this);">删除</a>
                 </td>
             </tr>
 			#end
