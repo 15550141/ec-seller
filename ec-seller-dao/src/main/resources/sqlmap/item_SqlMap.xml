@@ -262,7 +262,7 @@
   </insert>
 
     <delete id="delete" parameterClass="Integer" >
-        delete from item where id = #itemId#
+        delete from item where item_id = #itemId#
     </delete>
 
   <update id="updateByPrimaryKey" parameterClass="com.ec.seller.domain.Item" >

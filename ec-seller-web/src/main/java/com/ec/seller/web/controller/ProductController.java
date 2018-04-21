@@ -15,6 +15,7 @@ import com.ec.seller.common.utils.DateFormatUtils;
 import com.ec.seller.common.utils.FlagBitUtil;
 import com.ec.seller.common.utils.PropertyConstants;
 import com.ec.seller.dao.ItemDao;
+import com.ec.seller.dao.SkuDao;
 import com.ec.seller.domain.*;
 import com.ec.seller.service.result.Result;
 import org.apache.commons.lang.StringUtils;
@@ -60,6 +61,8 @@ public class ProductController {
 	private PropertyValueService propertyValueService;
 	@Autowired
 	private ItemDao itemDao;
+	@Autowired
+	private SkuDao skuDao;
 	
 	
 	private final static Log LOG = LogFactory.getLog(ProductController.class);
@@ -912,24 +915,21 @@ public class ProductController {
 
 	@RequestMapping(value="/itemList", method={ RequestMethod.GET, RequestMethod.POST })
 	public String itemList(ItemQuery itemQuery, HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
-		Map<String, Object> resultMap = itemService.queryItemList(itemQuery);
+		Map<String, Object> resultMap = itemService.queryItemSkusList(itemQuery);
 		context.put("resultMap", resultMap);
 		return "product/itemList";
 	}
 
 	@RequestMapping(value="/updateReference", method={ RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Result updateReference(String itemId, Integer referenceUnit,BigDecimal stockNum , String itemCode, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
+	public @ResponseBody Result updateReference(String skuId, Integer stock, HttpServletResponse response, HttpServletRequest request, ModelMap content) {
 		Result result = new Result();
 		try{
-			Item item = itemDao.selectByItemId(Integer.parseInt(itemId));
-			if(item == null){
+			Sku sku = skuDao.selectBySkuId(Integer.parseInt(skuId));
+			if(sku == null){
 				throw new RuntimeException("商品不存在");
 			}
-			item.setItemId(Integer.parseInt(itemId));
-			item.setReferenceUnit(referenceUnit);
-			item.setStockNum(stockNum);
-			item.setItemCode(itemCode);
-			this.itemService.modify(item);
+			sku.setStock(stock);
+			this.skuDao.modify(sku);
 			result.setSuccess(true);
 		}catch (Exception e){
 			result.setSuccess(false);

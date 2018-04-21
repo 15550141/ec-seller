@@ -6,6 +6,7 @@
     <div class="row">&nbsp;</div>
     <div class="row">
         <form id="f1" name="f1" method="post">
+            <input id="pageNo" name="pageNo" type="hidden">
             <div class="input-group col-xs-7">
                 <input id="itemCode" name="itemCode" type="text" value="$!resultMap.item.itemCode" class="form-control dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                 <ul id="itemNameList" class="dropdown-menu">
@@ -26,32 +27,26 @@
             <tr>
                 <th>商品编号</th>
                 <th>商品名称</th>
-                <th>单位</th>
+                <th>商品规格</th>
                 <th>库存数量</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
                 #foreach($detail in $!resultMap.itemList)
-                    <tr>
-                        <td><input type="text" id="itemCode$!detail.itemId" value="$!detail.itemCode" /></td>
-                        <td>$!detail.itemName</td>
-                        <td>
-                            <select name="referenceUnit$!detail.itemId" id="referenceUnit$!detail.itemId">
-                                <option value="1" #if($!detail.referenceUnit==1)selected="selected"#end>斤</option>
-                                <option value="2" #if($!detail.referenceUnit==2)selected="selected"#end>个</option>
-                                <option value="3" #if($!detail.referenceUnit==3)selected="selected"#end>箱</option>
-                                <option value="4" #if($!detail.referenceUnit==4)selected="selected"#end>袋</option>
-                                <option value="5" #if($!detail.referenceUnit==5)selected="selected"#end>盒</option>
-                            </select>
-                        </td>
-                        <td><input type="text" id="stockNum$!detail.itemId" value="$!detail.stockNum" /></td>
-                        <td>
-                            <button class="btn btn-default btn-sm" onclick="update($!detail.itemId)" type="button">
-                                修改
-                            </button>
-                        </td>
-                    </tr>
+                    #foreach($sku in $detail.skuList)
+                        <tr>
+                            <td><input type="text" value="$!detail.itemCode" /></td>
+                            <td>$!detail.itemName</td>
+                            <td>$!sku.salesPropertyName</td>
+                            <td><input type="text" id="stock$!sku.skuId" value="$!sku.stock" /></td>
+                            <td>
+                                <button class="btn btn-default btn-sm" onclick="update($!sku.skuId)" type="button">
+                                    修改
+                                </button>
+                            </td>
+                        </tr>
+                    #end
                 #end
             </tbody>
         </table>
@@ -114,14 +109,12 @@
     }
 
     function update(id){
-        var referenceUnit = $("#referenceUnit"+id).val();
-        var stockNum = $("#stockNum"+id).val();
-        var itemCode = $("#itemCode"+id).val();
+        var stock = $("#stock"+id).val();
         jQuery.ajax( {
             url : "/product/updateReference",
             type : "post",
             dataType : "json",
-            data : "itemId="+id+"&referenceUnit="+referenceUnit + "&stockNum="+stockNum+"&itemCode="+itemCode,
+            data : "skuId="+id + "&stock="+stock,
             success : function(data) {
                 if (data.success == true) {
                     alert("修改成功");

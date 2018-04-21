@@ -21,4 +21,6 @@ public interface ItemService {
 
 	/** 根据itemName模糊查询 */
 	public List<String> vagueQueryItemName(String itemName);
+
+	public Map<String, Object> queryItemSkusList(ItemQuery itemQuery);
 }

@@ -2,6 +2,7 @@ package com.ec.seller.dao;
 
 import com.ec.seller.domain.UserInfo;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserInfoDAO {
@@ -35,4 +36,5 @@ public interface UserInfoDAO {
 	
 	UserInfo queryByMobile(String mobile);
 
+	List<UserInfo> selectUserInfoByMobile(String mobile);
 }

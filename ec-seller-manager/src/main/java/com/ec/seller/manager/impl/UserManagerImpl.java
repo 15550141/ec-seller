@@ -1,5 +1,6 @@
 package com.ec.seller.manager.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,14 @@ public class UserManagerImpl implements UserManager{
 		UserInfo userInfo=userInfoDAO.queryByMobile(mobile);
 		return userInfo;
 	}
+
+	@Override
+	public List<UserInfo> selectUserInfoByMobile(String mobile) {
+		// TODO Auto-generated method stub
+		List<UserInfo> result=userInfoDAO.selectUserInfoByMobile(mobile);
+		return result;
+	}
+
 
 	public UserInfoDAO getUserInfoDAO() {
 		return userInfoDAO;

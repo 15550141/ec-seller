@@ -3,7 +3,9 @@ package com.ec.seller.domain.query;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
+import com.ec.seller.domain.Sku;
 import com.ec.seller.domain.common.BaseSearchForMysqlVo;
 
 public class ItemQuery extends BaseSearchForMysqlVo implements Serializable{
@@ -163,6 +165,16 @@ public class ItemQuery extends BaseSearchForMysqlVo implements Serializable{
     private String itemCode;
 
     private BigDecimal stockNum;
+
+    private List<Sku> skuList;
+
+    public List<Sku> getSkuList() {
+        return skuList;
+    }
+
+    public void setSkuList(List<Sku> skuList) {
+        this.skuList = skuList;
+    }
 
     public BigDecimal getStockNum() {
         return stockNum;

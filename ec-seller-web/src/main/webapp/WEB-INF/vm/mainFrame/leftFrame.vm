@@ -310,7 +310,7 @@
                         </div>
                         <ul class="sub-menu" style="display: none;">
                             <li class="sub-menu-item">
-                                <a target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/cooperationBusiness/index',this);">合作商家</a>
+                                <a target="rightFrame" href="javascript:void(0);" onclick="javascript:randomUrl('/user/list',this);">合作商家</a>
                             </li>
                             <script type="text/javascript">
                                 menuTransMap.put('', '');

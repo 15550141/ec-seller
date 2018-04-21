@@ -5,16 +5,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ec.seller.service.result.Result;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -143,8 +139,8 @@ public class UserController {
 		}else{
 			return "user/addUser";
 		}
-		
-		
+
+
 	}
 	
 	@RequestMapping(value="/uploaImage", method={ RequestMethod.GET, RequestMethod.POST })
@@ -220,5 +216,31 @@ public class UserController {
 	}
 
 
+	@RequestMapping(value="/list", method={ RequestMethod.GET, RequestMethod.POST })
+	public String list(String mobile, HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+
+		List<UserInfo> list = userService.selectUserInfoByMobile(mobile);
+		context.put("list", list);
+		context.put("mobile", mobile);
+
+		return "user/list";
+
+
+	}
+
+	@RequestMapping(value="/updateProp", method={ RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Result updateProp(Integer userId, Integer prop, HttpServletRequest reuqest,HttpServletResponse response, ModelMap context){
+		Result result = new Result();
+		try{
+			UserInfo userInfo = new UserInfo();
+			userInfo.setUserId(userId);
+			userInfo.setProperties(prop);
+
+			userService.updateUser(userInfo);
+			result.setSuccess(true);
+		}catch (Exception e){
+		}
+		return result;
+	}
 
 }

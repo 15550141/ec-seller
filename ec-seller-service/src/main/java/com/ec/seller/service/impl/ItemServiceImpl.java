@@ -1,6 +1,7 @@
 package com.ec.seller.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,5 +135,37 @@ public class ItemServiceImpl implements ItemService{
 		return itemDao.vagueQueryItemName(itemName);
 	}
 
+	@Override
+	public Map<String, Object> queryItemSkusList(ItemQuery itemQuery) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		PaginatedList<ItemQuery> itemList =null;
+		//创建一个分页的促销对象
+		itemList=new PaginatedArrayList<ItemQuery>(itemQuery.getPageNo(),itemQuery.getPageSize());
 
+		int count = itemManager.countByCondition(itemQuery);
+		itemList.setTotalItem(count);
+
+		int startRow=itemList.getStartRow();
+		if (startRow == 0) {
+			startRow = 1;
+		}
+		itemQuery.setStart(startRow-1);
+		List<ItemQuery> list= itemManager.selectByConditionWithPage(itemQuery);
+		int i = 0;
+
+		for(ItemQuery item:list){
+			Integer itemId=item.getItemId();
+
+			// TODO 获取商品对应的最低天宝价和库存量，查SKU表
+			SkuQuery skuQuery=new SkuQuery();
+			skuQuery.setItemId(itemId);
+			List<Sku> skuList=skuManager.selectByCondition(skuQuery);
+			item.setSkuList(skuList);
+
+		}
+		itemList.addAll(list);
+		resultMap.put("itemList", itemList);
+		resultMap.put("item", itemQuery);
+		return resultMap;
+	}
 }

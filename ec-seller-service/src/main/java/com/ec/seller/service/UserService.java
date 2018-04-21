@@ -2,6 +2,8 @@ package com.ec.seller.service;
 
 import com.ec.seller.domain.UserInfo;
 
+import java.util.List;
+
 public interface UserService {
 
 	UserInfo queryUser(String loginname, String loginpwd);
@@ -11,5 +13,7 @@ public interface UserService {
 	Integer addUser(UserInfo user);
 
 	void updateUser(UserInfo user);
+
+	List<UserInfo> selectUserInfoByMobile(String mobile);
 
 }

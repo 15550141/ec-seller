@@ -1,6 +1,7 @@
 package com.ec.seller.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,20 @@ public class UserServiceImpl implements UserService{
 		params.put("userType", "1");
 		UserInfo userInfo = userManager.query(params);
 		return userInfo;
-	}	
+	}
 
 	@Override
 	public UserInfo queryByMobile(String mobile) {
 		// TODO Auto-generated method stub
 		UserInfo userInfo = userManager.queryByMobile(mobile);
 		return userInfo;
+	}
+
+	@Override
+	public List<UserInfo> selectUserInfoByMobile(String mobile) {
+		// TODO Auto-generated method stub
+		List<UserInfo> result = userManager.selectUserInfoByMobile(mobile);
+		return result;
 	}
 
 	@Override

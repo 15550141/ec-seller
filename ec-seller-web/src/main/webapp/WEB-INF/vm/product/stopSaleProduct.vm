@@ -87,7 +87,8 @@
 				<th>价格(元)</th>
                 <th>供应量</th>
                 <th>上架时间</th>
-				<th>下架时间</th>
+                <th>下架时间</th>
+                <th>操作</th>
             </tr>
 			#foreach($item in $resultMap.itemList)
             <tr>
@@ -107,6 +108,7 @@
                 <td>$!{item.stockNum}</td>
 				<td>$!dateFormatUtils.format($!{item.onShelfTime},"yyyy-MM-dd HH:mm:ss")</td>
 				<td>$!dateFormatUtils.format($!{item.offShelfTime},"yyyy-MM-dd HH:mm:ss")</td>
+                <td><a id="$!{item.itemId}" href="javascript:void(0)" onclick="deleteProduct(this);">删除</a><td>
             </tr>
 			#end
         </table>

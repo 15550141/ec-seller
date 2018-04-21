@@ -118,7 +118,7 @@ function deleteProduct(obj){
             success : function(data) {
                 if (data.msg == "success") {
                     //删除成功
-                    alert("商品上架成功！");
+                    alert("商品删除成功！");
                     $(obj).parent().parent().remove();
                 } else {
                     alert("系统异常，删除失败！");

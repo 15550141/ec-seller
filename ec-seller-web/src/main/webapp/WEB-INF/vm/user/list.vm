@@ -1,0 +1,90 @@
+#set($title="查看所有商品")
+#set($menu=2)
+#parse("/WEB-INF/vm/common/head.vm")
+<div class="container">
+    #parse("/WEB-INF/vm/common/top.vm")
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <form id="f1" name="f1" method="post">
+            <input id="pageNo" name="pageNo" type="hidden">
+            <div class="input-group col-xs-7">
+                <input id="mobile" name="mobile" type="text" value="$!mobile" class="form-control dropdown-toggle " >
+
+                <div class="input-group-btn">
+                    <button type="button" onclick="search(1)" id="searchButton" class="btn btn-default">
+                        手机号查询
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">&nbsp;</div>
+
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>用户姓名</th>
+                <th>用户手机号</th>
+                <th>用户等级</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                #if($!list)
+                #foreach($!userInfo in $!list)
+                    <tr>
+                        <td>$!userInfo.truename</td>
+                        <td>$!userInfo.mobile</td>
+                        <td>
+                            <select id="properties$!userInfo.userId">
+                                <option value="0" >普通用户</option>
+                                <option value="1" #if($!userInfo.properties == 1)selected="selected"#end>分销商1</option>
+                                <option value="2" #if($!userInfo.properties == 2)selected="selected"#end>分销商2</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-sm" onclick="update($!userInfo.userId)" type="button">
+                                修改
+                            </button>
+                        </td>
+                    </tr>
+                #end
+
+                #end
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<script type="application/javascript">
+
+    function search(id){
+        var mobile = $("#mobile").val();
+        window.location.href="/user/list?mobile="+mobile;
+    }
+
+    function update(id){
+        var stock = $("#stock"+id).val();
+        var prop = $("#properties"+id).val();
+        jQuery.ajax( {
+            url : "/user/updateProp",
+            type : "post",
+            dataType : "json",
+            data : "userId="+id + "&prop="+prop,
+            success : function(data) {
+                if (data.success == true) {
+                    alert("修改成功");
+                    window.location.reload();
+                }else{
+                    alert(data.resultMessage);
+                }
+            },
+            error : function() {
+                alert("系统超时！请重试");
+            }
+        });
+    }
+
+</script>
+#parse("/WEB-INF/vm/common/bottom.vm")

@@ -4,6 +4,7 @@ import com.ec.seller.dao.UserInfoDAO;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ec.seller.domain.UserInfo;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
@@ -43,10 +44,15 @@ public class UserInfoDAOImpl extends SqlMapClientTemplate implements UserInfoDAO
 	}
 
 	@Override
+	public List<UserInfo> selectUserInfoByMobile(String mobile) {
+		return (List<UserInfo>) super.queryForList("user_info.selectUserInfoByMobile", mobile);
+	}
+
+	@Override
 	public void addSignSMSCode(Integer mobile) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	
+
 }
